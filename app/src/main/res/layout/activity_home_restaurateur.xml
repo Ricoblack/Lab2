@@ -24,7 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+
+
+                />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -69,6 +72,7 @@
         android:layout_centerHorizontal="true"
         android:src="@android:drawable/ic_dialog_email"
         app:layout_anchor="@id/graph"
-        app:layout_anchorGravity="bottom|center"/>
+        app:layout_anchorGravity="bottom|center"
+        android:onClick="showDatePickerDialog"/>
 
 </android.support.design.widget.CoordinatorLayout>
