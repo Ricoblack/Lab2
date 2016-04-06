@@ -60,6 +60,7 @@ public class HomeRestaurateur extends AppCompatActivity
                 new DataPoint(5, 1)
         });
         graph.addSeries(series);
+        graph.setTitle("Data del Giorno");
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
