@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@android:drawable/ic_menu_my_calendar"
+        android:src="@drawable/ic_event_white_24dp"
         app:layout_anchor="@id/graph"
         app:layout_anchorGravity="bottom|right"
         android:layout_marginRight="32dp"
