@@ -17,10 +17,10 @@ public class Booking
 
         // populate Booking elements (slide 28)
         Booking newBooking = new Booking();
-        newBooking.setTitoloCosaACazzo("Titolo a Cazzo 1");
+        newBooking.setTitoloCosaACazzo("Booking 1");
         dataList.add(newBooking);
         Booking newBooking2 = new Booking();
-        newBooking2.setTitoloCosaACazzo("Titolo a Cazzo 2");
+        newBooking2.setTitoloCosaACazzo("Booking 2");
         dataList.add(newBooking2);
 
         return dataList;

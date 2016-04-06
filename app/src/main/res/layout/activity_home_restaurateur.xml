@@ -83,7 +83,7 @@
         android:src="@drawable/ic_event_white_24dp"
         app:layout_anchor="@id/graph"
         app:layout_anchorGravity="bottom|right"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="16dp"
         android:onClick="showDatePickerDialog"/>
 
 </android.support.design.widget.CoordinatorLayout>
