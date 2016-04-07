@@ -10,13 +10,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeRestaurateur"
-            android:label="@string/app_name"
+            android:label="@string/home_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".DailyMenu"
+            android:label="@string/activity_menu_name"
+            >
+
         </activity>
     </application>
 

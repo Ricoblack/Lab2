@@ -12,27 +12,27 @@ import java.util.List;
 /**
  * Created by miche on 06/04/2016.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.BookingViewHolder>
+public class BookingRecyclerAdapter extends RecyclerView.Adapter<BookingRecyclerAdapter.BookingViewHolder>
 {
     private List<Booking> mData; // actual data to be displayed
     private LayoutInflater mInflater;
 
-    public RecyclerAdapter(Context context, List<Booking> data)
+    public BookingRecyclerAdapter(Context context, List<Booking> data)
     {
         this.mData = data;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public RecyclerAdapter.BookingViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public BookingRecyclerAdapter.BookingViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = mInflater.inflate(R.layout.list_item, parent, false);
+        View view = mInflater.inflate(R.layout.booking_list_item, parent, false);
         BookingViewHolder holder = new BookingViewHolder(view);
         return  holder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAdapter.BookingViewHolder holder, int position)
+    public void onBindViewHolder(BookingRecyclerAdapter.BookingViewHolder holder, int position)
     {
         Booking currentObj = mData.get(position);
         holder.setData(currentObj,position);
