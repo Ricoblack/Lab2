@@ -37,6 +37,8 @@
                 android:id="@+id/editCoverPhoto"
                 android:layout_marginTop="55dp"
                 android:layout_weight="1"
+                android:src="@drawable/ic_default_cover_photo"
+                android:scaleType="centerCrop"
                 />
 
             <LinearLayout
@@ -125,14 +127,14 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/ic_cached_white_24dp"-->
-        <!--app:layout_anchor="@id/editCoverPhoto"-->
-        <!--app:layout_anchorGravity="bottom|right"-->
-        <!--android:layout_marginEnd="16dp"-->
-        <!--android:layout_marginRight="16dp"/>-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cached_white_24dp"
+        app:layout_anchor="@id/editCoverPhoto"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
