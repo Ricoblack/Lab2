@@ -46,7 +46,8 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
     @Override
     public void onBindViewHolder(DishesViewHolder holder, int position)
     {
-
+        Dish currentObj = this.mData.get(position);
+        holder.setData(currentObj, position);
     }
 
     @Override
