@@ -10,7 +10,7 @@ public class DailyMenu extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_offer);
+        setContentView(R.layout.activity_daily_menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // show back arrow
     }
 }
