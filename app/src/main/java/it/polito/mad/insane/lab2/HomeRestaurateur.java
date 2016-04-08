@@ -112,8 +112,7 @@ public class HomeRestaurateur extends AppCompatActivity
                 //Start EditProfile activity
                 Intent invokeEditProfile = new Intent(HomeRestaurateur.this, EditProfile.class);
                 startActivity(invokeEditProfile);
-            //case bla bla:
-            // break;
+                break;
         }
 
         return super.onOptionsItemSelected(item);
