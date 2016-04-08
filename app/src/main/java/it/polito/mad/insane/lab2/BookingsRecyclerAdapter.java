@@ -51,19 +51,19 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
         // attributi della card view
         int position;
         Booking currentBooking;
-        TextView titoloACazzo;
+        TextView book_id;
 
         public BookingViewHolder(View itemView)
         {
             super(itemView);
             // bisogna riempire gli attributi della cardView
-            this.titoloACazzo = (TextView) itemView.findViewById(R.id.TitoloCosiACazzo);
+            this.book_id = (TextView) itemView.findViewById(R.id.title_card_pren);
 
         }
 
         public void setData(Booking current, int position)
         {
-            this.titoloACazzo.setText(current.getTitoloCosaACazzo());
+            this.book_id.setText(current.getBook_id());
             this.position = position;
             this.currentBooking = current;
 
