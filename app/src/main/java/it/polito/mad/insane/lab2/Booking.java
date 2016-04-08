@@ -7,8 +7,10 @@ import java.util.ArrayList;
  */
 public class Booking
 {
+
+
     // attributi della prenotazione
-    private String TitoloCosaACazzo;
+    private String book_id;
 
 
     public static ArrayList<Booking> getData()
@@ -17,23 +19,23 @@ public class Booking
 
         // populate Booking elements (slide 28)
         Booking newBooking = new Booking();
-        newBooking.setTitoloCosaACazzo("Booking 1");
+        newBooking.setBook_id("#24");
         dataList.add(newBooking);
         Booking newBooking2 = new Booking();
-        newBooking2.setTitoloCosaACazzo("Booking 2");
+        newBooking2.setBook_id("#25");
         dataList.add(newBooking2);
 
         return dataList;
     }
 
 
-    public String getTitoloCosaACazzo()
-    {
-        return TitoloCosaACazzo;
+    public String getBook_id() {
+        return book_id;
     }
 
-    public void setTitoloCosaACazzo(String titoloCosaACazzo)
-    {
-        TitoloCosaACazzo = titoloCosaACazzo;
+    public void setBook_id(String book_id) {
+        this.book_id = book_id;
     }
+
+
 }
