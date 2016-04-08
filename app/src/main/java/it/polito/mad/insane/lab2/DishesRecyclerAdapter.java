@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -48,7 +46,8 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
     @Override
     public void onBindViewHolder(DishesViewHolder holder, int position)
     {
-
+        Dish currentObj = this.mData.get(position);
+        holder.setData(currentObj, position);
     }
 
     @Override
@@ -82,12 +81,14 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
 
         public void setData(Dish current, int position )
         {
+            this.dishID.setText(current.getID());
+            this.dishName.setText(current.getName());
+            this.dishDesc.setText(current.getDescription());
+            this.dishPrice.setText(Double.toString(current.getPrice()));
+            this.dishAvailabQty.setText(Integer.toString(current.getAvailability_qty()));
+            //TODO: this.dishPhoto.setImageURI(current.getPhoto_name());
             this.position = position;
             this.currentDish = current;
-            //this.dishPhoto.setImageURI(current.getPhoto_name());
-
-
-
 
         }
     }
