@@ -1,8 +1,7 @@
 package it.polito.mad.insane.lab2;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -26,7 +24,7 @@ public class HomeRestaurateur extends AppCompatActivity
     private void setUpRecyclerView()
     {
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
-        RecyclerAdapter adapter = new RecyclerAdapter(this, Booking.getData());
+        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, Booking.getData());
         rV.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -99,8 +97,22 @@ public class HomeRestaurateur extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+//        if (id == R.id.action_settings)
+//        {
+//            return true;
+//        }
+        switch(id)
+        {
+            case R.id.action_daily_menu:
+                // Start DailyMenu activity
+                Intent invokeDailyMenu = new Intent(HomeRestaurateur.this, DailyMenu.class);
+                startActivity(invokeDailyMenu);
+                break;
+            case R.id.action_edit_profile:
+                //Start EditProfile activity
+                Intent invokeEditProfile = new Intent(HomeRestaurateur.this, EditProfile.class);
+                startActivity(invokeEditProfile);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
