@@ -47,13 +47,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dish_ID"
-                android:text="Name: Hamburgher"/>
+                android:hint="Name: Hamburgher"/>
             <TextView
                 android:id="@+id/disc_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dish_name"
-                android:text="Description: short description of the food: bla bla bla"/>
+                android:hint="Description: short description of the food: bla bla bla"/>
 
             <TextView
                 android:id="@+id/dish_price"
@@ -62,14 +62,14 @@
                 android:layout_below="@id/disc_description"
                 android:layout_alignEnd="@id/disc_description"
                 android:layout_alignRight="@id/disc_description"
-                android:text="Price: 5,00€"/>
+                android:hint="Price: 5,00€"/>
 
             <TextView
                 android:id="@+id/dish_availab_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/disc_description"
-                android:text="Qty:50"
+                android:hint="Qty:50"
                 android:layout_marginStart="3dp"
                 android:layout_marginLeft="3dp"
                 />
