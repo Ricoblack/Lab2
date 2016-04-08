@@ -3,4 +3,6 @@
     <string name="menu_button">Menu</string>
     <string name="home_name">Home</string>
     <string name="activity_menu_name">Daily Offer</string>
+    <string name="action_edit_profile">Edit Profile</string>
+    <string name="title_activity_edit_profile">EditProfile</string>
 </resources>

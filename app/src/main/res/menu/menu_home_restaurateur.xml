@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.polito.mad.insane.lab2.HomeRestaurateur">
     <item
-        android:id="@+id/menu_button"
+        android:id="@+id/action_daily_menu"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_local_dining_white_24dp"
         android:title="@string/menu_button"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_edit_profile"
+        android:orderInCategory="200"
+        android:title="@string/action_edit_profile"
+        android:icon="@drawable/ic_person_white_24dp"
+        app:showAsAction="ifRoom" />
 </menu>

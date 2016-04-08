@@ -103,11 +103,15 @@ public class HomeRestaurateur extends AppCompatActivity
 //        }
         switch(id)
         {
-            case R.id.menu_button:
+            case R.id.action_daily_menu:
                 // Start DailyMenu activity
                 Intent invokeDailyMenu = new Intent(HomeRestaurateur.this, DailyMenu.class);
                 startActivity(invokeDailyMenu);
                 break;
+            case R.id.action_edit_profile:
+                //Start EditProfile activity
+                Intent invokeEditProfile = new Intent(HomeRestaurateur.this, EditProfile.class);
+                startActivity(invokeEditProfile);
             //case bla bla:
             // break;
         }
