@@ -1,8 +1,26 @@
 <resources>
     <string name="app_name">Lab2</string>
-    <string name="menu_button">Menu</string>
+    <string name="action_daily_menu">Menu</string>
     <string name="home_name">Home</string>
     <string name="activity_menu_name">Daily Offer</string>
     <string name="action_edit_profile">Edit Profile</string>
     <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="address">Restaurant address</string>
+    <string name="shortDescription">Short Description</string>
+    <string name="timetables">Timetables</string>
+    <string name="payment">Payment Method</string>
+    <string name="campus">University Campus</string>
+    <string name="university">Nearby University</string>
+    <string name="Cuisine">Cuisine</string>
+    <string name="services">Additional Services</string>
+    <string-array name="university_array">
+        <item>PoliTo</item>
+        <item>UniTo</item>
+    </string-array>
+    <string-array name="cuisine_array">
+        <item>Italian</item>
+        <item>Pizza</item>
+        <item>Sandwiches</item>
+        <item>Ethnic</item>
+    </string-array>
 </resources>

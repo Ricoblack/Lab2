@@ -6,7 +6,7 @@
         android:id="@+id/action_daily_menu"
         android:orderInCategory="100"
         android:icon="@drawable/ic_local_dining_white_24dp"
-        android:title="@string/menu_button"
+        android:title="@string/action_daily_menu"
         app:showAsAction="ifRoom" />
 
     <item

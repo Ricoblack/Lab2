@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-public class EditProfile extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,37 @@ public class EditProfile extends AppCompatActivity {
 //        });
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Spinner universitySpinner = (Spinner) findViewById(R.id.universitySpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> uAdapter = ArrayAdapter.createFromResource(this,
+                R.array.university_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        uAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        universitySpinner.setAdapter(uAdapter);
+        universitySpinner.setOnItemSelectedListener(EditProfile.this);
+
+        Spinner cuisineSpinner = (Spinner) findViewById(R.id.cuisineSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> cAdapter = ArrayAdapter.createFromResource(this,
+                R.array.cuisine_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        cAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        cuisineSpinner.setAdapter(cAdapter);
+        cuisineSpinner.setOnItemSelectedListener(EditProfile.this);
 
     }
 
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //TODO salvare l'oggetto nelle sharedPreferences
+        parent.getItemAtPosition(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

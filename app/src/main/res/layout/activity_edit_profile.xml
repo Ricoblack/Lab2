@@ -21,12 +21,118 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/editCoverPhoto"
+                android:layout_marginTop="55dp"
+                android:layout_weight="1"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editAddress"
+                    android:inputType="text"
+                    android:hint="@string/address"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editUniversity"
+                        android:layout_weight="1"
+                        android:text="@string/university"/>
+
+                    <Spinner
+                        android:id="@+id/universitySpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editCuisine"
+                        android:layout_weight="1"
+                        android:text="@string/Cuisine"/>
+
+                    <Spinner
+                        android:id="@+id/cuisineSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editDescription"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/shortDescription"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTimetables"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/timetables"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editPayment"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/payment"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editServices"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/services"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
+        <!--android:id="@+id/fab2"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--android:src="@android:drawable/ic_dialog_email" />-->
+        <!--android:src="@drawable/ic_cached_white_24dp"-->
+        <!--app:layout_anchor="@id/editCoverPhoto"-->
+        <!--app:layout_anchorGravity="bottom|right"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:layout_marginRight="16dp"/>-->
 
 </android.support.design.widget.CoordinatorLayout>
