@@ -35,9 +35,6 @@ public class HomeRestaurateur extends AppCompatActivity
         rV.setItemAnimator(new DefaultItemAnimator());
     }
 
-
-
-
     /* Standard methods */
 
     @Override
