@@ -5,6 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -55,9 +59,36 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
 
     public class DishesViewHolder extends RecyclerView.ViewHolder
     {
+        private ImageView dishPhoto;
+        private TextView dishID;
+        private TextView dishName;
+        private TextView dishDesc;
+        private TextView dishPrice;
+        private TextView dishAvailabQty;
+        private int position;
+        private Dish currentDish;
+
+
         public DishesViewHolder(View itemView)
         {
             super(itemView);
+            this.dishPhoto = (ImageView) itemView.findViewById(R.id.dish_photo);
+            this.dishID = (TextView) itemView.findViewById(R.id.dish_ID);
+            this.dishName = (TextView) itemView.findViewById(R.id.dish_name);
+            this.dishDesc =  (TextView) itemView.findViewById(R.id.disc_description);
+            this.dishPrice = (TextView) itemView.findViewById(R.id.dish_price);
+            this.dishAvailabQty = (TextView) itemView.findViewById(R.id.dish_availab_qty);
+        }
+
+        public void setData(Dish current, int position )
+        {
+            this.position = position;
+            this.currentDish = current;
+            //this.dishPhoto.setImageURI(current.getPhoto_name());
+
+
+
+
         }
     }
 }
