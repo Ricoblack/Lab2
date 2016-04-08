@@ -12,19 +12,19 @@ import java.util.List;
 /**
  * Created by miche on 06/04/2016.
  */
-public class BookingRecyclerAdapter extends RecyclerView.Adapter<BookingRecyclerAdapter.BookingViewHolder>
+public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecyclerAdapter.BookingViewHolder>
 {
     private List<Booking> mData; // actual data to be displayed
     private LayoutInflater mInflater;
 
-    public BookingRecyclerAdapter(Context context, List<Booking> data)
+    public BookingsRecyclerAdapter(Context context, List<Booking> data)
     {
         this.mData = data;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public BookingRecyclerAdapter.BookingViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public BookingsRecyclerAdapter.BookingViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view = mInflater.inflate(R.layout.booking_list_item, parent, false);
         BookingViewHolder holder = new BookingViewHolder(view);
@@ -32,7 +32,7 @@ public class BookingRecyclerAdapter extends RecyclerView.Adapter<BookingRecycler
     }
 
     @Override
-    public void onBindViewHolder(BookingRecyclerAdapter.BookingViewHolder holder, int position)
+    public void onBindViewHolder(BookingsRecyclerAdapter.BookingViewHolder holder, int position)
     {
         Booking currentObj = mData.get(position);
         holder.setData(currentObj,position);
