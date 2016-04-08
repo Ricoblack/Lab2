@@ -63,6 +63,7 @@
             >
 
             <TextView
+                android:id="@+id/num_booking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
@@ -71,6 +72,13 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="30dp"
                 />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/num_booking"
+                android:src="@drawable/ic_forchetta"/>
 
         </RelativeLayout>
 
