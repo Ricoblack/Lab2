@@ -14,10 +14,12 @@
     <string name="Cuisine">Cuisine</string>
     <string name="services">Additional Services</string>
     <string-array name="university_array">
+        <item> <i>Choose a campus... </i> </item>
         <item>PoliTo</item>
         <item>UniTo</item>
     </string-array>
     <string-array name="cuisine_array">
+        <item> <i>Choose a cuisine type... </i></item>
         <item>Italian</item>
         <item>Pizza</item>
         <item>Sandwiches</item>
