@@ -54,7 +54,6 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
     /* Our Holder Class */
     class BookingViewHolder extends RecyclerView.ViewHolder
     {
-        // attributi della card view
         private View cardView;
         private TextView bookingID;
         private TextView bookingTime;
@@ -70,10 +69,6 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG).show();
-//                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
-//                i.putExtra("Dish",DishesViewHolder.this.currentDish);
-//                //per recuperare i dati prova (dish)getIntent().getSerializableExtra("Dish"); se non funziona il classico getExtra();
-//                v.getContext().startActivity(i);
             }
         };
         public BookingViewHolder(View itemView)

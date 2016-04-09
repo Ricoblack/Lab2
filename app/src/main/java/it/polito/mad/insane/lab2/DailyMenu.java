@@ -1,10 +1,13 @@
 package it.polito.mad.insane.lab2;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 public class DailyMenu extends AppCompatActivity
 {
@@ -15,9 +18,22 @@ public class DailyMenu extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_menu);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // show back arrow
 
+        // show back arrow
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // initialize RecyclerView
         setupDishesRecyclerView();
+
+        // set Button
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_dish);
+        fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(), "Apro activity per inserire nuovo piatto", Toast.LENGTH_SHORT).show();
+
+                }
+            });
 
     }
 

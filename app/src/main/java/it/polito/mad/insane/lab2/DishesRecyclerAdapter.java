@@ -83,11 +83,11 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             @Override
             public void onClick(View v)
             {
-                //Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG);
-                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
-                i.putExtra("Dish",DishesViewHolder.this.currentDish);
-                //per recuperare i dati prova (dish)getIntent().getSerializableExtra("Dish"); se non funziona il classico getExtra();
-                v.getContext().startActivity(i);
+                Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
+//                i.putExtra("Dish",DishesViewHolder.this.currentDish);
+//                //per recuperare i dati prova (dish)getIntent().getSerializableExtra("Dish"); se non funziona il classico getExtra();
+//                v.getContext().startActivity(i);
             }
         };
 
