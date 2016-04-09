@@ -9,7 +9,7 @@
     app:cardElevation="5dp"
     app:cardCornerRadius="4dp"
     app:cardPreventCornerOverlap="true"
-    app:cardBackgroundColor="@color/cardview_light_background"
+    app:cardBackgroundColor="@color/colorAccent"
     android:clickable="true">
 
 
@@ -21,20 +21,31 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:padding="5dp"
-            android:layout_height="30dp"
+            android:layout_height="70dp"
             >
+
+            <TextView
+                android:id="@+id/hash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#"
+                android:textColor="#ffffff"
+                android:typeface="sans"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
 
             <TextView
                 android:id="@+id/title_card_pren"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="25sp"
+                android:text="20"
                 android:typeface="sans"
                 android:textStyle="bold"
-                android:textColor="@color/colorAccent"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:textColor="#ffffff"
+                android:layout_toRightOf="@id/hash"/>
 
             <TextView
                 android:id="@+id/hour"
@@ -42,39 +53,31 @@
                 android:layout_height="wrap_content"
                 android:text="10:10"
                 android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/colorAccent"
-                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/piatto_300_white"/>
 
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/divisor"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorAccent"
-            />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            >
 
             <TextView
                 android:id="@+id/num_booking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
+                android:text="1"
                 android:textSize="25sp"
                 android:textColor="@color/colorAccent"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 />
 
 
@@ -82,20 +85,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/num_booking"
-                android:src="@drawable/ic_forchetta_100"/>
+                android:src="@drawable/ic_forchetta_300_white"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/num_booking"
-                android:src="@drawable/ic_coltello_100"/>
+                android:src="@drawable/ic_coltello_300_white"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:padding="5dp"
+            android:layout_height="1dp"
             >
 
             <TextView

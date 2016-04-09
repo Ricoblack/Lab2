@@ -25,10 +25,10 @@ public class Booking implements Serializable
 
         // populate Booking elements (slide 28)
         Booking newBooking = new Booking();
-        newBooking.setID("#24");
+        newBooking.setID("24");
         dataList.add(newBooking);
         Booking newBooking2 = new Booking();
-        newBooking2.setID("#25");
+        newBooking2.setID("25");
         dataList.add(newBooking2);
 
         return dataList;
