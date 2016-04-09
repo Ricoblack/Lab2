@@ -6,7 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,26 +55,69 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
     class BookingViewHolder extends RecyclerView.ViewHolder
     {
         // attributi della card view
-        int position;
-        Booking currentBooking;
-        TextView book_id;
+        private View cardView;
+        private TextView bookingID;
+        private TextView bookingTime;
+        private TextView bookingDishNum;
+        private TextView bookingNote;
+        private int position;
+        private Booking currentBooking;
 
+        private android.view.View.OnClickListener cardViewListener = new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG).show();
+//                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
+//                i.putExtra("Dish",DishesViewHolder.this.currentDish);
+//                //per recuperare i dati prova (dish)getIntent().getSerializableExtra("Dish"); se non funziona il classico getExtra();
+//                v.getContext().startActivity(i);
+            }
+        };
         public BookingViewHolder(View itemView)
         {
             super(itemView);
-            // bisogna riempire gli attributi della cardView
-            this.book_id = (TextView) itemView.findViewById(R.id.title_card_pren);
+            this.cardView = itemView;
+            this.bookingID = (TextView) itemView.findViewById(R.id.title_card_pren);
+            this.bookingTime = (TextView) itemView.findViewById(R.id.hour);
+            this.bookingDishNum = (TextView) itemView.findViewById(R.id.num_booking);
+            this.bookingNote = (TextView) itemView.findViewById(R.id.note_booking);
+
+            // set the onClickListener to the View
+            this.cardView.setOnClickListener(cardViewListener);
 
         }
 
         public void setData(Booking current, int position)
         {
-            this.book_id.setText(current.getBook_id());
+            this.bookingID.setText(current.getID());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+            String date = dateFormat.format(current.getDate_time().getTime());
+            this.bookingTime.setText(date);
+            this.bookingDishNum.setText(Integer.toString(current.getDishes().size()));
+            this.bookingNote.setText(current.getNote());
             this.position = position;
             this.currentBooking = current;
 
         }
 
 
+        public int getPos() {
+            return position;
+        }
+
+        public void setPos(int position) {
+            this.position = position;
+        }
+
+        public Booking getCurrentBooking() {
+            return currentBooking;
+        }
+
+        public void setCurrentBooking(Booking currentBooking) {
+            this.currentBooking = currentBooking;
+        }
     }
 }
