@@ -1,18 +1,12 @@
 package it.polito.mad.insane.lab2;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by carlocaramia on 08/04/16.
  */
-public class Dish {
+public class Dish implements Serializable{
     private String ID;
     private String name;
     private String description;

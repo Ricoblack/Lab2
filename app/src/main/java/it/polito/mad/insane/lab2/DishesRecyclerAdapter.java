@@ -1,12 +1,15 @@
 package it.polito.mad.insane.lab2;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,11 +21,15 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
     private List<Dish> mData; // actual data to be displayed
     private LayoutInflater mInflater;
 
+
+
     public DishesRecyclerAdapter(Context context, List<Dish> data)
     {
         this.mData = data;
         this.mInflater = LayoutInflater.from(context);
     }
+
+
 
     /**
      * Method called when a ViewHolder Object is created
@@ -33,7 +40,9 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
     @Override
     public DishesViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = this.mInflater.inflate(R.layout.dish_list_item,parent, false); // create the view starting from XML layout file
+        // create the view starting from XML layout file
+        View view = this.mInflater.inflate(R.layout.dish_list_item,parent, false);
+
         DishesViewHolder result = new DishesViewHolder(view); // create the holder
         return result;
     }
@@ -58,6 +67,7 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
 
     public class DishesViewHolder extends RecyclerView.ViewHolder
     {
+        private View cardView;
         private ImageView dishPhoto;
         private TextView dishID;
         private TextView dishName;
@@ -67,16 +77,33 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
         private int position;
         private Dish currentDish;
 
+        private android.view.View.OnClickListener cardViewListener = new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                //Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG);
+                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
+                i.putExtra("Dish",DishesViewHolder.this.currentDish);
+                //per recuperare i dati prova (dish)getIntent().getSerializableExtra("Dish"); se non funziona il classico getExtra();
+                v.getContext().startActivity(i);
+            }
+        };
 
         public DishesViewHolder(View itemView)
         {
             super(itemView);
+            this.cardView = itemView;
             this.dishPhoto = (ImageView) itemView.findViewById(R.id.dish_photo);
             this.dishID = (TextView) itemView.findViewById(R.id.dish_ID);
             this.dishName = (TextView) itemView.findViewById(R.id.dish_name);
             this.dishDesc =  (TextView) itemView.findViewById(R.id.disc_description);
             this.dishPrice = (TextView) itemView.findViewById(R.id.dish_price);
             this.dishAvailabQty = (TextView) itemView.findViewById(R.id.dish_availab_qty);
+
+            // set the onClickListener to the View
+            this.cardView.setOnClickListener(cardViewListener);
         }
 
         public void setData(Dish current, int position )
@@ -91,5 +118,23 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             this.currentDish = current;
 
         }
+
+        public int getPos() {
+            return position;
+        }
+
+        public void setPos(int position) {
+            this.position = position;
+        }
+
+        public Dish getCurrentDish() {
+            return currentDish;
+        }
+
+        public void setCurrentDish(Dish currentDish) {
+            this.currentDish = currentDish;
+        }
+
+
     }
 }

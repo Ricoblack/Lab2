@@ -1,7 +1,6 @@
 package it.polito.mad.insane.lab2;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created by carlocaramia on 08/04/16.
@@ -10,8 +9,8 @@ import java.util.Date;
 public class RestaurateurJsonManager {
 
     private RestaurateurProfile profile;
-    private DailyOffer dailyOffer;
-    private ArrayList<Booking> bookings;
+    private List<Dish> dishes;
+    private List<Booking> bookings;
 
     public RestaurateurJsonManager(){
 
@@ -26,20 +25,20 @@ public class RestaurateurJsonManager {
     }
 
 
-    public DailyOffer getDailyOffer() {
-        return dailyOffer;
-    }
-
-    public void setDailyOffer(DailyOffer dailyOffer) {
-        this.dailyOffer = dailyOffer;
-    }
-
-    public ArrayList<Booking> getBookings() {
+    public List<Booking> getBookings() {
         return bookings;
     }
 
-    public void setBookings(ArrayList<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 }
 
