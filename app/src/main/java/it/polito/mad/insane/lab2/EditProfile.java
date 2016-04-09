@@ -17,13 +17,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +33,7 @@ import java.util.List;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private static final int REQUEST_IMAGE_GALLERY = 0;
-    private SharedPreferences preferences;
-    static final String PREFS_NAME = "MyPrefsFile";
-    private static String mCurrentPhotoPath;
-    private String path;
+    private static final int REQUEST_IMAGE_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +42,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null){
@@ -77,6 +76,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 cuisines);
         cAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         cSpinner.setAdapter(cAdapter);
+
+        //set image if available
+        loadImageFromStorage();
     }
 
     @Override
@@ -86,9 +88,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // First item is disable and it is used for hint
         if(position > 0){
             // Notify the selected item text
-            Toast.makeText
-                    (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                    .show();
         }
     }
 
@@ -102,22 +101,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // start the image gallery intent
         startActivityForResult(imageGalleryIntent, REQUEST_IMAGE_GALLERY);
     }
-
-    private ViewTreeObserver.OnGlobalLayoutListener loadingLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-        @Override
-        public void onGlobalLayout() //Callback method to be invoked when the global layout state or the visibility of views within the view tree changes
-        {
-            // Here your view is already layed out and measured for the first time
-            ImageView btnImg = (ImageView) findViewById(R.id.editCoverPhoto);
-            EditProfile.this.preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-            SharedPreferences.Editor ed = EditProfile.this.preferences.edit();
-            if(btnImg != null) {
-                ed.putInt("Height", btnImg.getHeight());
-                ed.putInt("Width", btnImg.getWidth());
-            }
-            ed.commit();
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -147,14 +130,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                         cursor.close();
                     }
 
-                    String pathToSave;
-                    pathToSave = imgPath;
-                    Bitmap finalImg = processImg(pathToSave); // use an array in order to let the method to update it
+                    Bitmap finalImg = processImg(imgPath);
                     ImageView btnImg = (ImageView) findViewById(R.id.editCoverPhoto);
                     if(btnImg != null) {
                         btnImg.setImageBitmap(finalImg);
-                        btnImg.setTag(pathToSave); // save the image path as a Tag
-                        this.path = (String) btnImg.getTag();
                     }
                     saveToInternalStorage(finalImg);
 
@@ -227,29 +206,19 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // Get the dimensions of the View
         ImageView btnImg = (ImageView) findViewById(R.id.editCoverPhoto);
 
-        this.preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
-        if(this.preferences != null){
-            targetH = this.preferences.getInt("Height", 0);
-            targetW = this.preferences.getInt("Width", 0);
+        if(btnImg != null) {
+            targetH = btnImg.getHeight();
+            targetW = btnImg.getWidth();
         }
-
-        if(targetH == 0 || targetW == 0)
-            if(btnImg != null) {
-                targetH = btnImg.getHeight();
-                targetW = btnImg.getWidth();
-            }
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, bmOptions);
+        BitmapFactory.decodeFile(pathToSave, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        //int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
         if(photoW > targetW || photoH > targetH)
             // Compute the scaling ratio to avoid distortion
             scaleFactor = Math.min(photoW / targetW, photoH / targetH);
@@ -258,7 +227,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        return BitmapFactory.decodeFile(path, bmOptions);
+        return BitmapFactory.decodeFile(pathToSave, bmOptions);
     }
 
     private String saveToInternalStorage(Bitmap bitmapImage){
@@ -266,14 +235,12 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         // Create imageDir
-        File mypath = new File(directory,"profile.jpg");
+        File mypath = new File(directory,"cover.jpg");
 
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            // bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 0, fos);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
             return "";
         } finally {
@@ -284,6 +251,25 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         }
         return directory.getAbsolutePath();
+    }
+
+    private void loadImageFromStorage()
+    {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+        try {
+            File f = new File(directory, "cover.jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            ImageView img=(ImageView)findViewById(R.id.editCoverPhoto);
+            img.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            //nothing
+            return;
+        }
     }
 
 }
