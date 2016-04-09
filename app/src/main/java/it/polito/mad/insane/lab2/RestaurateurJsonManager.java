@@ -1,7 +1,20 @@
 package it.polito.mad.insane.lab2;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import com.google.gson.Gson;
@@ -10,7 +23,7 @@ import com.google.gson.Gson;
  * Created by carlocaramia on 08/04/16.
  */
 
-public class RestaurateurJsonManager {
+public class RestaurateurJsonManager extends Activity {
 
     
     private DbApp dbApp; // Singleton
@@ -36,31 +49,61 @@ public class RestaurateurJsonManager {
         //scrivo la stringa json su disco
         String jsonString=this.getJsonString();
 
-        //TODO: scrivere stringa su file
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
 
+        // path to /data/data/yourapp/app_data/jsonDir
+        File directory = cw.getDir("jsonDir", Context.MODE_PRIVATE);
+
+        // Create jsonDir
+        File mypath=new File(directory,"dbapp.json");
+
+        BufferedWriter bufferedWriter=null;
+
+        try {
+
+            bufferedWriter = new BufferedWriter(new FileWriter(mypath));
+
+            bufferedWriter.write(jsonString);
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            return -1;
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (IOException e) {
+                return -2;
+            }
+        }
         return 0; //tutto ok
     }
 
     public DbApp getDbApp(){
         Gson gson = new Gson();
 
-        try {
 
-            BufferedReader br = new BufferedReader(
-                    new FileReader("c:\\file.json"));
+            ContextWrapper cw = new ContextWrapper(getApplicationContext());
+            // path to /data/data/yourapp/app_data/jsonDir
+            File directory = cw.getDir("jsonDir", Context.MODE_PRIVATE);
+            BufferedReader br=null;
+
+            try {
+                File f=new File(directory, "dbapp.json");
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
+            }
+            catch (FileNotFoundException e)
+            {
+                //nothing
+                return null;
+            }
 
             //convert the json string back to object
             DbApp obj = gson.fromJson(br, DbApp.class);
 
-
             this.dbApp=obj;
             return obj;
 
-        } catch (IOException e) {
-
-        }
-
-        return null;
     }
 
     public List<Dish> getDishes()
