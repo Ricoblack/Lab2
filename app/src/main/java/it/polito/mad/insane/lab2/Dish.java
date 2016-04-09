@@ -19,46 +19,32 @@ public class Dish implements Serializable{
         ArrayList<Dish> dataList = new ArrayList<Dish>();
         // int[] images = getImages(); // get images stored in the drawable folder
 
-        Dish dish1 = new Dish();
-        dish1.setAvailability_qty(100);
-        dish1.setDescription("Descrizione del piatto 1");
-        dish1.setID("1");
-        dish1.setName("Piatto1");
-        dish1.setPrice(5.50);
+        Dish dish1 = new Dish("1","Piatto 1", "Descrizione piatto 1", null, 5.50, 100);
         dataList.add(dish1);
 
-        Dish dish2 = new Dish();
-        dish1.setAvailability_qty(102);
-        dish1.setDescription("Descrizione del piatto 2");
-        dish1.setID("2");
-        dish1.setName("Piatto2");
-        dish1.setPrice(5.52);
+        Dish dish2 = new Dish("2","Piatto 2", "Descrizione piatto 2", null, 2.50, 200);
         dataList.add(dish2);
 
-        Dish dish3 = new Dish();
-        dish1.setAvailability_qty(13);
-        dish1.setDescription("Descrizione del piatto 3");
-        dish1.setID("3");
-        dish1.setName("Piatto3");
-        dish1.setPrice(3.50);
+        Dish dish3 = new Dish("3","Piatto 3", "Descrizione piatto 3", null, 3.50, 300);
         dataList.add(dish3);
 
-        Dish dish4 = new Dish();
-        dish1.setAvailability_qty(104);
-        dish1.setDescription("Descrizione del piatto 4");
-        dish1.setID("4");
-        dish1.setName("Piatto4");
-        dish1.setPrice(5.40);
+        Dish dish4 = new Dish("4","Piatto 4", "Descrizione piatto 4", null, 4.50, 104);
         dataList.add(dish4);
 
-        Dish dish5 = new Dish();
-        dish1.setAvailability_qty(105);
-        dish1.setDescription("Descrizione del piatto 5");
-        dish1.setID("5");
-        dish1.setName("Piatto5");
-        dish1.setPrice(6.50);
+        Dish dish5 = new Dish("5","Piatto 5", "Descrizione piatto 5", null, 5.55, 150);
         dataList.add(dish5);
 
+        Dish dish6 = new Dish("6","Piatto 6", "Descrizione piatto 6", null, 5.55, 150);
+        dataList.add(dish6);
+
+        Dish dish7 = new Dish("7","Piatto 7", "Descrizione piatto 7", null, 5.55, 150);
+        dataList.add(dish7);
+
+        Dish dish8 = new Dish("8","Piatto 8", "Descrizione piatto 8", null, 5.55, 150);
+        dataList.add(dish8);
+
+        Dish dish9 = new Dish("9","Piatto 9", "Descrizione piatto 9", null, 5.55, 150);
+        dataList.add(dish9);
         return dataList;
 
     }
