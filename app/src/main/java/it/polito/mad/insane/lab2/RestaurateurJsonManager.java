@@ -1,6 +1,7 @@
 package it.polito.mad.insane.lab2;
 
 import java.util.List;
+import com.google.gson.Gson;;
 
 /**
  * Created by carlocaramia on 08/04/16.
@@ -8,38 +9,23 @@ import java.util.List;
 
 public class RestaurateurJsonManager {
 
-    private RestaurateurProfile profile;
-    private List<Dish> dishes;
-    private List<Booking> bookings;
+    private DbApp dbApp;
 
-    public RestaurateurJsonManager(){
-
+    public RestaurateurJsonManager(DbApp dbApp){
+        this.dbApp=dbApp;
     }
 
-    public void setRestaurateurProfile(RestaurateurProfile profile){
-        this.profile=profile;
+    public String getJson(){
+        //ritorna la stringa del Json
+
+        if(dbApp==null) return "";
+
+        Gson gson = new Gson();
+        String json = gson.toJson(dbApp);
+
+        return json;
     }
 
-    public RestaurateurProfile getRestaurateurProfile(){
-        return this.profile;
-    }
-
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
 }
 
 

@@ -68,6 +68,8 @@ public class HomeRestaurateur extends AppCompatActivity
         */
 
         setUpRecyclerView();
+
+
     }
 
     public void showDatePickerDialog(View v)

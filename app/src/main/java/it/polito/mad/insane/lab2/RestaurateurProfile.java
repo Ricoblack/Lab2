@@ -25,6 +25,10 @@ public class RestaurateurProfile {
 
     }
 
+    public RestaurateurProfile() {
+
+    }
+
     public String getName() {
         return name;
     }
