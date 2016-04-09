@@ -3,12 +3,13 @@ package it.polito.mad.insane.lab2;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,7 +79,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         MySpinnerAdapter cAdapter = new MySpinnerAdapter(EditProfile.this, R.layout.support_simple_spinner_dropdown_item,
                 cuisines);
         cAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        cSpinner.setAdapter(cAdapter);
+        if(cSpinner != null)
+            cSpinner.setAdapter(cAdapter);
+
 
         //set image if available
         loadImageFromStorage();
@@ -131,7 +137,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     }
 
                     Bitmap finalImg = processImg(imgPath);
-                    ImageView btnImg = (ImageView) findViewById(R.id.editCoverPhoto);
+                    ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
                     if(btnImg != null) {
                         btnImg.setImageBitmap(finalImg);
                     }
@@ -204,7 +210,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         int scaleFactor = 1, targetH = 0, targetW = 0;
 
         // Get the dimensions of the View
-        ImageView btnImg = (ImageView) findViewById(R.id.editCoverPhoto);
+        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
 
         if(btnImg != null) {
             targetH = btnImg.getHeight();
@@ -262,7 +268,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         try {
             File f = new File(directory, "cover.jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            ImageView img=(ImageView)findViewById(R.id.editCoverPhoto);
+            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
             img.setImageBitmap(b);
         }
         catch (FileNotFoundException e)

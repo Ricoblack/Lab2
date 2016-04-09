@@ -13,6 +13,7 @@
     <string name="university">Nearby University</string>
     <string name="Cuisine">Cuisine</string>
     <string name="services">Additional Services</string>
+    <string name="edit_cover">"  Edit  "</string>
     <string-array name="university_array">
         <item> <i>Choose a campus... </i> </item>
         <item>PoliTo</item>
