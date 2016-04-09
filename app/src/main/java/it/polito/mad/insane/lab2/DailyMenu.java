@@ -42,7 +42,7 @@ public class DailyMenu extends AppCompatActivity
     {
         // set Adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MenuRecyclerView);
-        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this,Dish.getData());
+        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, Dish.getData());
         recyclerView.setAdapter(adapter);
 
         // set Layout Manager

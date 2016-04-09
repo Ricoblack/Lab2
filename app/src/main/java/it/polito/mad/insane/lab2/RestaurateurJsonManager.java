@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import com.google.gson.Gson;;
+import com.google.gson.Gson;
 
 /**
  * Created by carlocaramia on 08/04/16.
@@ -13,10 +13,11 @@ import com.google.gson.Gson;;
 public class RestaurateurJsonManager {
 
     
-    private DbApp dbApp;
+    private DbApp dbApp; // Singleton
 
-    public RestaurateurJsonManager(DbApp dbApp){
-        this.dbApp=dbApp;
+    public RestaurateurJsonManager()
+    {
+        this.dbApp = DbApp.getInstance();
     }
 
     public String getJsonString(){
@@ -61,6 +62,22 @@ public class RestaurateurJsonManager {
 
         return null;
     }
+
+    public List<Dish> getDishes()
+    {
+        return this.dbApp.getDishes();
+    }
+
+    public List<Booking> getBookings()
+    {
+        return this.dbApp.getBookings();
+    }
+
+    public RestaurateurProfile getRestaurateurProfile()
+    {
+        return this.getRestaurateurProfile();
+    }
+
 
 
 }

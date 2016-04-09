@@ -5,18 +5,27 @@ import java.util.List;
 /**
  * Created by carlocaramia on 09/04/16.
  */
+// Singleton class
 public class DbApp {
 
+    private static DbApp instance = null; // the only instance of this class
     private RestaurateurProfile profile;
     private List<Dish> dishes;
     private List<Booking> bookings;
 
-    public DbApp(RestaurateurProfile profile, List<Dish> dishes, List<Booking> bookings){
-        this.profile=profile;
-        this.dishes=dishes;
-        this.bookings=bookings;
+    protected  DbApp()
+    {
+
     }
 
+    public static DbApp getInstance()
+    {
+        if(DbApp.instance == null)
+            DbApp.instance = new DbApp();
+
+        return DbApp.instance;
+
+    }
     public RestaurateurProfile getProfile() {
         return profile;
     }

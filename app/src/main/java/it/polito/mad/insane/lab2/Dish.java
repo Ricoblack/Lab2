@@ -25,8 +25,39 @@ public class Dish implements Serializable{
         dish1.setID("1");
         dish1.setName("Piatto1");
         dish1.setPrice(5.50);
-
         dataList.add(dish1);
+
+        Dish dish2 = new Dish();
+        dish1.setAvailability_qty(102);
+        dish1.setDescription("Descrizione del piatto 2");
+        dish1.setID("2");
+        dish1.setName("Piatto2");
+        dish1.setPrice(5.52);
+        dataList.add(dish2);
+
+        Dish dish3 = new Dish();
+        dish1.setAvailability_qty(13);
+        dish1.setDescription("Descrizione del piatto 3");
+        dish1.setID("3");
+        dish1.setName("Piatto3");
+        dish1.setPrice(3.50);
+        dataList.add(dish3);
+
+        Dish dish4 = new Dish();
+        dish1.setAvailability_qty(104);
+        dish1.setDescription("Descrizione del piatto 4");
+        dish1.setID("4");
+        dish1.setName("Piatto4");
+        dish1.setPrice(5.40);
+        dataList.add(dish4);
+
+        Dish dish5 = new Dish();
+        dish1.setAvailability_qty(105);
+        dish1.setDescription("Descrizione del piatto 5");
+        dish1.setID("5");
+        dish1.setName("Piatto5");
+        dish1.setPrice(6.50);
+        dataList.add(dish5);
 
         return dataList;
 
