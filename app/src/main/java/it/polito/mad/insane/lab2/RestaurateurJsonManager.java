@@ -29,7 +29,7 @@ public class RestaurateurJsonManager {
         return json;
     }
 
-    public int writeJson(){
+    public int saveDbApp(){
 
         //scrivo la stringa json su disco
         String jsonString=this.getJsonString();
@@ -61,6 +61,7 @@ public class RestaurateurJsonManager {
         return null;
     }
 
+    
 }
 
 
