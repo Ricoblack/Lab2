@@ -12,6 +12,7 @@ import com.google.gson.Gson;;
 
 public class RestaurateurJsonManager {
 
+    
     private DbApp dbApp;
 
     public RestaurateurJsonManager(DbApp dbApp){
@@ -61,7 +62,7 @@ public class RestaurateurJsonManager {
         return null;
     }
 
-    
+
 }
 
 
