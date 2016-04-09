@@ -74,7 +74,7 @@
                 android:textColor="@color/colorAccent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
                 />
 
 
@@ -82,8 +82,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/num_booking"
-                android:layout_toStartOf="@id/num_booking"
-                android:src="@drawable/ic_forchetta"/>
+                android:src="@drawable/ic_forchetta_100"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/num_booking"
+                android:src="@drawable/ic_coltello_100"/>
 
         </RelativeLayout>
 
