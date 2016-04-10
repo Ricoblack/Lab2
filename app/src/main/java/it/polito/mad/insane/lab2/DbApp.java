@@ -24,7 +24,6 @@ public class DbApp {
             DbApp.instance = new DbApp();
 
         return DbApp.instance;
-
     }
     public RestaurateurProfile getProfile() {
         return profile;

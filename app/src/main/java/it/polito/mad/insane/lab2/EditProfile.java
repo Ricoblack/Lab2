@@ -7,9 +7,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,10 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,14 +42,22 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        final ImageView img = (ImageView) findViewById(R.id.coverPhoto);
+        if(img != null) {
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    takePhotoFromGallery();
+                }
+            });
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null){
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    takePhotoFromGallery();
+                    saveData();
                 }
             });
         }
@@ -82,9 +85,12 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         if(cSpinner != null)
             cSpinner.setAdapter(cAdapter);
 
-
         //set image if available
         loadImageFromStorage();
+    }
+
+    private void saveData() {
+        Toast.makeText(this, "Implementare il salvataggio dei dati su JSON", Toast.LENGTH_LONG).show();
     }
 
     @Override
