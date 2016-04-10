@@ -24,7 +24,7 @@ public class HomeRestaurateur extends AppCompatActivity
     private void setUpRecyclerView()
     {
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
-        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, Booking.getData());
+        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, RestaurateurJsonManager.getInstance().getBookings());
         rV.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
