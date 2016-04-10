@@ -92,7 +92,6 @@ public class HomeRestaurateur extends AppCompatActivity
         Resources.Theme theme = HomeRestaurateur.this.getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
         int color = typedValue.data;
-
         series.setValuesOnTopColor(color);
         graph.getGridLabelRenderer().setPadding(16);
 
