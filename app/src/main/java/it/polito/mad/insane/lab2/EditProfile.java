@@ -52,7 +52,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // show back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ImageView img = (ImageView) findViewById(R.id.dishPhoto);
+        final ImageView img = (ImageView) findViewById(R.id.coverPhoto);
         if(img != null) {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,7 +149,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     }
 
                     Bitmap finalImg = processImg(imgPath);
-                    ImageView btnImg = (ImageView) findViewById(R.id.dishPhoto);
+                    ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
                     if(btnImg != null) {
                         btnImg.setImageBitmap(finalImg);
                     }
@@ -222,7 +222,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         int scaleFactor = 1, targetH = 0, targetW = 0;
 
         // Get the dimensions of the View
-        ImageView btnImg = (ImageView) findViewById(R.id.dishPhoto);
+        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
 
         if(btnImg != null) {
             targetH = btnImg.getHeight();
@@ -280,7 +280,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         try {
             File f = new File(directory, "cover.jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            ImageView img=(ImageView)findViewById(R.id.dishPhoto);
+            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
             img.setImageBitmap(b);
         }
         catch (FileNotFoundException e)
@@ -376,9 +376,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             closingDate = cal.getTime();
         }
 
-        RestaurateurJsonManager dataManager = RestaurateurJsonManager.getInstance();
+        this.manager = RestaurateurJsonManager.getInstance();
         RestaurateurProfile profile = new RestaurateurProfile(name, address, university, cuisineType, description, openingDate, closingDate,
                 timeInfo, payment, services);
-        //dataManager.setRestaurateurProfile(profile);
+        //manager.setRestaurateurProfile(profile);
     }
 }
