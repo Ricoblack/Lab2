@@ -2,7 +2,6 @@ package it.polito.mad.insane.lab2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +85,6 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(v.getContext(),EditDish.class);
                 i.putExtra("Dish", DishesViewHolder.this.currentDish);
-                //per recuperare i dati prova (dish)getIntent().getSerializableExtra("Dish"); se non funziona il classico getExtra();
                 v.getContext().startActivity(i);
             }
         };
@@ -98,7 +96,7 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             this.dishPhoto = (ImageView) itemView.findViewById(R.id.dish_photo);
             this.dishID = (TextView) itemView.findViewById(R.id.dish_ID);
             this.dishName = (TextView) itemView.findViewById(R.id.dish_name);
-            this.dishDesc =  (TextView) itemView.findViewById(R.id.disc_description);
+            this.dishDesc =  (TextView) itemView.findViewById(R.id.dish_description);
             this.dishPrice = (TextView) itemView.findViewById(R.id.dish_price);
             this.dishAvailabQty = (TextView) itemView.findViewById(R.id.dish_availab_qty);
 

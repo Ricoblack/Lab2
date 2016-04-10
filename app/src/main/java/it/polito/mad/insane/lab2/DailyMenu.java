@@ -1,5 +1,6 @@
 package it.polito.mad.insane.lab2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class DailyMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Apro activity per inserire nuovo piatto (non ancora implementato)", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(view.getContext(),EditDish.class);
+                view.getContext().startActivity(i);
 
             }
         });

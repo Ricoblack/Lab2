@@ -26,12 +26,12 @@
 
 
                 <ImageView
-                    android:id="@+id/coverPhoto"
+                    android:id="@+id/dishPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
-                    android:src="@drawable/ic_default_cover_photo"
+                    android:src="@drawable/dish_default_red_5"
                     app:layout_collapseMode="parallax"
                     />
 
@@ -91,6 +91,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:text="@string/edit_dish_description"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edit_dish_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -122,6 +140,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"/>
             </LinearLayout>
+
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

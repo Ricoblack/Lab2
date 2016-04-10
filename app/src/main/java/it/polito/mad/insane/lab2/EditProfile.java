@@ -49,7 +49,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // show back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ImageView img = (ImageView) findViewById(R.id.coverPhoto);
+        final ImageView img = (ImageView) findViewById(R.id.dishPhoto);
         if(img != null) {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,7 +146,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     }
 
                     Bitmap finalImg = processImg(imgPath);
-                    ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
+                    ImageView btnImg = (ImageView) findViewById(R.id.dishPhoto);
                     if(btnImg != null) {
                         btnImg.setImageBitmap(finalImg);
                     }
@@ -219,7 +219,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         int scaleFactor = 1, targetH = 0, targetW = 0;
 
         // Get the dimensions of the View
-        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
+        ImageView btnImg = (ImageView) findViewById(R.id.dishPhoto);
 
         if(btnImg != null) {
             targetH = btnImg.getHeight();
@@ -277,7 +277,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         try {
             File f = new File(directory, "cover.jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
+            ImageView img=(ImageView)findViewById(R.id.dishPhoto);
             img.setImageBitmap(b);
         }
         catch (FileNotFoundException e)
