@@ -22,6 +22,9 @@
     <string name="new_dish">Add Dish</string>
     <string name="openingHour">Opening Hour</string>
     <string name="closingHour">Closing Hour</string>
+    <string name="error_input_number">Invalid input number (Price or Quantity)</string>
+    <string name="confirm_save_dish">Dish saved successfully</string>
+    <string name="confirm_add_dish">Dish added successfully</string>
     <string-array name="university_array">
         <item> <i>Choose a campus... </i> </item>
         <item>PoliTo</item>
