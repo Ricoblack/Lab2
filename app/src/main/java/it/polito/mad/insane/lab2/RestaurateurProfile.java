@@ -7,43 +7,42 @@ import java.util.Date;
  */
 public class RestaurateurProfile {
 
-    private String name;
-    private String surname;
+    private String restaurantName;
+    private String address;
+    private String nearbyUniversity;
+    private String cuisineType;
+    private String description;
     private Date openingHour;
     private Date closingHour;
-    private String address;
-    private String restaurantName;
+    private String timeInfo;
+    private String paymentMethod;
+    private String additionalServices;
 
-    public RestaurateurProfile(String name,String surname,Date openingHour, Date closingHour,String address,String restaurantName){
-        this.name=name;
-        this.surname=surname;
+
+
+    public RestaurateurProfile(String restaurantName, String address, String nearbyUniversity, String cuisineType,
+                               String description, Date openingHour, Date closingHour, String timeInfo, String paymentMethod,
+                               String additionalServices){
+
+        this.restaurantName = restaurantName;
+        this.address=address;
         this.openingHour=openingHour;
         this.closingHour=closingHour;
-        this.address=address;
-        this.restaurantName=restaurantName;
-
-
+        this.nearbyUniversity = nearbyUniversity;
+        this.cuisineType = cuisineType;
+        this.openingHour = openingHour;
+        this.closingHour = closingHour;
+        this.timeInfo = timeInfo;
+        this.paymentMethod = paymentMethod;
+        this.additionalServices = additionalServices;
+        this.description = description;
     }
 
     public RestaurateurProfile() {
 
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public String getAddress() {
         return address;
@@ -85,4 +84,51 @@ public class RestaurateurProfile {
         this.restaurantName = restaurantName;
     }
 
+    public String getNearbyUniversity() {
+        return nearbyUniversity;
+    }
+
+    public void setNearbyUniversity(String nearbyUniversity) {
+        this.nearbyUniversity = nearbyUniversity;
+    }
+
+    public String getCuisineType() {
+        return cuisineType;
+    }
+
+    public void setCuisineType(String cuisineType) {
+        this.cuisineType = cuisineType;
+    }
+
+    public String getTimeInfo() {
+        return timeInfo;
+    }
+
+    public void setTimeInfo(String timeInfo) {
+        this.timeInfo = timeInfo;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getAdditionalServices() {
+        return additionalServices;
+    }
+
+    public void setAdditionalServices(String additionalServices) {
+        this.additionalServices = additionalServices;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -31,4 +31,6 @@
     </string-array>
     <string name="title_activity_edit_dish">EditDish</string>
     <string name="title_activity_daily_menu">DailyMenu</string>
+    <string name="openingHour">Opening Hour</string>
+    <string name="closingHour">Closing Hour</string>
 </resources>

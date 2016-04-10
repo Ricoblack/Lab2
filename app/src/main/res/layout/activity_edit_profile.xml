@@ -88,17 +88,24 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editAddress"
+                android:id="@+id/editName"
                 android:inputType="text"
                 android:hint="@string/address"
                 android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editAddress"
+                android:inputType="text"
+                android:hint="@string/address"
                 />
 
             <Spinner
                 android:id="@+id/universitySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
 
             <Spinner
                 android:id="@+id/cuisineSpinner"
@@ -108,16 +115,31 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editDescription"
-                android:inputType="textMultiLine"
-                android:hint="@string/shortDescription"/>
+                android:id="@+id/editTimeNotes"
+                android:inputType="text"
+                android:hint="Timetables info"
+                />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTimetables"
+                android:id="@+id/editDescription"
                 android:inputType="textMultiLine"
-                android:hint="@string/timetables"/>
+                android:hint="@string/shortDescription"/>
+
+            <Button
+                android:id="@+id/openingHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/openingHour"
+                android:onClick="showTimePickerDialog" />
+
+            <Button
+                android:id="@+id/closingHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/closingHour"
+                android:onClick="showTimePickerDialog" />
 
             <EditText
                 android:layout_width="match_parent"
