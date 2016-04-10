@@ -13,8 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class HomeRestaurateur extends AppCompatActivity
 {
@@ -49,7 +49,7 @@ public class HomeRestaurateur extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
@@ -58,7 +58,24 @@ public class HomeRestaurateur extends AppCompatActivity
                 new DataPoint(5, 1)
         });
         graph.addSeries(series);
-        graph.setTitle("Data del Giorno");
+        series.setSpacing(10);
+
+//        Calendar c = Calendar.getInstance();
+//        SimpleDateFormat df = new SimpleDateFormat("dd-MM");
+//        String formattedDate = df.format(c.getTime());
+//        graph.setTitle(formattedDate);
+//        graph.setTitleTextSize(100);
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(0); //TODO settare l'orario di apertura
+        graph.getViewport().setMaxX(12); //TODO settare l'orario di chiusura
+        graph.getViewport().setScrollable(true);
+
+//        graph.getGridLabelRenderer().setVerticalAxisTitle("Bookings");
+//        graph.getGridLabelRenderer().setHorizontalAxisTitle("Hours");
+
+
+
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
