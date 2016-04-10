@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -285,6 +286,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         catch (FileNotFoundException e)
         {
             //nothing
+            TextView tv = (TextView) findViewById(R.id.editCover);
+            tv.setVisibility(View.GONE);
             return;
         }
     }

@@ -20,6 +20,8 @@
     <string name="edit_dish_availab_qty">Available Quantity:</string>
     <string name="edit_dish_price">Price:</string>
     <string name="new_dish">Add Dish</string>
+    <string name="openingHour">Opening Hour</string>
+    <string name="closingHour">Closing Hour</string>
     <string-array name="university_array">
         <item> <i>Choose a campus... </i> </item>
         <item>PoliTo</item>
