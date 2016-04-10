@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.polito.mad.insane.lab2">
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".HomeRestaurateur"
             android:label="@string/home_name"
@@ -23,16 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".DailyMenu"
             android:label="@string/activity_menu_name"
             android:parentActivityName=".HomeRestaurateur">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeRestaurateur"/>
+                android:value=".HomeRestaurateur" />
         </activity>
-
         <activity
             android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile"
@@ -41,6 +36,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.HomeRestaurateur" />
+        </activity>
+        <activity android:name=".EditDish">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.polito.mad.insane.lab2.DailyMenu" />
+
         </activity>
     </application>
 
