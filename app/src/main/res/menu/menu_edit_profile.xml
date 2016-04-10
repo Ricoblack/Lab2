@@ -10,5 +10,4 @@
         android:icon="@drawable/ic_local_dining_white_24dp"
         android:title="@string/action_daily_menu"
         app:showAsAction="ifRoom" />
-
 </menu>

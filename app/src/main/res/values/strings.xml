@@ -34,7 +34,7 @@
         <item>UniTo</item>
     </string-array>
     <string-array name="cuisine_array">
-        <item> <i>Choose a cuisine type... </i></item>
+        <item> <i>Choose a type... </i></item>
         <item>Italian</item>
         <item>Pizza</item>
         <item>Sandwiches</item>

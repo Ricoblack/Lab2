@@ -338,18 +338,22 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         Spinner spinner;
         if((spinner = (Spinner) findViewById(R.id.universitySpinner)) != null) {
-            if(!String.valueOf(spinner.getSelectedItem()).equals(""))
+            String[] universities = getResources().getStringArray(R.array.university_array);
+            if(!String.valueOf(spinner.getSelectedItem()).equals(universities[0])) {
                 university = String.valueOf(spinner.getSelectedItem());
+            }
         }
         if((spinner = (Spinner) findViewById(R.id.cuisineSpinner)) != null) {
-            if(!String.valueOf(spinner.getSelectedItem()).equals(""))
-                cuisineType = String.valueOf(spinner.getSelectedItem());
+            String[] cuisines = getResources().getStringArray(R.array.cuisine_array);
+            if(!String.valueOf(spinner.getSelectedItem()).equals(cuisines[0])) {
+                university = String.valueOf(spinner.getSelectedItem());
+            }
         }
 
         Button b = (Button) findViewById(R.id.openingHour);
         String timeString = (String) b.getText();
         Date openingDate = null;
-        if(!timeString.equals("Opening Hour")) {
+        if(!timeString.equals(getResources().getString(R.string.select))) {
             String[] parts = timeString.split(":");
             String hourString = parts[0];
             String minuteString = parts[1];
@@ -364,7 +368,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         b = (Button) findViewById(R.id.closingHour);
         timeString = (String) b.getText();
         Date closingDate = null;
-        if(!timeString.equals("Closing Hour")){
+        if(!timeString.equals(getResources().getString(R.string.select))){
             String[] parts = timeString.split(":");
             String hourString = parts[0];
             String minuteString = parts[1];
@@ -380,5 +384,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         RestaurateurProfile profile = new RestaurateurProfile(name, address, university, cuisineType, description, openingDate, closingDate,
                 timeInfo, payment, services);
         //manager.setRestaurateurProfile(profile);
+
+        Toast.makeText(this, "Profile data updated", Toast.LENGTH_LONG).show();
     }
 }
