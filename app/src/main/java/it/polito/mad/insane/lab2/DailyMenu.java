@@ -36,7 +36,7 @@ public class DailyMenu extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Apro activity per inserire nuovo piatto (non ancora implementato)", Toast.LENGTH_SHORT).show();
+                // open activity EditDish
                 Intent i = new Intent(view.getContext(),EditDish.class);
                 view.getContext().startActivity(i);
 

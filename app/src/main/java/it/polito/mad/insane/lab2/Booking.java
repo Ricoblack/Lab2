@@ -11,8 +11,6 @@ import java.util.List;
 public class Booking implements Serializable
 {
 
-
-    // attributi della prenotazione
     private String ID;
     private Calendar date_time = Calendar.getInstance(); // TODO: da togliere, è solo stato messo per evitare NullPointerException
     private List<Dish> dishes = new ArrayList<>(); // TODO: da togliere, è solo stato messo per evitare NullPointerException
