@@ -44,7 +44,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EditProfile.manager = RestaurateurJsonManager.getInstance();
+        EditProfile.manager = RestaurateurJsonManager.getInstance(this);
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -380,7 +380,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             closingDate = cal.getTime();
         }
 
-        this.manager = RestaurateurJsonManager.getInstance();
+        this.manager = RestaurateurJsonManager.getInstance(this);
         RestaurateurProfile profile = new RestaurateurProfile(name, address, university, cuisineType, description, openingDate, closingDate,
                 timeInfo, payment, services);
         //manager.setRestaurateurProfile(profile);

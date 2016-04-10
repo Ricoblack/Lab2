@@ -61,7 +61,7 @@ public class HomeRestaurateur extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        HomeRestaurateur.manager = RestaurateurJsonManager.getInstance();
+        HomeRestaurateur.manager = RestaurateurJsonManager.getInstance(this);
         setContentView(R.layout.activity_home_restaurateur);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

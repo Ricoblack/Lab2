@@ -29,7 +29,7 @@ public class EditDish extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         // initialize manager
-        EditDish.manager = RestaurateurJsonManager.getInstance();
+        EditDish.manager = RestaurateurJsonManager.getInstance(this);
 
         // load layout form XML
         setContentView(R.layout.activity_edit_dish);

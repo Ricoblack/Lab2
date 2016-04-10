@@ -18,7 +18,7 @@ public class DailyMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DailyMenu.manager = RestaurateurJsonManager.getInstance();
+        DailyMenu.manager = RestaurateurJsonManager.getInstance(this);
 
         setContentView(R.layout.activity_daily_menu);
 
