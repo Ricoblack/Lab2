@@ -25,15 +25,15 @@
 
 
 
-                <ImageView
-                    android:id="@+id/coverPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:scaleType="centerCrop"
-                    android:fitsSystemWindows="true"
-                    android:src="@drawable/ic_default_cover_photo"
-                    app:layout_collapseMode="parallax"
-                    />
+            <ImageView
+                android:id="@+id/coverPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"
+                android:src="@drawable/ic_default_cover_photo"
+                app:layout_collapseMode="parallax"
+                />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -53,22 +53,20 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <!-- qui inserisci quello che vuoi mettere sotto l'immagine -->
-
+        <!-- inserire item da visualizzare sotto la figura -->
 
     </android.support.v4.widget.NestedScrollView>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:src="@drawable/ic_cached_white_24dp"-->
-    <!--app:layout_anchor="@id/editCoverPhoto"-->
-    <!--app:layout_anchorGravity="bottom|right"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:layout_marginRight="16dp"/>-->
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done_white_24dp"
+        app:layout_anchor="@id/scroll"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"/>
 
 
 

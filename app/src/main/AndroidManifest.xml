@@ -21,14 +21,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DailyMenu"
-            android:label="@string/activity_menu_name"
-            android:parentActivityName=".HomeRestaurateur">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeRestaurateur" />
-        </activity>
-        <activity
             android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile"
             android:parentActivityName=".HomeRestaurateur"
@@ -37,11 +29,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.HomeRestaurateur" />
         </activity>
-        <activity android:name=".EditDish">
+        <activity
+            android:name=".EditDish"
+            android:label="@string/title_activity_edit_dish"
+            android:parentActivityName=".DailyMenu"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.DailyMenu" />
-
+        </activity>
+        <activity
+            android:name=".DailyMenu"
+            android:label="@string/title_activity_daily_menu"
+            android:parentActivityName=".HomeRestaurateur"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.polito.mad.insane.lab2.HomeRestaurateur" />
         </activity>
     </application>
 

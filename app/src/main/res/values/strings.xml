@@ -26,4 +26,6 @@
         <item>Sandwiches</item>
         <item>Ethnic</item>
     </string-array>
+    <string name="title_activity_edit_dish">EditDish</string>
+    <string name="title_activity_daily_menu">DailyMenu</string>
 </resources>
