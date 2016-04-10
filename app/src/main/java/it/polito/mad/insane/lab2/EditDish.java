@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 public class EditDish extends AppCompatActivity {
 
+    private static RestaurateurJsonManager manager = null;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        EditDish.manager = RestaurateurJsonManager.getInstance();
         setContentView(R.layout.activity_edit_dish);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

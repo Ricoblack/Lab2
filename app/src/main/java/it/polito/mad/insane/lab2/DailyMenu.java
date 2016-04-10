@@ -13,10 +13,13 @@ import android.widget.Toast;
 
 public class DailyMenu extends AppCompatActivity {
 
+    static private RestaurateurJsonManager manager = null;
     /* Standard Methods */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DailyMenu.manager = RestaurateurJsonManager.getInstance();
+
         setContentView(R.layout.activity_daily_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -47,7 +50,7 @@ public class DailyMenu extends AppCompatActivity {
     {
         // set Adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MenuRecyclerView);
-        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, RestaurateurJsonManager.getInstance().getDishes());
+        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, DailyMenu.manager.getDishes());
         recyclerView.setAdapter(adapter);
 
         // set Layout Manager

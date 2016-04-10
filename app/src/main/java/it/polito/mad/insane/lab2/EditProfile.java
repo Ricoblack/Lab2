@@ -37,11 +37,13 @@ import java.util.List;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EditProfile.manager = RestaurateurJsonManager.getInstance();
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
