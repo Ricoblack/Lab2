@@ -13,9 +13,9 @@ public class DbApp {
     private List<Dish> dishes;
     private List<Booking> bookings;
 
-    protected  DbApp()
+    private  DbApp()
     {
-
+        //TODO: carica i dati dal DB
     }
 
     public static DbApp getInstance()

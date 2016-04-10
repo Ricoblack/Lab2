@@ -14,6 +14,9 @@
     <string name="Cuisine">Cuisine</string>
     <string name="services">Additional Services</string>
     <string name="edit_cover">"  Edit  "</string>
+    <string name="edit_dish_name">Dish Name:</string>
+    <string name="edit_dish_availab_qty">Available Quantity</string>
+    <string name="edit_dish_price">Price</string>
     <string-array name="university_array">
         <item> <i>Choose a campus... </i> </item>
         <item>PoliTo</item>

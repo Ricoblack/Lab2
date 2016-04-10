@@ -22,10 +22,10 @@ public class DailyMenu extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //show back arrow
+        // show back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //initialize Recycler View
+        // initialize Recycler View
         setupDishesRecyclerView();
 
         // set Button

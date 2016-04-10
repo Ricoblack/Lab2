@@ -22,13 +22,20 @@ import com.google.gson.Gson;
 /**
  * Created by carlocaramia on 08/04/16.
  */
-
+// Singleton Class
 public class RestaurateurJsonManager extends Activity {
 
-    
+    private static RestaurateurJsonManager instance = null;
     private DbApp dbApp; // Singleton
 
-    public RestaurateurJsonManager()
+    public static RestaurateurJsonManager getInstance()
+    {
+        if(RestaurateurJsonManager.instance == null)
+            RestaurateurJsonManager.instance = new RestaurateurJsonManager();
+
+        return RestaurateurJsonManager.instance;
+    }
+    private RestaurateurJsonManager()
     {
         this.dbApp = DbApp.getInstance();
     }

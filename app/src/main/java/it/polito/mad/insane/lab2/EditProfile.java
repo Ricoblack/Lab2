@@ -40,6 +40,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // show back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final ImageView img = (ImageView) findViewById(R.id.coverPhoto);
