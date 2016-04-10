@@ -47,6 +47,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.HomeRestaurateur" />
         </activity>
+        <activity android:name=".ViewBooking"></activity>
     </application>
 
 </manifest>

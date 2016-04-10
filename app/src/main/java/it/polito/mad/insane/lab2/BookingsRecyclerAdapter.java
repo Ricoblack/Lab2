@@ -1,6 +1,7 @@
 package it.polito.mad.insane.lab2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +70,9 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(v.getContext(),ViewBooking.class);
+                i.putExtra("Booking", BookingViewHolder.this.currentBooking);
+                v.getContext().startActivity(i);
             }
         };
 
