@@ -180,10 +180,8 @@ public class RestaurateurJsonManager extends Activity {
 
     public RestaurateurProfile getRestaurateurProfile()
     {
-        return this.getRestaurateurProfile();
+        return this.dbApp.getProfile();
     }
-
-
 
 }
 

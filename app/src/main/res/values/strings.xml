@@ -2,9 +2,10 @@
     <string name="app_name">Lab2</string>
     <string name="action_daily_menu">Menu</string>
     <string name="home_name">Home</string>
-    <string name="activity_menu_name">Daily Offer</string>
+    <string name="title_activity_edit_dish">Edit Dish</string>
+    <string name="title_activity_daily_menu">Daily Menu</string>
     <string name="action_edit_profile">Edit Profile</string>
-    <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="title_activity_edit_profile">Edit Profile</string>
     <string name="address">Restaurant address</string>
     <string name="shortDescription">Short Description</string>
     <string name="timetables">Timetables</string>
@@ -14,9 +15,13 @@
     <string name="Cuisine">Cuisine</string>
     <string name="services">Additional Services</string>
     <string name="edit_cover">"  Edit  "</string>
-    <string name="edit_dish_name">Dish Name:</string>
-    <string name="edit_dish_availab_qty">Available Quantity</string>
-    <string name="edit_dish_price">Price</string>
+    <string name="edit_dish_name">Name:</string>
+    <string name="edit_dish_description">Description: </string>
+    <string name="edit_dish_availab_qty">Available Quantity:</string>
+    <string name="edit_dish_price">Price:</string>
+    <string name="new_dish">Add Dish</string>
+    <string name="openingHour">Opening Hour</string>
+    <string name="closingHour">Closing Hour</string>
     <string-array name="university_array">
         <item> <i>Choose a campus... </i> </item>
         <item>PoliTo</item>
@@ -29,6 +34,5 @@
         <item>Sandwiches</item>
         <item>Ethnic</item>
     </string-array>
-    <string name="title_activity_edit_dish">EditDish</string>
-    <string name="title_activity_daily_menu">DailyMenu</string>
+
 </resources>

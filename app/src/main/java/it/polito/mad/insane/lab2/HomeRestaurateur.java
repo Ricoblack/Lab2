@@ -18,13 +18,15 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class HomeRestaurateur extends AppCompatActivity
 {
+    private static RestaurateurJsonManager manager = null;
+
     /* Our Methods */
 
     // Layout Manager
     private void setUpRecyclerView()
     {
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
-        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, RestaurateurJsonManager.getInstance().getBookings());
+        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
         rV.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -41,6 +43,7 @@ public class HomeRestaurateur extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        HomeRestaurateur.manager = RestaurateurJsonManager.getInstance();
         setContentView(R.layout.activity_home_restaurateur);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

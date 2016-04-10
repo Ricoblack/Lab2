@@ -13,12 +13,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -27,16 +31,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EditProfile.manager = RestaurateurJsonManager.getInstance();
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,7 +52,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         // show back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ImageView img = (ImageView) findViewById(R.id.coverPhoto);
+        final ImageView img = (ImageView) findViewById(R.id.dishPhoto);
         if(img != null) {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,10 +97,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         //set image if available
         loadImageFromStorage();
-    }
-
-    private void saveData() {
-        Toast.makeText(this, "Implementare il salvataggio dei dati su JSON", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -145,7 +149,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     }
 
                     Bitmap finalImg = processImg(imgPath);
-                    ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
+                    ImageView btnImg = (ImageView) findViewById(R.id.dishPhoto);
                     if(btnImg != null) {
                         btnImg.setImageBitmap(finalImg);
                     }
@@ -218,7 +222,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         int scaleFactor = 1, targetH = 0, targetW = 0;
 
         // Get the dimensions of the View
-        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
+        ImageView btnImg = (ImageView) findViewById(R.id.dishPhoto);
 
         if(btnImg != null) {
             targetH = btnImg.getHeight();
@@ -276,14 +280,105 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         try {
             File f = new File(directory, "cover.jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
+            ImageView img=(ImageView)findViewById(R.id.dishPhoto);
             img.setImageBitmap(b);
         }
         catch (FileNotFoundException e)
         {
             //nothing
+            TextView tv = (TextView) findViewById(R.id.editCover);
+            tv.setVisibility(View.GONE);
             return;
         }
     }
 
+    public void showTimePickerDialog(View view) {
+        switch (view.getId()){
+            case(R.id.openingHour):
+                DialogFragment openingFragment = new TimePickerFragment();
+                openingFragment.show(getSupportFragmentManager(), "openingPicker");
+                break;
+            case (R.id.closingHour):
+                DialogFragment closingFragment = new TimePickerFragment();
+                closingFragment.show(getSupportFragmentManager(), "closingPicker");
+                break;
+        }
+    }
+
+    public void saveData() {
+
+        String name = null, address = null, description = null, payment = null, timeInfo = null, university = null,
+                cuisineType = null, services = null;
+
+        EditText et;
+        if ((et = (EditText) findViewById(R.id.editName)) != null) {
+            if(!String.valueOf(et.getText()).equals(""))
+                name = String.valueOf(et.getText());
+        }
+        if ((et = (EditText) findViewById(R.id.editAddress)) != null) {
+            if(!String.valueOf(et.getText()).equals(""))
+                address = String.valueOf(et.getText());
+        }
+        if ((et = (EditText) findViewById(R.id.editDescription)) != null) {
+            if(!String.valueOf(et.getText()).equals(""))
+                description = String.valueOf(et.getText());
+        }
+        if ((et = (EditText) findViewById(R.id.editPayment)) != null) {
+            if(!String.valueOf(et.getText()).equals(""))
+                payment = String.valueOf(et.getText());
+        }
+        if ((et = (EditText) findViewById(R.id.editTimeNotes)) != null) {
+            if(!String.valueOf(et.getText()).equals(""))
+                timeInfo = String.valueOf(et.getText());
+        }
+        if ((et = (EditText) findViewById(R.id.editServices)) != null) {
+            if(!String.valueOf(et.getText()).equals(""))
+                services = String.valueOf(et.getText());
+        }
+
+        Spinner spinner;
+        if((spinner = (Spinner) findViewById(R.id.universitySpinner)) != null) {
+            if(!String.valueOf(spinner.getSelectedItem()).equals(""))
+                university = String.valueOf(spinner.getSelectedItem());
+        }
+        if((spinner = (Spinner) findViewById(R.id.cuisineSpinner)) != null) {
+            if(!String.valueOf(spinner.getSelectedItem()).equals(""))
+                cuisineType = String.valueOf(spinner.getSelectedItem());
+        }
+
+        Button b = (Button) findViewById(R.id.openingHour);
+        String timeString = (String) b.getText();
+        Date openingDate = null;
+        if(!timeString.equals("Opening Hour")) {
+            String[] parts = timeString.split(":");
+            String hourString = parts[0];
+            String minuteString = parts[1];
+            int hour = Integer.parseInt(hourString);
+            int minute = Integer.parseInt(minuteString);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR, hour);
+            cal.set(Calendar.MINUTE, minute);
+            openingDate = cal.getTime();
+        }
+
+        b = (Button) findViewById(R.id.closingHour);
+        timeString = (String) b.getText();
+        Date closingDate = null;
+        if(!timeString.equals("Closing Hour")){
+            String[] parts = timeString.split(":");
+            String hourString = parts[0];
+            String minuteString = parts[1];
+            int hour = Integer.parseInt(hourString);
+            int minute = Integer.parseInt(minuteString);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR, hour);
+            cal.set(Calendar.MINUTE, minute);
+            closingDate = cal.getTime();
+        }
+
+        RestaurateurJsonManager dataManager = RestaurateurJsonManager.getInstance();
+        RestaurateurProfile profile = new RestaurateurProfile(name, address, university, cuisineType, description, openingDate, closingDate,
+                timeInfo, payment, services);
+        //dataManager.setRestaurateurProfile(profile);
+    }
 }
