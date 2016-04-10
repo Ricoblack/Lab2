@@ -19,20 +19,20 @@ public class Booking implements Serializable
     private String note;
 
 
-    public static ArrayList<Booking> getData()
-    {
-        ArrayList<Booking> dataList = new ArrayList<>();
-
-        // populate Booking elements (slide 28)
-        Booking newBooking = new Booking();
-        newBooking.setID("24");
-        dataList.add(newBooking);
-        Booking newBooking2 = new Booking();
-        newBooking2.setID("25");
-        dataList.add(newBooking2);
-
-        return dataList;
-    }
+//    public static ArrayList<Booking> getData()
+//    {
+//        ArrayList<Booking> dataList = new ArrayList<>();
+//
+//        // populate Booking elements (slide 28)
+//        Booking newBooking = new Booking();
+//        newBooking.setID("24");
+//        dataList.add(newBooking);
+//        Booking newBooking2 = new Booking();
+//        newBooking2.setID("25");
+//        dataList.add(newBooking2);
+//
+//        return dataList;
+//    }
 
 
     public String getID() {

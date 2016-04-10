@@ -2,7 +2,6 @@ package it.polito.mad.insane.lab2;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +32,7 @@ public class DailyMenu extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Apro activity per inserire nuovo piatto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Apro activity per inserire nuovo piatto (non ancora implementato)", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -45,7 +44,7 @@ public class DailyMenu extends AppCompatActivity {
     {
         // set Adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MenuRecyclerView);
-        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, Dish.getData());
+        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, RestaurateurJsonManager.getInstance().getDishes());
         recyclerView.setAdapter(adapter);
 
         // set Layout Manager
