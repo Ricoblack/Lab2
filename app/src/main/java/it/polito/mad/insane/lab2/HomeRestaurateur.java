@@ -29,8 +29,10 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class HomeRestaurateur extends AppCompatActivity
@@ -41,10 +43,14 @@ public class HomeRestaurateur extends AppCompatActivity
     /* Our Methods */
 
     // Layout Manager
-    private void setUpRecyclerView()
+    private void setUpRecyclerView(int year,int month,int day)
     {
+
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
-        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
+
+        //BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
+        Calendar c=Calendar.getInstance();
+        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
         rV.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -74,9 +80,9 @@ public class HomeRestaurateur extends AppCompatActivity
         }
 
 
-        editGraph();
-
-        setUpRecyclerView();
+       // editGraph();
+        Calendar c=Calendar.getInstance();
+        setUpRecyclerView(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
 
 
     }
@@ -212,4 +218,26 @@ public class HomeRestaurateur extends AppCompatActivity
     }
 
 
+    public void setDate(int year, int month, int day) {
+        //set graph time interval
+        //TODO:set graph time interval
+
+        //set up again recycle view
+        setUpRecyclerView(year,month,day);
+
+    }
+
+    private List<Booking> getBookingsOfDay(int year,int month,int day){
+
+        ArrayList<Booking> bookingList= new ArrayList<Booking>();
+        ArrayList<Booking> totalList= (ArrayList<Booking>) HomeRestaurateur.manager.getBookings();
+        for(int i=0;i<totalList.size();i++){
+            Booking booking=totalList.get(i);
+            Calendar c=booking.getDate_time();
+            if(c.get(Calendar.YEAR)==year && c.get(Calendar.MONTH)==month && c.get(Calendar.DAY_OF_MONTH)==day){
+                bookingList.add(booking);
+            }
+        }
+        return bookingList;
+    }
 }

@@ -1,5 +1,6 @@
 package it.polito.mad.insane.lab2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -24,18 +25,20 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
 {
     private List<Booking> mData; // actual data to be displayed
     private LayoutInflater mInflater;
+    private Context myContext;
 
     public BookingsRecyclerAdapter(Context context, List<Booking> data)
     {
         this.mData = data;
         this.mInflater = LayoutInflater.from(context);
+        this.myContext=context;
     }
 
     @Override
     public BookingsRecyclerAdapter.BookingViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view = mInflater.inflate(R.layout.booking_list_item, parent, false);
-        BookingViewHolder holder = new BookingViewHolder(view);
+        BookingViewHolder holder = new BookingViewHolder(view,myContext);
         return  holder;
     }
 
@@ -56,6 +59,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
     /* Our Holder Class */
     class BookingViewHolder extends RecyclerView.ViewHolder
     {
+        private Context myContext;
         private View cardView;
         private TextView bookingID;
         private TextView bookingTime;
@@ -89,13 +93,18 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
                 i.putExtra("pos",position);
                 v.getContext().startActivity(i);
+                //TODO: mettere finish in modo da terminare l'actitivity, oppure (probabilmente meglio) nella home nell'on resume
+                //o simile ricalcolare i dati
+
+
             }
         };
 
 
-        public BookingViewHolder(View itemView)
+        public BookingViewHolder(View itemView, Context myContext)
         {
             super(itemView);
+            this.myContext=myContext;
             this.cardView = itemView;
             this.imageView = (ImageView) itemView.findViewById(R.id.delete_booking_button);
             this.bookingID = (TextView) itemView.findViewById(R.id.title_card_pren);
