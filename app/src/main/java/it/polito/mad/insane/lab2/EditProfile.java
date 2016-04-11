@@ -152,13 +152,17 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
                     ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
                     try {
+                        // open image given from gallery
                         File f = new File(imgPath);
-
+                        // obtain bitmap from file
                         Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                        // save bitmap into App Internal directory
                         String newImgPath = saveToInternalStorage(b);
 //                        Bitmap finalImg = ProcessImage.processing(imgPath, iv);
 
 //                        loadImageFromStorage();
+
+                        // set URI
                         iv.setImageURI(Uri.parse(newImgPath));
                     }
                     catch (FileNotFoundException e)
@@ -277,7 +281,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 return "";
             }
         }
-        return directory.getAbsolutePath();
+        return mypath.getPath();
     }
 
     private void loadImageFromStorage()
@@ -288,12 +292,14 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         try {
             File f = new File(directory, "cover.jpg");
-
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             ImageView img=(ImageView)findViewById(R.id.coverPhoto);
-            img.setImageBitmap(b);
+            img.setImageURI(Uri.parse(f.getPath()));
+//            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+//            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
+//            img.setImageBitmap(b);
         }
-        catch (FileNotFoundException e)
+//        catch (FileNotFoundException e)
+        catch(Exception e)
         {
             //nothing
             TextView tv = (TextView) findViewById(R.id.editCover);
