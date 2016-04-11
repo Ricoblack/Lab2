@@ -41,5 +41,7 @@
         <item>Ethnic</item>
     </string-array>
     <string name="title_activity_view_booking">ViewBooking</string>
-
+    <string name="take_photo">Take a photo</string>
+    <string name="gallery_image">Choose from gallery</string>
+    <string name="alert_title">Select image</string>
 </resources>

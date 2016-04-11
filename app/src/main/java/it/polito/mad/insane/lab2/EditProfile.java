@@ -457,7 +457,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             closingDate = cal.getTime();
         }
 
-        this.manager = RestaurateurJsonManager.getInstance(this);
+        manager = RestaurateurJsonManager.getInstance(this);
         RestaurateurProfile profile = new RestaurateurProfile(name, address, university, cuisineType, description, openingDate, closingDate,
                 timeInfo, payment, services);
         //manager.setRestaurateurProfile(profile);
