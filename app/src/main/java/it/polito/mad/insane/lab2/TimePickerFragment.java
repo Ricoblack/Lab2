@@ -30,7 +30,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-
         String picker = this.getTag();
         switch (picker){
             case "openingPicker":
