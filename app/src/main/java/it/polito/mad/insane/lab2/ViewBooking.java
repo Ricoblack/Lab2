@@ -37,6 +37,7 @@ public class ViewBooking extends AppCompatActivity {
                     Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
                     i.putExtra("pos",position);
                     v.getContext().startActivity(i);
+                    finish();
                 }
             });
         }
