@@ -97,6 +97,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         //set image if available
         loadImageFromStorage();
+        loadDataFromJson();
     }
 
     @Override
@@ -302,6 +303,82 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 DialogFragment closingFragment = new TimePickerFragment();
                 closingFragment.show(getSupportFragmentManager(), "closingPicker");
                 break;
+        }
+    }
+
+    private void loadDataFromJson() {
+        manager = RestaurateurJsonManager.getInstance(this);
+        RestaurateurProfile profile = manager.getRestaurateurProfile();
+
+        EditText et;
+
+        et = (EditText) findViewById(R.id.editName);
+        if (et != null) {
+            if(profile.getRestaurantName() != null)
+                et.setText(profile.getRestaurantName());
+        }
+        et = (EditText) findViewById(R.id.editAddress);
+        if (et != null) {
+            if(profile.getAddress() != null)
+                et.setText(profile.getAddress());
+        }
+        et = (EditText) findViewById(R.id.editDescription);
+        if (et != null) {
+            if(profile.getDescription() != null)
+                et.setText(profile.getDescription());
+        }
+        et = (EditText) findViewById(R.id.editTimeNotes);
+        if (et != null) {
+            if(profile.getTimeInfo() != null)
+                et.setText(profile.getTimeInfo());
+        }
+        et = (EditText) findViewById(R.id.editPayment);
+        if (et != null) {
+            if(profile.getPaymentMethod() != null)
+                et.setText(profile.getPaymentMethod());
+        }
+        et = (EditText) findViewById(R.id.editServices);
+        if (et != null) {
+            if(profile.getAdditionalServices() != null)
+                et.setText(profile.getAdditionalServices());
+        }
+
+        Spinner spinner;
+        spinner = (Spinner) findViewById(R.id.universitySpinner);
+        if(spinner != null){
+            String[] universities = getResources().getStringArray(R.array.university_array);
+            for(int i=0; i<universities.length; i++){
+                if (universities[i].equals(profile.getNearbyUniversity()))
+                    spinner.setSelection(i);
+            }
+        }
+        spinner = (Spinner) findViewById(R.id.cuisineSpinner);
+        if(spinner != null){
+            String[] cuisines = getResources().getStringArray(R.array.cuisine_array);
+            for(int i=0; i<cuisines.length; i++){
+                if (cuisines[i].equals(profile.getCuisineType()))
+                    spinner.setSelection(i);
+            }
+        }
+
+        Button button;
+        button = (Button) findViewById(R.id.openingHour);
+        if(button != null){
+            Date date = profile.getOpeningHour();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int hourOfDay = cal.get(Calendar.HOUR);
+            int minute = cal.get(Calendar.MINUTE);
+            button.setText(String.format("%d:%d", hourOfDay, minute));
+        }
+        button = (Button) findViewById(R.id.closingHour);
+        if(button != null){
+            Date date = profile.getClosingHour();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int hourOfDay = cal.get(Calendar.HOUR);
+            int minute = cal.get(Calendar.MINUTE);
+            button.setText(String.format("%d:%d", hourOfDay, minute));
         }
     }
 

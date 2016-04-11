@@ -3,7 +3,6 @@ package it.polito.mad.insane.lab2;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,20 +18,15 @@ import android.widget.Toast;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
 import java.text.NumberFormat;
-import java.util.Calendar;
-import java.util.Date;
+
 
 public class HomeRestaurateur extends AppCompatActivity
 {
@@ -88,6 +82,7 @@ public class HomeRestaurateur extends AppCompatActivity
         series.setTitle("Bookings");
         series.setDrawValuesOnTop(true);
 
+
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = HomeRestaurateur.this.getTheme();
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
@@ -96,6 +91,7 @@ public class HomeRestaurateur extends AppCompatActivity
         graph.getGridLabelRenderer().setPadding(16);
 
         graph.getViewport().setScrollable(true);
+        series.setColor(color);
 
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override

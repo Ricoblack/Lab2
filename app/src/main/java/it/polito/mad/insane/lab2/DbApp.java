@@ -53,7 +53,6 @@ public class DbApp {
 
     public void fillDbApp(){
 
-
         //CARICAMENTO DATI PROFILE
         this.profile=new RestaurateurProfile("Pizza-Pazza","corso duca degli abruzzi, 10","PoliTo","Pizza","Venite a provare la pizza più gustosa di Torino",new Date(),new Date(),"Chiusi la domenica","Bancomat","Wifi-free");
 
