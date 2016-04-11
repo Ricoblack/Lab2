@@ -1,8 +1,11 @@
 package it.polito.mad.insane.lab2;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +29,8 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
 import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class HomeRestaurateur extends AppCompatActivity
@@ -68,31 +73,34 @@ public class HomeRestaurateur extends AppCompatActivity
     }
 
     private void editGraph() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = HomeRestaurateur.this.getTheme();
+        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+        int colorAccent = typedValue.data;
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        int colorPrimary = typedValue.data;
+        theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        int colorPrimaryDark = typedValue.data;
+
+
         GraphView graph = (GraphView) findViewById(R.id.graph);
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
                 new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6),
-                new DataPoint(5, 1)
+                new DataPoint(21, 2),
+                new DataPoint(16, 6),
+                new DataPoint(18, 1),
+                new DataPoint(17,6),
+                new DataPoint(20, 2)
         });
         graph.addSeries(series);
         series.setSpacing(20);
         series.setTitle("Bookings");
         series.setDrawValuesOnTop(true);
-
-
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = HomeRestaurateur.this.getTheme();
-        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        int color = typedValue.data;
-        series.setValuesOnTopColor(color);
-        graph.getGridLabelRenderer().setPadding(16);
-
-        graph.getViewport().setScrollable(true);
-        series.setColor(color);
-
+        series.setColor(colorPrimary);
+        series.setValuesOnTopColor(colorPrimaryDark);
+        series.setValuesOnTopSize(50);
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
@@ -100,60 +108,43 @@ public class HomeRestaurateur extends AppCompatActivity
             }
         });
 
-        graph.getGridLabelRenderer().setHorizontalLabelsColor(color);
-        graph.getGridLabelRenderer().setVerticalLabelsColor(color);
+        graph.getViewport().setXAxisBoundsManual(true);
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        graph.getViewport().setMinX(hour);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            graph.getGridLabelRenderer().setNumHorizontalLabels(6+1);
+            graph.getViewport().setMaxX(hour + 6);
+        }
+        else {
+            graph.getGridLabelRenderer().setNumHorizontalLabels(12+1);
+            graph.getViewport().setMaxX(hour + 12);
+        }
 
-        graph.getGridLabelRenderer().setGridColor(color); //NON FUNZIONA
+        graph.getLegendRenderer().setVisible(true);
+        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        graph.getLegendRenderer().setTextColor(Color.WHITE);
+//        graph.getLegendRenderer().setBackgroundColor();
+//        graph.getLegendRenderer().setTextSize();
+//        graph.getLegendRenderer().setWidth();
+//        graph.getLegendRenderer().setBackgroundColor(color);
+
+        graph.getGridLabelRenderer().setPadding(20);
+
+        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
 
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(0);
         nf.setMaximumIntegerDigits(2);
-
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(nf, nf));
-
-//        Calendar c = Calendar.getInstance();
-//        SimpleDateFormat df = new SimpleDateFormat("dd-MM");
-//        String formattedDate = df.format(c.getTime());
-//        graph.setTitle(formattedDate);
-//        graph.setTitleTextSize(100);
-
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0); //TODO settare l'orario di apertura
-        graph.getViewport().setMaxX(12); //TODO settare l'orario di chiusura
-        graph.getViewport().setScrollable(true);
-
-//        // use static labels for horizontal and vertical labels
-//        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-//        staticLabelsFormatter.setHorizontalLabels(new String[]{"old", "middle", "new"});
-//        staticLabelsFormatter.setVerticalLabels(new String[]{"low", "middle", "high"});
-//        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
-
-//        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-//            @Override
-//            public String formatLabel(double value, boolean isValueX) {
-//                if (isValueX) {
-//                    // show normal x values
-//                    return super.formatLabel(value, isValueX);
-//                } else {
-//                    // show currency for y values
-//                    return super.formatLabel(value, isValueX) + " €";
-//                }
-//            }
-//        });
-
+//        graph.getViewport().setScrollable(true);
+//        graph.getGridLabelRenderer().setHorizontalLabelsColor(colorPrimary);
+//        graph.getGridLabelRenderer().setVerticalLabelsColor(colorPrimary);
 //        graph.getGridLabelRenderer().setVerticalAxisTitle("Bookings");
 //        graph.getGridLabelRenderer().setHorizontalAxisTitle("Hours");
 
-        graph.getLegendRenderer().setVisible(true);
-        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-//        graph.getLegendRenderer().setBackgroundColor();
-
-
-        graph.getLegendRenderer().setTextColor(Color.WHITE);
-//        graph.getLegendRenderer().setTextSize();
-//        graph.getLegendRenderer().setWidth();
-//        graph.getLegendRenderer().setBackgroundColor(color);
+        graph.getGridLabelRenderer().setGridColor(0xFFFAFAFA); //background theme color
+        graph.getGridLabelRenderer().reloadStyles();
     }
 
     public void showDatePickerDialog(View v)

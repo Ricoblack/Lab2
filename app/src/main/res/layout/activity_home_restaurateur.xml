@@ -15,14 +15,11 @@
 
         <include layout="@layout/toolbar"/>
 
-
-
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="16dp"
              />
 
         <android.support.v7.widget.RecyclerView
