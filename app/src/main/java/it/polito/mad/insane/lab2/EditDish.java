@@ -1,15 +1,19 @@
 package it.polito.mad.insane.lab2;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +26,7 @@ public class EditDish extends AppCompatActivity {
     EditText dishDesc;
     EditText dishQty;
     EditText dishPrice;
-    //ImageView dishPhoto;
+    ImageView dishPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -103,8 +107,15 @@ public class EditDish extends AppCompatActivity {
         this.dishDesc = (EditText) EditDish.this.findViewById(R.id.edit_dish_description);
         this.dishQty = (EditText) EditDish.this.findViewById(R.id.edit_dish_availab_qty);
         this.dishPrice = (EditText) EditDish.this.findViewById(R.id.edit_dish_price);
-        //this.dishPhoto = (ImageView) EditDish.this.findViewById(R.id.dishPhoto);
-
+        this.dishPhoto = (ImageView) EditDish.this.findViewById(R.id.dishPhoto);
+        if(dishPhoto != null) {
+            dishPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dispatchChooseDialog();
+                }
+            });
+        }
         this.currentDish = (Dish)getIntent().getSerializableExtra("Dish");
         if(this.currentDish != null)
         {
@@ -130,5 +141,45 @@ public class EditDish extends AppCompatActivity {
 
     }
 
+    public void dispatchChooseDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditDish.this);
+
+        //Create dialog entries
+        final String [] items = new String[] {EditDish.this.getResources().getString(R.string.take_photo),
+                EditDish.this.getResources().getString(R.string.gallery_image)};
+        final Integer[] icons = new Integer[] {R.drawable.ic_camera_alt_black_24dp, R.drawable.ic_collections_black_24dp,};
+        ListAdapter adapter = new DialogArrayAdapter(EditDish.this, items, icons);
+
+        builder.setTitle(EditDish.this.getResources().getString(R.string.alert_title))
+                .setAdapter(adapter, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case (0):
+                                takePhotoFromCamera();
+                                break;
+                            case (1):
+                                takePhotoFromGallery();
+                                break;
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void takePhotoFromCamera() {
+        Toast.makeText(EditDish.this, "Camera", Toast.LENGTH_SHORT).show();
+    }
+
+    private void takePhotoFromGallery() {
+        Toast.makeText(EditDish.this, "Gallery", Toast.LENGTH_SHORT).show();
+    }
 
 }
