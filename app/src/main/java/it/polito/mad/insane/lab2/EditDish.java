@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 public class EditDish extends AppCompatActivity {
 
+    private static final int REQUEST_TAKE_PHOTO = 280;
+
     private static RestaurateurJsonManager manager = null;
     Dish currentDish = null;
     EditText dishID;

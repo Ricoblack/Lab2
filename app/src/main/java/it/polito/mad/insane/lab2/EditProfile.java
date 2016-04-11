@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -39,7 +40,7 @@ import java.util.List;
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static RestaurateurJsonManager manager = null;
-    private static final int REQUEST_IMAGE_GALLERY = 1;
+    private static final int REQUEST_IMAGE_GALLERY = 581;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,13 +150,20 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                         cursor.close();
                     }
 
-                    Bitmap finalImg = processImg(imgPath);
-                    ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
-                    if(btnImg != null) {
-                        btnImg.setImageBitmap(finalImg);
-                    }
-                    saveToInternalStorage(finalImg);
+                    ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
+                    try {
+                        File f = new File(imgPath);
 
+                        Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                        String newImgPath = saveToInternalStorage(b);
+//                        Bitmap finalImg = ProcessImage.processing(imgPath, iv);
+
+//                        loadImageFromStorage();
+                        iv.setImageURI(Uri.parse(newImgPath));
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                    }
                 }
                 break;
             default:
@@ -164,90 +172,90 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
-    private Bitmap processImg(String pathToSave) {
-            Bitmap resultImg;
-
-            // decode in Bitmap
-            resultImg = decodePhoto(pathToSave);
-
-            resultImg = rotateImg(resultImg, pathToSave);
-
-            return resultImg;
-    }
-
-    private Bitmap rotateImg(Bitmap img, String imgPath) {
-        Bitmap resultImg = null;
-        int rotationInDegrees;
-        try
-        {
-            ExifInterface exif = new ExifInterface(imgPath);
-
-            // find the current rotation
-            int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-            // Convert exif rotation to degrees:
-            switch(rotation)
-            {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    rotationInDegrees = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    rotationInDegrees = 180;
-                    break;
-                case  ExifInterface.ORIENTATION_ROTATE_270:
-                    rotationInDegrees = 270;
-                    break;
-                default:
-                    rotationInDegrees = 0;
-                    break;
-            }
-
-            // use the actual rotation of the image as a reference point to rotate the image using a Matrix
-            Matrix matrix = new Matrix();
-            if (rotation != 0f) // 0 float
-                matrix.preRotate(rotationInDegrees);
-
-
-            // create the new rotate img
-            resultImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(),img.getHeight(), matrix, true);
-
-        } catch (IOException e)
-        {
-            Toast.makeText(this, "Impossible to rotate the image", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-        return resultImg;
-    }
-
-    private Bitmap decodePhoto(String pathToSave) {
-        int scaleFactor = 1, targetH = 0, targetW = 0;
-
-        // Get the dimensions of the View
-        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
-
-        if(btnImg != null) {
-            targetH = btnImg.getHeight();
-            targetW = btnImg.getWidth();
-        }
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(pathToSave, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        if(photoW > targetW || photoH > targetH)
-            // Compute the scaling ratio to avoid distortion
-            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-
-        return BitmapFactory.decodeFile(pathToSave, bmOptions);
-    }
+//    private Bitmap processImg(String pathToSave) {
+//            Bitmap resultImg;
+//
+//            // decode in Bitmap
+//            resultImg = decodePhoto(pathToSave);
+//
+//            resultImg = rotateImg(resultImg, pathToSave);
+//
+//            return resultImg;
+//    }
+//
+//    private Bitmap rotateImg(Bitmap img, String imgPath) {
+//        Bitmap resultImg = null;
+//        int rotationInDegrees;
+//        try
+//        {
+//            ExifInterface exif = new ExifInterface(imgPath);
+//
+//            // find the current rotation
+//            int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+//
+//            // Convert exif rotation to degrees:
+//            switch(rotation)
+//            {
+//                case ExifInterface.ORIENTATION_ROTATE_90:
+//                    rotationInDegrees = 90;
+//                    break;
+//                case ExifInterface.ORIENTATION_ROTATE_180:
+//                    rotationInDegrees = 180;
+//                    break;
+//                case  ExifInterface.ORIENTATION_ROTATE_270:
+//                    rotationInDegrees = 270;
+//                    break;
+//                default:
+//                    rotationInDegrees = 0;
+//                    break;
+//            }
+//
+//            // use the actual rotation of the image as a reference point to rotate the image using a Matrix
+//            Matrix matrix = new Matrix();
+//            if (rotation != 0f) // 0 float
+//                matrix.preRotate(rotationInDegrees);
+//
+//
+//            // create the new rotate img
+//            resultImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(),img.getHeight(), matrix, true);
+//
+//        } catch (IOException e)
+//        {
+//            Toast.makeText(this, "Impossible to rotate the image", Toast.LENGTH_LONG).show();
+//            e.printStackTrace();
+//        }
+//        return resultImg;
+//    }
+//
+//    private Bitmap decodePhoto(String pathToSave) {
+//        int scaleFactor = 1, targetH = 0, targetW = 0;
+//
+//        // Get the dimensions of the View
+//        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
+//
+//        if(btnImg != null) {
+//            targetH = btnImg.getHeight();
+//            targetW = btnImg.getWidth();
+//        }
+//
+//        // Get the dimensions of the bitmap
+//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+//        bmOptions.inJustDecodeBounds = true;
+//        BitmapFactory.decodeFile(pathToSave, bmOptions);
+//        int photoW = bmOptions.outWidth;
+//        int photoH = bmOptions.outHeight;
+//
+//        // Determine how much to scale down the image
+//        if(photoW > targetW || photoH > targetH)
+//            // Compute the scaling ratio to avoid distortion
+//            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+//
+//        // Decode the image file into a Bitmap sized to fill the View
+//        bmOptions.inJustDecodeBounds = false;
+//        bmOptions.inSampleSize = scaleFactor;
+//
+//        return BitmapFactory.decodeFile(pathToSave, bmOptions);
+//    }
 
     private String saveToInternalStorage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
@@ -259,7 +267,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 50, fos);
         } catch (Exception e) {
             return "";
         } finally {
@@ -280,6 +288,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         try {
             File f = new File(directory, "cover.jpg");
+
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             ImageView img=(ImageView)findViewById(R.id.coverPhoto);
             img.setImageBitmap(b);
