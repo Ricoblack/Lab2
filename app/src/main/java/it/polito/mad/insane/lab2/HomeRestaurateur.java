@@ -103,7 +103,10 @@ public class HomeRestaurateur extends AppCompatActivity
                 new DataPoint(17,6),
                 new DataPoint(20, 2)
         });
-        graph.addSeries(series);
+
+        if (graph != null) {
+            graph.addSeries(series);
+        }
         series.setSpacing(20);
         series.setTitle("Bookings");
         series.setDrawValuesOnTop(true);

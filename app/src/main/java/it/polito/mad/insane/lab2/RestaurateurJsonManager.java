@@ -103,7 +103,6 @@ public class RestaurateurJsonManager {
     public DbApp getDbApp(){
         Gson gson = new Gson();
 
-
             ContextWrapper cw = new ContextWrapper(myContext);
             // path to /data/data/yourapp/app_data/jsonDir
             File directory = cw.getDir("jsonDir", Context.MODE_PRIVATE);
@@ -142,6 +141,9 @@ public class RestaurateurJsonManager {
         return this.dbApp.getProfile();
     }
 
+    public void setRestaurateurProfile(RestaurateurProfile profile){
+        dbApp.setProfile(profile);
+    }
 
     /**
      * Created by carlocaramia on 09/04/16.

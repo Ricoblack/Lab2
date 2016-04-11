@@ -382,7 +382,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             Date date = profile.getOpeningHour();
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-            int hourOfDay = cal.get(Calendar.HOUR);
+            int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
             int minute = cal.get(Calendar.MINUTE);
             button.setText(String.format("%d:%d", hourOfDay, minute));
         }
@@ -391,7 +391,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             Date date = profile.getClosingHour();
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-            int hourOfDay = cal.get(Calendar.HOUR);
+            int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
             int minute = cal.get(Calendar.MINUTE);
             button.setText(String.format("%d:%d", hourOfDay, minute));
         }
@@ -438,7 +438,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         if((spinner = (Spinner) findViewById(R.id.cuisineSpinner)) != null) {
             String[] cuisines = getResources().getStringArray(R.array.cuisine_array);
             if(!String.valueOf(spinner.getSelectedItem()).equals(cuisines[0])) {
-                university = String.valueOf(spinner.getSelectedItem());
+                cuisineType = String.valueOf(spinner.getSelectedItem());
             }
         }
 
@@ -452,7 +452,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             int hour = Integer.parseInt(hourString);
             int minute = Integer.parseInt(minuteString);
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR, hour);
+            cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
             openingDate = cal.getTime();
         }
@@ -467,7 +467,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             int hour = Integer.parseInt(hourString);
             int minute = Integer.parseInt(minuteString);
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR, hour);
+            cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
             closingDate = cal.getTime();
         }
@@ -475,7 +475,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         manager = RestaurateurJsonManager.getInstance(this);
         RestaurateurProfile profile = new RestaurateurProfile(name, address, university, cuisineType, description, openingDate, closingDate,
                 timeInfo, payment, services);
-        //manager.setRestaurateurProfile(profile);
+        manager.setRestaurateurProfile(profile);
+        manager.saveDbApp();
 
         Toast.makeText(this, "Profile data updated", Toast.LENGTH_LONG).show();
     }
