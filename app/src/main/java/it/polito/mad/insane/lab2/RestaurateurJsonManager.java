@@ -49,6 +49,7 @@ public class RestaurateurJsonManager {
         else {
             //recupero json
             this.dbApp=getDbApp();
+
         }
 
     }
@@ -229,7 +230,7 @@ public class RestaurateurJsonManager {
             newBooking2.setID("2");
             ArrayList<Dish> elenco2=new ArrayList<Dish>();
             elenco2.add(this.dishes.get(3));
-            newBooking.setDishes(elenco2);
+            newBooking2.setDishes(elenco2);
             bookings.add(newBooking2);
 
 
