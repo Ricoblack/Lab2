@@ -36,6 +36,7 @@ import java.util.Date;
 public class HomeRestaurateur extends AppCompatActivity
 {
     private static RestaurateurJsonManager manager = null;
+    int position;
 
     /* Our Methods */
 
@@ -64,6 +65,14 @@ public class HomeRestaurateur extends AppCompatActivity
         setContentView(R.layout.activity_home_restaurateur);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //caso in cui debba essere cancellata una eccezione faccio il refresh della home
+        position = getIntent().getIntExtra("pos",-1);
+        if( position != -1 ){
+            manager.getBookings().remove(position);
+            manager.saveDbApp();
+        }
+
 
         editGraph();
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
         private TextView bookingNote;
         private int position;
         private Booking currentBooking;
+        private ImageView imageView;
 
         private android.view.View.OnClickListener cardViewListener = new View.OnClickListener()
         {
@@ -76,17 +78,35 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             }
         };
 
+        private android.view.View.OnClickListener imageViewListener = new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                //Toast.makeText(v.getContext(),"La posizione è "+Integer.toString(position), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
+                i.putExtra("pos",position);
+                v.getContext().startActivity(i);
+            }
+        };
+
+
         public BookingViewHolder(View itemView)
         {
             super(itemView);
             this.cardView = itemView;
+            this.imageView = (ImageView) itemView.findViewById(R.id.delete_booking_button);
             this.bookingID = (TextView) itemView.findViewById(R.id.title_card_pren);
             this.bookingTime = (TextView) itemView.findViewById(R.id.hour);
             this.bookingDishNum = (TextView) itemView.findViewById(R.id.num_booking);
-            this.bookingNote = (TextView) itemView.findViewById(R.id.note_booking);
+            //this.bookingNote = (TextView) itemView.findViewById(R.id.note_booking);
 
             // set the onClickListener to the View
             this.cardView.setOnClickListener(cardViewListener);
+
+            //set the onClickListner to the ImgView
+            this.imageView.setOnClickListener(imageViewListener);
 
         }
 
@@ -97,7 +117,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             String date = dateFormat.format(current.getDate_time().getTime());
             this.bookingTime.setText(date);
             this.bookingDishNum.setText(Integer.toString(current.getDishes().size()));
-            this.bookingNote.setText(current.getNote());
+            //this.bookingNote.setText(current.getNote());
             this.position = position;
             this.currentBooking = current;
 

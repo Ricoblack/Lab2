@@ -16,12 +16,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:padding="5dp"
+            android:layout_width="0dp"
             android:layout_height="70dp"
+            android:layout_weight="2.5"
+            android:padding="5dp"
             >
 
             <TextView
@@ -95,20 +96,22 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            >
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.5"
+            android:padding="5dp">
 
-            <TextView
-                android:id="@+id/note_booking"
+            <ImageView
+                android:id="@+id/delete_booking_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sono allergico ai cuolli di cazzo e a mobile application più che mai "
-                android:textSize="12sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_check_circle_white_24dp"
                 />
 
-
         </RelativeLayout>
+
 
     </LinearLayout>
 
