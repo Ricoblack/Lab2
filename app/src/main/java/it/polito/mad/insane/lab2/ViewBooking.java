@@ -1,5 +1,6 @@
 package it.polito.mad.insane.lab2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ public class ViewBooking extends AppCompatActivity {
     private Booking currentBooking = null;
     TextView note = null;
     TextView data = null;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,20 @@ public class ViewBooking extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (fab != null){
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
+                    i.putExtra("pos",position);
+                    v.getContext().startActivity(i);
+                }
+            });
+        }
+
         this.currentBooking = (Booking) getIntent().getSerializableExtra("Booking");
+        this.position = getIntent().getIntExtra("pos",-1);
         this.note = (TextView)findViewById(R.id.note_dish);
         this.data = (TextView)findViewById(R.id.date_booking);
 
@@ -36,6 +51,7 @@ public class ViewBooking extends AppCompatActivity {
         this.note.setText(this.currentBooking.getNote());
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
         this.data.setText(dateFormat.format(this.currentBooking.getDate_time().getTime()));
+
 
 
         // initialize Recycler View

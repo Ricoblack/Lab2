@@ -74,6 +74,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(v.getContext(),ViewBooking.class);
                 i.putExtra("Booking", BookingViewHolder.this.currentBooking);
+                i.putExtra("pos",position);
                 v.getContext().startActivity(i);
             }
         };
