@@ -56,6 +56,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#ffffff"
+                android:layout_marginRight="12dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 />
@@ -95,6 +96,11 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            />
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="70dp"
