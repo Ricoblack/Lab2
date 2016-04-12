@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by miche on 08/04/2016.
  */
-public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAdapter.DishesViewHolder>
+public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAdapter.DishesViewHolder> implements Serializable
 {
     private List<Dish> mData; // actual data to be displayed
     private LayoutInflater mInflater;
@@ -85,6 +86,7 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(v.getContext(),EditDish.class);
                 i.putExtra("Dish", DishesViewHolder.this.currentDish);
+//                i.putExtra("Adapter", DishesRecyclerAdapter.this);
                 v.getContext().startActivity(i);
             }
         };

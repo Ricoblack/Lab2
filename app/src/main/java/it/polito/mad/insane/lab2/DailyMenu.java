@@ -1,22 +1,17 @@
 package it.polito.mad.insane.lab2;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.Toast;
 
 public class DailyMenu extends AppCompatActivity {
+    private DishesRecyclerAdapter adapter = null;
 
     static private RestaurateurJsonManager manager = null;
     /* Standard Methods */
@@ -38,17 +33,29 @@ public class DailyMenu extends AppCompatActivity {
 
         // set Button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_dish);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // open activity EditDish
-                Intent i = new Intent(view.getContext(),EditDish.class);
-                view.getContext().startActivity(i);
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // open activity EditDish
+                    Intent i = new Intent(view.getContext(),EditDish.class);
+//                    i.putExtra("Adapter",DailyMenu.this.adapter);
+                    view.getContext().startActivity(i);
 
-            }
-        });
+                }
+            });
+        }
 
     }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if(this.adapter!=null)
+            this.adapter.notifyDataSetChanged();
+    }
+
 
     /* Our Methods */
 
@@ -57,8 +64,10 @@ public class DailyMenu extends AppCompatActivity {
     {
         // set Adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MenuRecyclerView);
-        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, DailyMenu.manager.getDishes());
-        recyclerView.setAdapter(adapter);
+        DailyMenu.this.adapter = new DishesRecyclerAdapter(this, DailyMenu.manager.getDishes());
+        if (recyclerView != null) {
+            recyclerView.setAdapter(DailyMenu.this.adapter);
+
 
         // set Layout Manager
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -67,6 +76,7 @@ public class DailyMenu extends AppCompatActivity {
 
         // set Animator
         recyclerView.setItemAnimator(new DefaultItemAnimator()); // default animations
+        }
     }
 
 }

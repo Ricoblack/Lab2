@@ -44,4 +44,7 @@
     <string name="take_photo">Take a photo</string>
     <string name="gallery_image">Choose from gallery</string>
     <string name="alert_title">Select image</string>
+    <string name="error_save_dish">Ops! something goes wrong: dish info not saved</string>
+    <string name="error_some_empty_fill">All field must be filled</string>
+    <string name="error_processing_img">Ops! something goes wrong while process img</string>
 </resources>
