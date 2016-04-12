@@ -56,7 +56,9 @@ public class DailyMenu extends AppCompatActivity {
         super.onResume();
         if(this.adapter!=null)
             this.adapter.notifyDataSetChanged();
+        setupDishesRecyclerView();
     }
+
 
 
     /* Our Methods */
