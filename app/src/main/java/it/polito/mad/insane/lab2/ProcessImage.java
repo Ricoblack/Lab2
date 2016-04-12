@@ -16,15 +16,55 @@ import java.io.IOException;
 public class ProcessImage {
 
 
-    public static Bitmap processing(String pathToSave, ImageView btnImg) {
+    public static Bitmap processing(String pathToSave) {
         Bitmap resultImg;
 
         // decode in Bitmap
-        resultImg = ProcessImage.decodePhoto(pathToSave, btnImg);
+        resultImg = ProcessImage.decodePhoto(pathToSave);
 
-        resultImg = ProcessImage.rotateImg(resultImg, pathToSave);
+        //resultImg = ProcessImage.rotateImg(resultImg, pathToSave);
 
         return resultImg;
+    }
+
+    public static Bitmap decodePhoto(String pathToSave) {
+        int scaleFactor = 1, targetH = 0, targetW = 0;
+
+//        if(btnImg != null) {
+//            targetH = btnImg.getHeight();
+//            targetW = btnImg.getWidth();
+//        }
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathToSave, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        int biggerDim = Math.max(photoH, photoW);
+        //int lowerDim = Math.min(photoH, photoW);
+        if (biggerDim > 1024){
+            scaleFactor = biggerDim/1024;
+//            scaleFactor = lowerDim/1024;
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+
+            Bitmap result = BitmapFactory.decodeFile(pathToSave, bmOptions);
+            return result;
+        }
+        else
+            return null;
+
+
+
+        // Determine how much to scale down the image
+//        if(photoW > targetW || photoH > targetH)
+//            // Compute the scaling ratio to avoid distortion
+//            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+
     }
 
     public static Bitmap rotateImg(Bitmap img, String imgPath) {
@@ -70,33 +110,6 @@ public class ProcessImage {
             return null;
         }
         return resultImg;
-    }
-
-    public static Bitmap decodePhoto(String pathToSave, ImageView btnImg) {
-        int scaleFactor = 1, targetH = 0, targetW = 0;
-
-        if(btnImg != null) {
-            targetH = btnImg.getHeight();
-            targetW = btnImg.getWidth();
-        }
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(pathToSave, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        if(photoW > targetW || photoH > targetH)
-            // Compute the scaling ratio to avoid distortion
-            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-
-        return BitmapFactory.decodeFile(pathToSave, bmOptions);
     }
 
 }

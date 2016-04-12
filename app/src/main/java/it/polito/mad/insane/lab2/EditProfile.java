@@ -7,9 +7,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,7 +27,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -39,6 +35,7 @@ import java.util.List;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private static final int MY_GL_MAX_TEXTURE_SIZE = 1024;
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
 
@@ -150,24 +147,12 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                         cursor.close();
                     }
 
-                    ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
                     try {
-                        // open image given from gallery
-                        File f = new File(imgPath);
-                        // obtain bitmap from file
-                        Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-                        // save bitmap into App Internal directory
-                        String newImgPath = saveToInternalStorage(b);
-//                        Bitmap finalImg = ProcessImage.processing(imgPath, iv);
-
-//                        loadImageFromStorage();
-
-                        // set URI
-                        iv.setImageURI(Uri.parse(newImgPath));
+                        processImg(imgPath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    catch (FileNotFoundException e)
-                    {
-                    }
+
                 }
                 break;
             default:
@@ -176,112 +161,51 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
-//    private Bitmap processImg(String pathToSave) {
-//            Bitmap resultImg;
-//
-//            // decode in Bitmap
-//            resultImg = decodePhoto(pathToSave);
-//
-//            resultImg = rotateImg(resultImg, pathToSave);
-//
-//            return resultImg;
-//    }
-//
-//    private Bitmap rotateImg(Bitmap img, String imgPath) {
-//        Bitmap resultImg = null;
-//        int rotationInDegrees;
-//        try
-//        {
-//            ExifInterface exif = new ExifInterface(imgPath);
-//
-//            // find the current rotation
-//            int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//
-//            // Convert exif rotation to degrees:
-//            switch(rotation)
-//            {
-//                case ExifInterface.ORIENTATION_ROTATE_90:
-//                    rotationInDegrees = 90;
-//                    break;
-//                case ExifInterface.ORIENTATION_ROTATE_180:
-//                    rotationInDegrees = 180;
-//                    break;
-//                case  ExifInterface.ORIENTATION_ROTATE_270:
-//                    rotationInDegrees = 270;
-//                    break;
-//                default:
-//                    rotationInDegrees = 0;
-//                    break;
-//            }
-//
-//            // use the actual rotation of the image as a reference point to rotate the image using a Matrix
-//            Matrix matrix = new Matrix();
-//            if (rotation != 0f) // 0 float
-//                matrix.preRotate(rotationInDegrees);
-//
-//
-//            // create the new rotate img
-//            resultImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(),img.getHeight(), matrix, true);
-//
-//        } catch (IOException e)
-//        {
-//            Toast.makeText(this, "Impossible to rotate the image", Toast.LENGTH_LONG).show();
-//            e.printStackTrace();
-//        }
-//        return resultImg;
-//    }
-//
-//    private Bitmap decodePhoto(String pathToSave) {
-//        int scaleFactor = 1, targetH = 0, targetW = 0;
-//
-//        // Get the dimensions of the View
-//        ImageView btnImg = (ImageView) findViewById(R.id.coverPhoto);
-//
-//        if(btnImg != null) {
-//            targetH = btnImg.getHeight();
-//            targetW = btnImg.getWidth();
-//        }
-//
-//        // Get the dimensions of the bitmap
-//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-//        bmOptions.inJustDecodeBounds = true;
-//        BitmapFactory.decodeFile(pathToSave, bmOptions);
-//        int photoW = bmOptions.outWidth;
-//        int photoH = bmOptions.outHeight;
-//
-//        // Determine how much to scale down the image
-//        if(photoW > targetW || photoH > targetH)
-//            // Compute the scaling ratio to avoid distortion
-//            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-//
-//        // Decode the image file into a Bitmap sized to fill the View
-//        bmOptions.inJustDecodeBounds = false;
-//        bmOptions.inSampleSize = scaleFactor;
-//
-//        return BitmapFactory.decodeFile(pathToSave, bmOptions);
-//    }
+    /**
+     * Method that copy the original img in the app internal directory and compress it
+     * @param imgPath
+     * @return the URI of the new Img
+     * @throws Exception
+     */
+    private Uri processImg(String imgPath) throws Exception
+    {
+        // open image given from gallery
+        File f = new File(imgPath);
 
-    private String saveToInternalStorage(Bitmap bitmapImage){
+        // obtain bitmap from original file
+        Bitmap bitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+
+        /** save bitmap into App Internal directory creating a compressed copy of it **/
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        // path to /data/data/yourapp/app_data/imageDir
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        // Create imageDir
-        File mypath = new File(directory,"cover.jpg");
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mypath);
-            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 50, fos);
-        } catch (Exception e) {
-            return "";
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                return "";
-            }
+        // path: /data/data/<my_app>/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+        // Compress and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
+        File myImg = new File(directory, "restaurant_cover.jpg");
+        FileOutputStream fos = new FileOutputStream(myImg);
+
+        /** scale photo **/
+        int imgHeight = bitmapImg.getHeight();
+        int imgWidth = bitmapImg.getWidth();
+        int newImgHeight = imgHeight;
+        int newImgWidth = imgWidth;
+        int maxValue = Math.max(imgHeight,imgWidth);
+        if(maxValue > MY_GL_MAX_TEXTURE_SIZE)
+        {
+            double scaleFactor = (double) maxValue / (double) MY_GL_MAX_TEXTURE_SIZE;
+            newImgHeight = (int) (imgHeight / scaleFactor);
+            newImgWidth = (int) (imgWidth / scaleFactor);
         }
-        return mypath.getPath();
+
+        Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(bitmapImg, newImgWidth ,newImgHeight, false);
+        bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        fos.close();
+
+        ImageView tv = (ImageView) findViewById(R.id.coverPhoto);
+        tv.setImageBitmap(bitmapImgScaled);
+
+        return Uri.parse(myImg.getPath());
     }
 
     private void loadImageFromStorage()
@@ -291,20 +215,20 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
         try {
-            File f = new File(directory, "cover.jpg");
-            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
-            img.setImageURI(Uri.parse(f.getPath()));
-//            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-//            ImageView img=(ImageView)findViewById(R.id.coverPhoto);
-//            img.setImageBitmap(b);
+            File f = new File(directory, "restaurant_cover.jpg");
+            if(!f.exists()){
+                throw new FileNotFoundException();
+            }
+            ImageView img = (ImageView)findViewById(R.id.coverPhoto);
+            if (img != null)
+                img.setImageURI(Uri.parse(f.getPath()));
         }
-//        catch (FileNotFoundException e)
-        catch(Exception e)
+        catch (FileNotFoundException e)
         {
-            //nothing
             TextView tv = (TextView) findViewById(R.id.editCover);
-            tv.setVisibility(View.GONE);
-            return;
+            if (tv != null) {
+                tv.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -480,5 +404,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         Toast.makeText(this, "Profile data updated", Toast.LENGTH_LONG).show();
         finish();
+
     }
 }

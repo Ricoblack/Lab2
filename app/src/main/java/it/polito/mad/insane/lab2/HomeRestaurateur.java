@@ -91,7 +91,9 @@ public class HomeRestaurateur extends AppCompatActivity
         }
         //creo l'oggetto BarGraphSeries per avere un istogramma
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(graphBookings);
+
         //aggiungo la serie al grafico in modo da visualizzarla
+        graph.getSeries().clear();
         graph.addSeries(series);
 
         editGraph(series); //modifica l'aspetto visivo del grafico
