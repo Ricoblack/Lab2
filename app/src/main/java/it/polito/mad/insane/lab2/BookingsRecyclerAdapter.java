@@ -55,6 +55,9 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
         return this.mData.size();
     }
 
+    public List<Booking> getMData(){
+        return this.mData;
+    }
 
     /* Our Holder Class */
     class BookingViewHolder extends RecyclerView.ViewHolder

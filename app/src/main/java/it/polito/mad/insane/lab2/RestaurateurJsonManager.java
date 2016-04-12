@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -226,6 +227,9 @@ public class RestaurateurJsonManager {
             elenco1.add(this.dishes.get(2));
             elenco1.add(this.dishes.get(5));
             newBooking.setDishes(elenco1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 10);
+            newBooking.setDate_time(calendar);
             bookings.add(newBooking);
 
             Booking newBooking2 = new Booking();
@@ -233,9 +237,30 @@ public class RestaurateurJsonManager {
             ArrayList<Dish> elenco2=new ArrayList<Dish>();
             elenco2.add(this.dishes.get(3));
             newBooking2.setDishes(elenco2);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 10);
+            newBooking2.setDate_time(calendar);
             bookings.add(newBooking2);
 
+            Booking newBooking3 = new Booking();
+            newBooking3.setID("3");
+            ArrayList<Dish> elenco3=new ArrayList<>();
+            elenco3.add(this.dishes.get(3));
+            newBooking3.setDishes(elenco2);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 11);
+            newBooking3.setDate_time(calendar);
+            bookings.add(newBooking3);
 
+            Booking newBooking4 = new Booking();
+            newBooking3.setID("4");
+            ArrayList<Dish> elenco4=new ArrayList<>();
+            elenco4.add(this.dishes.get(2));
+            newBooking4.setDishes(elenco2);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 12);
+            newBooking4.setDate_time(calendar);
+            bookings.add(newBooking4);
         }
     }
 

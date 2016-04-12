@@ -479,5 +479,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         manager.saveDbApp();
 
         Toast.makeText(this, "Profile data updated", Toast.LENGTH_LONG).show();
+        finish();
     }
 }

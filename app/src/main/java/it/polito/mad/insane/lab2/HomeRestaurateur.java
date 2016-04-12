@@ -43,7 +43,7 @@ public class HomeRestaurateur extends AppCompatActivity
     /* Our Methods */
 
     // Layout Manager
-    private void setUpRecyclerView(int year,int month,int day)
+    private void setUpRecyclerView(int year, int month, int day)
     {
 
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
@@ -59,6 +59,41 @@ public class HomeRestaurateur extends AppCompatActivity
 
         // If you don't apply other animations it uses the default one
         rV.setItemAnimator(new DefaultItemAnimator());
+
+        fillGraphWithBookings(adapter);
+
+    }
+
+    private void fillGraphWithBookings(BookingsRecyclerAdapter adapter) {
+
+        //creo un vettore in cui gli indici corrispondono alle ore del giorno e i valori al numero di prenotazioni in quell'ora
+        int hours[] = new int[24];
+
+        //inizializzo il vettore con tutti zeri
+        for(int i=0; i<24; i++)
+            hours[i] = 0;
+
+        //prendo la lista delle prenotazioni
+        List<Booking> bookings = adapter.getMData();
+
+        // aggiungo all'i-esimo posto (che corrisponde all'i-esima ora) il numero di piatti prenotati
+        for(Booking b : bookings)
+            hours[b.getDate_time().get(Calendar.HOUR_OF_DAY)] += b.getDishes().size();
+
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+
+        //creo un vettore di DataPoint per riempire il grafico. quest'oggetto contiene un item per ogni ora del giorno
+        DataPoint[] graphBookings= new DataPoint[24];
+        for(int i=0; i<hours.length; i++){
+            //creo un DataPoint che ha per ascissa l'ora e per ordinata il numero di prenotazioni per ogni ora
+            graphBookings[i] = new DataPoint(i, hours[i]);
+        }
+        //creo l'oggetto BarGraphSeries per avere un istogramma
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(graphBookings);
+        //aggiungo la serie al grafico in modo da visualizzarla
+        graph.addSeries(series);
+
+        editGraph(series);
     }
 
     /* Standard methods */
@@ -80,14 +115,13 @@ public class HomeRestaurateur extends AppCompatActivity
         }
 
 
-       // editGraph();
+
         Calendar c=Calendar.getInstance();
         setUpRecyclerView(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
 
-
     }
 
-    private void editGraph() {
+    private void editGraph(BarGraphSeries<DataPoint> series) {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = HomeRestaurateur.this.getTheme();
         theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
@@ -99,70 +133,77 @@ public class HomeRestaurateur extends AppCompatActivity
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(21, 2),
-                new DataPoint(16, 6),
-                new DataPoint(18, 1),
-                new DataPoint(17,6),
-                new DataPoint(20, 2)
-        });
+//        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
+//                new DataPoint(0, 1),
+//                new DataPoint(1, 5),
+//                new DataPoint(2, 3),
+//                new DataPoint(21, 2),
+//                new DataPoint(16, 6),
+//                new DataPoint(18, 1),
+//                new DataPoint(17,6),
+//                new DataPoint(20, 2)
+//        });
 
         if (graph != null) {
-            graph.addSeries(series);
-        }
-        series.setSpacing(20);
-        series.setTitle("Bookings");
-        series.setDrawValuesOnTop(true);
-        series.setColor(colorPrimary);
-        series.setValuesOnTopColor(colorPrimaryDark);
-        series.setValuesOnTopSize(50);
-        series.setOnDataPointTapListener(new OnDataPointTapListener() {
-            @Override
-            public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(HomeRestaurateur.this, "Series1: On Data Point clicked: " + dataPoint, Toast.LENGTH_SHORT).show();
+            series.setSpacing(20);
+            series.setTitle("Bookings");
+            series.setDrawValuesOnTop(true);
+            series.setColor(colorPrimary);
+            series.setValuesOnTopColor(colorPrimaryDark);
+            series.setValuesOnTopSize(50);
+            series.setOnDataPointTapListener(new OnDataPointTapListener() {
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    Toast.makeText(HomeRestaurateur.this, "Series1: On Data Point clicked: " + dataPoint, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            graph.getViewport().setXAxisBoundsManual(true);
+            Calendar cal = Calendar.getInstance();
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
+            graph.getViewport().setMinX(hour);
+
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                graph.getGridLabelRenderer().setNumHorizontalLabels(6+1);
+                if(hour > 24 -6)
+                    graph.getViewport().setMaxX(24);
+                else
+                    graph.getViewport().setMaxX(hour + 6);
             }
-        });
+            else {
+                graph.getGridLabelRenderer().setNumHorizontalLabels(12+1);
+                if(hour > 24 -6)
+                    graph.getViewport().setMaxX(24);
+                else
+                    graph.getViewport().setMaxX(hour + 12);
+            }
 
-        graph.getViewport().setXAxisBoundsManual(true);
-        Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        graph.getViewport().setMinX(hour);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            graph.getGridLabelRenderer().setNumHorizontalLabels(6+1);
-            graph.getViewport().setMaxX(hour + 6);
-        }
-        else {
-            graph.getGridLabelRenderer().setNumHorizontalLabels(12+1);
-            graph.getViewport().setMaxX(hour + 12);
-        }
-
-        graph.getLegendRenderer().setVisible(true);
-        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-        graph.getLegendRenderer().setTextColor(Color.WHITE);
+            graph.getLegendRenderer().setVisible(true);
+            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            graph.getLegendRenderer().setTextColor(Color.WHITE);
 //        graph.getLegendRenderer().setBackgroundColor();
 //        graph.getLegendRenderer().setTextSize();
 //        graph.getLegendRenderer().setWidth();
 //        graph.getLegendRenderer().setBackgroundColor(color);
 
-        graph.getGridLabelRenderer().setPadding(20);
+            graph.getGridLabelRenderer().setPadding(20);
 
-        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+            graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
 
-        NumberFormat nf = NumberFormat.getInstance();
-        nf.setMaximumFractionDigits(0);
-        nf.setMaximumIntegerDigits(2);
-        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(nf, nf));
+            NumberFormat nf = NumberFormat.getInstance();
+            nf.setMaximumFractionDigits(0);
+            nf.setMaximumIntegerDigits(2);
+            graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(nf, nf));
 //        graph.getViewport().setScrollable(true);
 //        graph.getGridLabelRenderer().setHorizontalLabelsColor(colorPrimary);
 //        graph.getGridLabelRenderer().setVerticalLabelsColor(colorPrimary);
 //        graph.getGridLabelRenderer().setVerticalAxisTitle("Bookings");
 //        graph.getGridLabelRenderer().setHorizontalAxisTitle("Hours");
 
-        graph.getGridLabelRenderer().setGridColor(0xFFFAFAFA); //background theme color
-        graph.getGridLabelRenderer().reloadStyles();
+            graph.getGridLabelRenderer().setGridColor(0xFFFAFAFA); //background theme color
+            graph.getGridLabelRenderer().reloadStyles();
+        }
+
     }
 
     public void showDatePickerDialog(View v)
