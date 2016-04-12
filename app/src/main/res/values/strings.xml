@@ -8,7 +8,7 @@
     <string name="title_activity_edit_profile">Edit Profile</string>
     <string name="address">Restaurant address:</string>
     <string name="shortDescription">Short Description:</string>
-    <string name="timetables">Timetables Info:</string>
+    <string name="timetables">Timetables Notes:</string>
     <string name="payment">Payment Method:</string>
     <string name="campus">University Campus</string>
     <string name="university">Nearby University:</string>

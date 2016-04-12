@@ -90,37 +90,42 @@
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view = "http://schemas.android.com/apk/res-auto"
-                android:id="@+id/address_card_view"
+                android:id="@+id/restaurantGeneralInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation = "horizontal"
                 card_view:cardCornerRadius="2dp"
-                android:layout_margin="8dp"
+                android:layout_margin="20dp"
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:padding="10dp"
                     >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" General Info"
+                    android:text="  General Info"
                     android:textSize="18sp"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:drawableStart="@drawable/ic_room_white_24dp"
-                    android:drawableLeft="@drawable/ic_room_white_24dp"/>
+                    android:textColor="@color/colorPrimary"
+                    android:paddingBottom="10dp"
+                    android:drawableStart="@drawable/ic_room_black_24dp"
+                    android:drawableLeft="@drawable/ic_room_black_24dp"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/restaurantName"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -165,177 +170,349 @@
                             />
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/university"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mode_edit_black_24dp"/>
+
+                        <Spinner
+                            android:id="@+id/universitySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <LinearLayout
+
+
+
+
+
+
+
+
+
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+                android:id="@+id/restaurantFoodInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation = "horizontal"
+                card_view:cardCornerRadius="2dp"
+                android:layout_margin="20dp"
+                >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/university"
-                    android:textSize="18sp"/>
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
 
-                <Spinner
-                    android:id="@+id/universitySpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  Food and ambience"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"
+                        android:paddingBottom="10dp"
+                        android:drawableStart="@drawable/ic_restaurant_black_24dp"
+                        android:drawableLeft="@drawable/ic_room_black_24dp"/>
 
-            </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimary"
+                        />
 
-            <LinearLayout
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Cuisine"
+                        android:textSize="18sp"
+                        android:layout_marginTop="5dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mode_edit_black_24dp"/>
+
+                        <Spinner
+                            android:id="@+id/cuisineSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/shortDescription"
+                        android:textSize="18sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mode_edit_black_24dp"/>
+
+                        <EditText
+                            android:id="@+id/editDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textMultiLine"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+                android:id="@+id/restaurantTimeTables"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation = "horizontal"
+                card_view:cardCornerRadius="2dp"
+                android:layout_margin="20dp"
+                >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/Cuisine"
-                    android:textSize="18sp"/>
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
 
-                <Spinner
-                    android:id="@+id/cuisineSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  TimeTables"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"
+                        android:paddingBottom="10dp"
+                        android:drawableStart="@drawable/ic_access_time_black_24dp"
+                        android:drawableLeft="@drawable/ic_access_time_black_24dp"/>
 
-            </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimary"/>
 
-            <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/openingHour"
+                            android:textSize="18sp"/>
+
+                        <Button
+                            android:id="@+id/openingHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/select"
+                            android:layout_weight="0.2"
+                            android:onClick="showTimePickerDialog"
+                            android:background="@color/colorPrimary"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/closingHour"
+                            android:textSize="18sp"/>
+
+                        <Button
+                            android:id="@+id/closingHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/select"
+                            android:layout_weight="0.2"
+                            android:onClick="showTimePickerDialog"
+                            android:background="@color/colorPrimary"
+                            android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timetables"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mode_edit_black_24dp"/>
+
+                        <EditText
+                            android:id="@+id/editTimeNotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textMultiLine"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+                android:id="@+id/restaurantExtraInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation = "horizontal"
+                card_view:cardCornerRadius="2dp"
+                android:layout_margin="20dp"
+                >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/shortDescription"
-                    android:textSize="18sp"/>
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
 
-                <EditText
-                    android:id="@+id/editDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
-                    android:drawableStart="@drawable/ic_mode_edit_black_24dp"
-                    />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  Extra Info"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"
+                        android:paddingBottom="10dp"
+                        android:drawableStart="@drawable/ic_access_time_black_24dp"
+                        android:drawableLeft="@drawable/ic_loupe_black_24dp"/>
 
-            </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimary"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/payment"
+                        android:textSize="18sp"
+                        android:paddingTop="10dp"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/openingHour"
-                    android:textSize="18sp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/openingHour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select"
-                    android:layout_weight="0.3"
-                    android:onClick="showTimePickerDialog" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mode_edit_black_24dp"/>
 
-            </LinearLayout>
+                        <EditText
+                            android:id="@+id/editPayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textMultiLine"
+                            />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/closingHour"
-                    android:textSize="18sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/services"
+                        android:textSize="18sp"/>
 
-                <Button
-                    android:id="@+id/closingHour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select"
-                    android:layout_weight="0.3"
-                    android:onClick="showTimePickerDialog" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mode_edit_black_24dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/editServices"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textMultiLine"
+                            />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/timetables"
-                    android:textSize="18sp"/>
+                    </LinearLayout>
 
-                <EditText
-                    android:id="@+id/editTimeNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
-                    android:drawableStart="@drawable/ic_mode_edit_black_24dp"
-                    />
 
-            </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/payment"
-                    android:textSize="18sp"/>
-
-                <EditText
-                    android:id="@+id/editPayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
-                    android:drawableStart="@drawable/ic_mode_edit_black_24dp"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/services"
-                    android:textSize="18sp"/>
-
-                <EditText
-                    android:id="@+id/editServices"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
-                    android:drawableStart="@drawable/ic_mode_edit_black_24dp"
-                    />
-
-            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

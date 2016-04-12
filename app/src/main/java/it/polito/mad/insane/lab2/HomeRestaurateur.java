@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -81,8 +79,6 @@ public class HomeRestaurateur extends AppCompatActivity
         for(Booking b : bookings)
             hours[b.getDate_time().get(Calendar.HOUR_OF_DAY)] += b.getDishes().size();
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-
         //creo un vettore di DataPoint per riempire il grafico. quest'oggetto contiene un item per ogni ora del giorno
         DataPoint[] graphBookings= new DataPoint[24];
         for(int i=0; i<hours.length; i++){
@@ -92,9 +88,12 @@ public class HomeRestaurateur extends AppCompatActivity
         //creo l'oggetto BarGraphSeries per avere un istogramma
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(graphBookings);
 
-        //aggiungo la serie al grafico in modo da visualizzarla
-        graph.getSeries().clear();
-        graph.addSeries(series);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        if (graph != null) {
+            //aggiungo la serie al grafico in modo da visualizzarla
+            graph.getSeries().clear();
+            graph.addSeries(series);
+        }
 
         editGraph(series); //modifica l'aspetto visivo del grafico
     }
@@ -120,7 +119,6 @@ public class HomeRestaurateur extends AppCompatActivity
 
         Calendar c = Calendar.getInstance();
         setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
-
     }
 
     private void editGraph(BarGraphSeries<DataPoint> series) {
@@ -158,22 +156,30 @@ public class HomeRestaurateur extends AppCompatActivity
             graph.getViewport().setMinX(hour);
 
             if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-                graph.getGridLabelRenderer().setNumHorizontalLabels(6+1);
-                if(hour > 24 -6)
+                if(hour > 24 - 6){
                     graph.getViewport().setMaxX(24);
-                else
+                    graph.getGridLabelRenderer().setNumHorizontalLabels(24-hour+1);
+                }
+                else{
                     graph.getViewport().setMaxX(hour + 6);
+                    graph.getGridLabelRenderer().setNumHorizontalLabels(6+1);
+
+                }
+
             }
             else {
-                graph.getGridLabelRenderer().setNumHorizontalLabels(12+1);
-                if(hour > 24 -6)
+                if(hour > 24 -12){
                     graph.getViewport().setMaxX(24);
-                else
+                    graph.getGridLabelRenderer().setNumHorizontalLabels(24-hour+1);
+                }
+                else {
                     graph.getViewport().setMaxX(hour + 12);
+                    graph.getGridLabelRenderer().setNumHorizontalLabels(12 + 1);
+                }
             }
 
             graph.getLegendRenderer().setVisible(true);
-            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.MIDDLE);
             graph.getLegendRenderer().setTextColor(Color.WHITE);
 //        graph.getLegendRenderer().setBackgroundColor();
 //        graph.getLegendRenderer().setTextSize();
