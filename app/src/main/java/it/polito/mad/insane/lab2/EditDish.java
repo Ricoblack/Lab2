@@ -49,7 +49,7 @@ public class EditDish extends AppCompatActivity {
     ImageView dishPhoto;
 
 
-    // FIXME: se modifichi l'immagine due volte, la seconda volta non ti sostituisce l'immagine precedente nell'anteprima, però se salvi la salva
+    // FIXME: se modifichi l'immagine e ne hai già una salvata, tornando indietro anche senza salvare la imposta
 
     /* Listeners */
     View.OnClickListener saveDishFabListener = new View.OnClickListener(){
