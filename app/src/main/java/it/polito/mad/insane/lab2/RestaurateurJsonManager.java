@@ -246,17 +246,17 @@ public class RestaurateurJsonManager {
             newBooking3.setID("3");
             ArrayList<Dish> elenco3=new ArrayList<>();
             elenco3.add(this.dishes.get(3));
-            newBooking3.setDishes(elenco2);
+            newBooking3.setDishes(elenco3);
             calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 11);
             newBooking3.setDate_time(calendar);
             bookings.add(newBooking3);
 
             Booking newBooking4 = new Booking();
-            newBooking3.setID("4");
+            newBooking4.setID("4");
             ArrayList<Dish> elenco4=new ArrayList<>();
             elenco4.add(this.dishes.get(2));
-            newBooking4.setDishes(elenco2);
+            newBooking4.setDishes(elenco4);
             calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 12);
             newBooking4.setDate_time(calendar);

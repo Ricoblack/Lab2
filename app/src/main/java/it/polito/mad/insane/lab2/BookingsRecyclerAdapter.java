@@ -101,8 +101,8 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
                 manager.getBookings().remove(position);
                 manager.saveDbApp();
-                BookingsRecyclerAdapter.this.notifyItemRemoved(position);
-                BookingsRecyclerAdapter.this.notifyItemRangeChanged(position, manager.getBookings().size());
+                notifyItemRemoved(position);
+                notifyItemRangeRemoved(position, getItemCount());
             }
         };
 

@@ -51,6 +51,7 @@ public class HomeRestaurateur extends AppCompatActivity
         //BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
         Calendar c=Calendar.getInstance();
         adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
+        //adapter = new BookingsRecyclerAdapter(this, manager.getBookings());
         rV.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -146,7 +147,7 @@ public class HomeRestaurateur extends AppCompatActivity
 
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
-                    setUpRecyclerHour((int) dataPoint.getX());
+                     setUpRecyclerHour((int) dataPoint.getX());
                 }
             });
 
@@ -249,15 +250,6 @@ public class HomeRestaurateur extends AppCompatActivity
         super.onResume();
         adapter.notifyDataSetChanged();
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();  // Always call the superclass method first
-        // Activity being restarted from stopped state
-        //Calendar c=Calendar.getInstance();
-        //setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
-    }
-
 
 
     public void setDate(int year, int month, int day) {
