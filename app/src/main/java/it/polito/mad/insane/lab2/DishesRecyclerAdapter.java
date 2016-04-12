@@ -1,7 +1,9 @@
 package it.polito.mad.insane.lab2;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -86,7 +89,6 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(v.getContext(),EditDish.class);
                 i.putExtra("Dish", DishesViewHolder.this.currentDish);
-//                i.putExtra("Adapter", DishesRecyclerAdapter.this);
                 v.getContext().startActivity(i);
             }
         };
@@ -113,7 +115,10 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             this.dishDesc.setText(current.getDescription());
             this.dishPrice.setText(Double.toString(current.getPrice()));
             this.dishAvailabQty.setText(Integer.toString(current.getAvailability_qty()));
-            //TODO: this.dishPhoto.setImageURI(current.getPhoto_name());
+            String imgPath = current.getPhotoPath();
+            if(imgPath != null)
+                this.dishPhoto.setImageURI(Uri.parse(imgPath));
+
             this.position = position;
             this.currentDish = current;
 

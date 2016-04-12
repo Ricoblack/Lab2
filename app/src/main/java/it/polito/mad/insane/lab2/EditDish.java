@@ -8,8 +8,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -24,9 +25,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 public class EditDish extends AppCompatActivity {
@@ -49,6 +48,77 @@ public class EditDish extends AppCompatActivity {
     EditText dishPrice;
     ImageView dishPhoto;
 
+
+    // FIXME: se modifichi l'immagine due volte, la seconda volta non ti sostituisce l'immagine precedente nell'anteprima, però se salvi la salva
+
+    /* Listeners */
+    View.OnClickListener saveDishFabListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View view)
+        {
+
+            // check if all the required info are filled
+            if(!isAllDataFilled()) {
+                Toast.makeText(EditDish.this, R.string.error_some_empty_fill, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // save data in manager
+            if(EditDish.this.currentDish != null)
+            {
+                for (Dish d : EditDish.manager.getDishes())
+                {
+                    try
+                    {
+                        if (d.getID().equals(EditDish.this.currentDish.getID()))
+                        {
+                            // edit existing dish
+                            d.setName(EditDish.this.dishName.getText().toString());
+                            d.setDescription(EditDish.this.dishDesc.getText().toString());
+                            d.setAvailability_qty(Integer.parseInt(EditDish.this.dishQty.getText().toString()));
+                            d.setPrice(Double.parseDouble(EditDish.this.dishPrice.getText().toString()));
+                            d.setPhotoPath(EditDish.this.currentDish.getPhotoPath());
+                            //String photoPath = (String) EditDish.this.dishPhoto.getTag();
+                            //if(photoPath != null)
+                                //d.setPhotoPath(photoPath);
+                            EditDish.manager.saveDbApp();
+                            Toast.makeText(EditDish.this, R.string.confirm_save_dish, Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        Toast.makeText(EditDish.this, R.string.error_input_number, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                // Dish not found: add new dish
+                try {
+                    EditDish.this.currentDish.setName(EditDish.this.dishName.getText().toString());
+                    EditDish.this.currentDish.setDescription(EditDish.this.dishDesc.getText().toString());
+                    EditDish.this.currentDish.setAvailability_qty(Integer.parseInt(EditDish.this.dishQty.getText().toString()));
+                    EditDish.this.currentDish.setPrice(Double.parseDouble(EditDish.this.dishPrice.getText().toString()));
+                    //photoPath already set
+
+                    //String photoPath = (String) EditDish.this.dishPhoto.getTag();
+                    //if(photoPath != null)
+                        //EditDish.this.currentDish.setPhotoPath(photoPath);
+
+                    EditDish.manager.getDishes().add(EditDish.this.currentDish);
+                    EditDish.manager.saveDbApp();
+                    Toast.makeText(EditDish.this, R.string.confirm_add_dish, Toast.LENGTH_SHORT).show();
+                    finish();
+                }catch( NumberFormatException e)
+                {
+                    e.printStackTrace();
+                    Toast.makeText(EditDish.this, R.string.error_input_number, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    };
+
+    /* Standard Methods */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -68,80 +138,8 @@ public class EditDish extends AppCompatActivity {
 
         // set button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.save_edit_dish);
-        if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // check if all the required info are filled
-                    if(!isAllDataFilled()) {
-                        Toast.makeText(EditDish.this, R.string.error_some_empty_fill, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    // save data in manager
-                    if(EditDish.this.currentDish != null)
-                    {
-                        // Edit existing dish
-                        for (Dish d : EditDish.manager.getDishes())
-                        {
-                            try
-                            {
-                                if (d.getID().equals(EditDish.this.currentDish.getID()))
-                                {
-                                    d.setName(EditDish.this.dishName.getText().toString());
-                                    d.setDescription(EditDish.this.dishDesc.getText().toString());
-                                    d.setAvailability_qty(Integer.parseInt(EditDish.this.dishQty.getText().toString()));
-                                    d.setPrice(Double.parseDouble(EditDish.this.dishPrice.getText().toString()));
-                                    //d.setPhoto_name();
-
-                                    EditDish.manager.saveDbApp();
-                                    Toast.makeText(EditDish.this, R.string.confirm_save_dish, Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            } catch (NumberFormatException e) {
-                                e.printStackTrace();
-                                Toast.makeText(EditDish.this, R.string.error_input_number, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }else
-                    {
-
-                        try {
-                            // Add new dish
-                            Dish d = new Dish();
-                            // find the highest ID actually used
-                            try
-                            {
-                                d.setID(getNextDishID(EditDish.manager.getDishes()));
-                            }catch (Exception e)
-                            {
-                                e.printStackTrace();
-                                Toast.makeText(EditDish.this, R.string.error_save_dish, Toast.LENGTH_LONG).show();
-                                onBackPressed();
-                            }
-                            //d.setID();
-                            d.setName(EditDish.this.dishName.getText().toString());
-                            d.setDescription(EditDish.this.dishDesc.getText().toString());
-                            d.setAvailability_qty(Integer.parseInt(EditDish.this.dishQty.getText().toString()));
-                            d.setPrice(Double.parseDouble(EditDish.this.dishPrice.getText().toString()));
-                            //d.setPhoto_name();
-                            EditDish.manager.getDishes().add(d);
-                            EditDish.manager.saveDbApp();
-                            Toast.makeText(EditDish.this, R.string.confirm_add_dish, Toast.LENGTH_SHORT).show();
-                            finish();
-                        }catch( NumberFormatException e)
-                        {
-                            e.printStackTrace();
-                            Toast.makeText(EditDish.this, R.string.error_input_number, Toast.LENGTH_SHORT).show();
-                        }
-
-
-
-                    }
-                }
-            });
-        }
+        if (fab != null)
+            fab.setOnClickListener(saveDishFabListener);
 
 
         this.dishID = (EditText) EditDish.this.findViewById(R.id.edit_dish_ID);
@@ -162,19 +160,30 @@ public class EditDish extends AppCompatActivity {
         if(this.currentDish != null)
         {
             // Edit existing dish
-            dishID.setText(this.currentDish.getID());
-            dishName.setText(this.currentDish.getName());
+            this.dishID.setText(this.currentDish.getID());
+            this.dishName.setText(this.currentDish.getName());
             setTitle(this.currentDish.getName()); // set Activity Title
-            dishDesc.setText(this.currentDish.getDescription());
-            dishQty.setText(Integer.toString(this.currentDish.getAvailability_qty()));
-            dishPrice.setText(Double.toString(this.currentDish.getPrice()));
-
-            // TODO: this.dishPhoto.set .....
+            this.dishDesc.setText(this.currentDish.getDescription());
+            this.dishQty.setText(Integer.toString(this.currentDish.getAvailability_qty()));
+            this.dishPrice.setText(Double.toString(this.currentDish.getPrice()));
+            String imgPath = this.currentDish.getPhotoPath();
+            if(imgPath != null)
+                this.dishPhoto.setImageURI(Uri.parse(imgPath));
 
         }else
         {
-            // Add new dish
-            setTitle(R.string.new_dish);
+            try
+            {
+                // Crete new dish
+                setTitle(R.string.new_dish);
+                this.currentDish = new Dish();
+                // set ID
+                this.currentDish.setID(getNextDishID(EditDish.manager.getDishes()));
+            } catch (Exception e)
+            {
+                Toast.makeText(EditDish.this, R.string.error_create_newDish, Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
 
     }
@@ -209,10 +218,12 @@ public class EditDish extends AppCompatActivity {
 
                     try
                     {
-                        this.dishPhoto.setImageURI(processImg (imgPath));
-                        String imgName = PREFIX_IMAGE_NAME + this.currentDish.getID();
-                        this.currentDish.setPhoto_name(imgName);
-                        // il nome dell'immagine va salvato nel DB
+                        String processedImgPath = processImg(imgPath);
+                        this.dishPhoto.setImageURI(Uri.parse(processedImgPath));
+                        //set tag in photo
+                        //this.dishPhoto.setTag(processedImgPath);
+                        //update info in activity
+                        this.currentDish.setPhotoPath(processedImgPath);
                     }
                     catch (Exception e)
                     {
@@ -222,7 +233,6 @@ public class EditDish extends AppCompatActivity {
                 }
                 break;
             default:
-                Toast.makeText(this, "Switch-case non trovato", Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -230,35 +240,37 @@ public class EditDish extends AppCompatActivity {
 
     /* Our Methods */
 
+
     /**
      * Method that copy the original img in the app internal directory and compress it
      * @param imgPath
-     * @return the URI of the new Img
+     * @return the path of the new Img
      * @throws Exception
      */
-    private Uri processImg(String imgPath) throws Exception
+    private String processImg(String imgPath) throws Exception
     {
-        // open image given from gallery
-        File f = new File(imgPath);
-
-        // obtain bitmap from original file
-        Bitmap bitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+        String imgName;
+        // Take the original img and rotate it (if needed)
+        Bitmap rotatedBitmapImg = rotateImg(imgPath);
 
         /** save bitmap into App Internal directory creating a compressed copy of it **/
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
 
-            // path: /data/data/<my_app>/app_data/imageDir
+            // path: /data/data/<my_app>/app_imageDir
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             // name: dishPhoto_<dishID>
-            String imgName = PREFIX_IMAGE_NAME+this.currentDish.getID();
+            if(this.currentDish.getID() != null)
+                imgName = PREFIX_IMAGE_NAME + this.currentDish.getID();
+            else
+                imgName = PREFIX_IMAGE_NAME + this.getNextDishID(EditDish.manager.getDishes());
 
-            // Compress and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
+            // Compress, scale and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
             File myImg = new File(directory, imgName);
             FileOutputStream fos = new FileOutputStream(myImg);
 
             /** scale photo **/
-            int imgHeight = bitmapImg.getHeight();
-            int imgWidth = bitmapImg.getWidth();
+            int imgHeight = rotatedBitmapImg.getHeight();
+            int imgWidth = rotatedBitmapImg.getWidth();
             int newImgHeight = imgHeight;
             int newImgWidth = imgWidth;
             int maxValue = Math.max(imgHeight,imgWidth);
@@ -269,12 +281,61 @@ public class EditDish extends AppCompatActivity {
                 newImgWidth = (int) (imgWidth / scaleFactor);
             }
 
-            Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(bitmapImg,newImgWidth,newImgHeight,false);
+            Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(rotatedBitmapImg,newImgWidth,newImgHeight,false);
             bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.close();
 
+        return myImg.getPath();
+    }
 
-        return Uri.parse(myImg.getPath());
+    /**
+     * Rotate the image which is located in the input imgPath
+     * @param imgPath
+     * @return the bitmap image rotated (if needed)
+     * @throws Exception
+     */
+    private Bitmap rotateImg(String imgPath) throws Exception
+    {
+        int rotationInDegrees;
+        Bitmap resultImg;
+
+        // open image given
+        File f = new File(imgPath);
+        // obtain bitmap from original file
+        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+
+        // Reads Exif tags from the specified JPEG file.
+        ExifInterface exif = new ExifInterface(imgPath);
+
+        // find the current rotation
+        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        // Convert exif rotation to degrees:
+        switch(rotation)
+        {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                rotationInDegrees = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                rotationInDegrees = 180;
+                break;
+            case  ExifInterface.ORIENTATION_ROTATE_270:
+                rotationInDegrees = 270;
+                break;
+            default:
+                rotationInDegrees = 0;
+                break;
+        }
+
+        // use the actual rotation of the image as a reference point to rotate the image using a Matrix
+        Matrix matrix = new Matrix();
+        if (rotation != 0f) // 0 float
+            matrix.preRotate(rotationInDegrees);
+
+        // create the new rotate img
+        resultImg = Bitmap.createBitmap(originalBitmapImg, 0, 0, originalBitmapImg.getWidth(),originalBitmapImg.getHeight(), matrix, true);
+
+        return resultImg;
     }
 
     public void displayChooseDialog() {
@@ -344,7 +405,7 @@ public class EditDish extends AppCompatActivity {
     }
 
     /**
-     * Method that check if all
+     * Method that check if all the field of the activity are filled
      * @return
      */
     private boolean isAllDataFilled()

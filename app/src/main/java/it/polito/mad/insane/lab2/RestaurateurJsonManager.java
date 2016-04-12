@@ -199,22 +199,22 @@ public class RestaurateurJsonManager {
 
             //CARICAMENTO DATI DISHES
             this.dishes=new ArrayList<Dish>();
-            Dish dish1 = new Dish("1","Margherita", "La classica delle classiche", null, 5.50, 100);
+            Dish dish1 = new Dish("0","Margherita", "La classica delle classiche", null, 5.50, 100);
             dishes.add(dish1);
 
-            Dish dish2 = new Dish("2","Marinara", "Occhio all'aglio!", null, 2.50, 200);
+            Dish dish2 = new Dish("1","Marinara", "Occhio all'aglio!", null, 2.50, 200);
             dishes.add(dish2);
 
-            Dish dish3 = new Dish("3","Tonno", "Il gusto in una parola", null, 3.50, 300);
+            Dish dish3 = new Dish("2","Tonno", "Il gusto in una parola", null, 3.50, 300);
             dishes.add(dish3);
 
-            Dish dish4 = new Dish("4","Politecnico", "Solo per veri ingegneri", null, 4.50, 104);
+            Dish dish4 = new Dish("3","Politecnico", "Solo per veri ingegneri", null, 4.50, 104);
             dishes.add(dish4);
 
-            Dish dish5 = new Dish("5","30L", "Il nome dice tutto: imperdibile", null, 5.55, 150);
+            Dish dish5 = new Dish("4","30L", "Il nome dice tutto: imperdibile", null, 5.55, 150);
             dishes.add(dish5);
 
-            Dish dish6 = new Dish("6","Hilary", "Dedicato a una vecchia amica", null, 5.55, 150);
+            Dish dish6 = new Dish("5","Hilary", "Dedicato a una vecchia amica", null, 5.55, 150);
             dishes.add(dish6);
 
 

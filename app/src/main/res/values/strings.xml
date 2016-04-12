@@ -47,4 +47,7 @@
     <string name="error_save_dish">Ops! something goes wrong: dish info not saved</string>
     <string name="error_some_empty_fill">All field must be filled</string>
     <string name="error_processing_img">Ops! something goes wrong while process img</string>
+    <string name="confirm_save_dishPhoto">Photo changed</string>
+    <string name="error_rotating_img">Ops. Something goes wrong while rotate the image</string>
+    <string name="error_create_newDish">Ops. Something goes wrong while create the new dish</string>
 </resources>

@@ -12,8 +12,10 @@ import android.view.View;
 
 public class DailyMenu extends AppCompatActivity {
     private DishesRecyclerAdapter adapter = null;
-
     static private RestaurateurJsonManager manager = null;
+
+    // FIXME: se setti l'immagine della cardview con id piu grande, tutte le immagini delle altre cardview verranno settate con la stessa immagine quando confermi la modifica
+    //FIXME:        dell'immagine, sia se gli setti una immagine sia che non gliela setti
     /* Standard Methods */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,6 @@ public class DailyMenu extends AppCompatActivity {
 
 
     /* Our Methods */
-
-
     private void setupDishesRecyclerView()
     {
         // set Adapter
