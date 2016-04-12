@@ -93,13 +93,16 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             public void onClick(View v)
             {
                 //Toast.makeText(v.getContext(),"La posizione è "+Integer.toString(position), Toast.LENGTH_LONG).show();
-                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
-                i.putExtra("pos",position);
-                v.getContext().startActivity(i);
+//                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
+//                i.putExtra("pos",position);
+//                v.getContext().startActivity(i);
                 //TODO: mettere finish in modo da terminare l'actitivity, oppure (probabilmente meglio) nella home nell'on resume
                 //o simile ricalcolare i dati
-
-
+                RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
+                manager.getBookings().remove(position);
+                manager.saveDbApp();
+                BookingsRecyclerAdapter.this.notifyItemRemoved(position);
+                BookingsRecyclerAdapter.this.notifyItemRangeChanged(position, manager.getBookings().size());
             }
         };
 

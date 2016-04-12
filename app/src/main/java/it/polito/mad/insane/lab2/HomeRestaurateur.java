@@ -38,6 +38,7 @@ public class HomeRestaurateur extends AppCompatActivity
 {
     private static RestaurateurJsonManager manager = null;
     int position;
+    private BookingsRecyclerAdapter adapter;
 
     /* Our Methods */
 
@@ -49,7 +50,7 @@ public class HomeRestaurateur extends AppCompatActivity
 
         //BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
         Calendar c=Calendar.getInstance();
-        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
+        adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
         rV.setAdapter(adapter);
 
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
@@ -62,6 +63,7 @@ public class HomeRestaurateur extends AppCompatActivity
         fillGraphWithBookings(adapter);
 
     }
+
 
     private void fillGraphWithBookings(BookingsRecyclerAdapter adapter) {
 
@@ -107,11 +109,12 @@ public class HomeRestaurateur extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //caso in cui debba essere cancellata una eccezione faccio il refresh della home
-        position = getIntent().getIntExtra("pos",-1);
-        if( position != -1 ){
-            manager.getBookings().remove(position);
-            manager.saveDbApp();
-        }
+//        position = getIntent().getIntExtra("pos",-1);
+//        if( position != -1 ){
+//            manager.getBookings().remove(position);
+//            manager.saveDbApp();
+//
+//        }
 
         Calendar c=Calendar.getInstance();
         setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
@@ -244,8 +247,17 @@ public class HomeRestaurateur extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-
+        adapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();  // Always call the superclass method first
+        // Activity being restarted from stopped state
+        //Calendar c=Calendar.getInstance();
+        //setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+    }
+
 
 
     public void setDate(int year, int month, int day) {

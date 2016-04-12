@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 public class ViewBooking extends AppCompatActivity {
 
     private Booking currentBooking = null;
+    private  static RestaurateurJsonManager manager = null;
     TextView note = null;
     TextView data = null;
     int position;
@@ -24,6 +25,7 @@ public class ViewBooking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        manager = RestaurateurJsonManager.getInstance(ViewBooking.this);
         setContentView(R.layout.activity_view_booking);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,9 +36,11 @@ public class ViewBooking extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
-                    i.putExtra("pos",position);
-                    v.getContext().startActivity(i);
+                    //cancellare il dato da cancellare e fare finish
+                    //aggiungere nell'onResume il notify
+                    //TODO controllare tramite ID e rimuovere l'elemento in quella posizione
+                    manager.getBookings().remove(position);
+                    manager.saveDbApp();
                     finish();
                 }
             });
