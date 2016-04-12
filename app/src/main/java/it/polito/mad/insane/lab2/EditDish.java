@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -30,8 +31,12 @@ import java.util.List;
 
 public class EditDish extends AppCompatActivity {
 
+    private static final int MY_GL_MAX_TEXTURE_SIZE = 1024; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
+                                                            // (this needs an OpenGL context)                                                       GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
+                                                            //                                                                                      myGLMaxTextureSize = maxSize[0];
     private static final int REQUEST_TAKE_PHOTO = 280;
     private static final int REQUEST_IMAGE_GALLERY = 157;
+    private static final String PREFIX_IMAGE_NAME = "dishPhoto_";
 
     private static RestaurateurJsonManager manager = null;
 
@@ -164,8 +169,7 @@ public class EditDish extends AppCompatActivity {
             dishQty.setText(Integer.toString(this.currentDish.getAvailability_qty()));
             dishPrice.setText(Double.toString(this.currentDish.getPrice()));
 
-            // TODO: ImageView dishPhoto = (ImageView) EditDish.this.findViewById(R.id.dishPhoto);
-            // TODO: dishPhoto.set .....
+            // TODO: this.dishPhoto.set .....
 
         }else
         {
@@ -206,6 +210,8 @@ public class EditDish extends AppCompatActivity {
                     try
                     {
                         this.dishPhoto.setImageURI(processImg (imgPath));
+                        String imgName = PREFIX_IMAGE_NAME + this.currentDish.getID();
+                        this.currentDish.setPhoto_name(imgName);
                         // il nome dell'immagine va salvato nel DB
                     }
                     catch (Exception e)
@@ -238,34 +244,35 @@ public class EditDish extends AppCompatActivity {
         // obtain bitmap from original file
         Bitmap bitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
 
-        /* save bitmap into App Internal directory creating a compressed copy of it */
+        /** save bitmap into App Internal directory creating a compressed copy of it **/
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
 
             // path: /data/data/<my_app>/app_data/imageDir
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             // name: dishPhoto_<dishID>
-            String imgName = "dishPhoto_"+this.currentDish.getID();
+            String imgName = PREFIX_IMAGE_NAME+this.currentDish.getID();
 
             // Compress and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
             File myImg = new File(directory, imgName);
             FileOutputStream fos = new FileOutputStream(myImg);
-        // TODO : PORCO DEMONIO QUESTA CAZZO DI IMMAGINE VA FATTA SCALARE
 
-        /*
-        *  1- Vanno prese le massime dimensioni che openGL può supportare sul device corrente
-        *                   int[] maxSize = new int[1];
-        *                   GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
-        *
-        *                   a questo punto in maxSize[0] c'è il valore massimo di risoluzione che l'assex o l'assey possono supportare
-        *   2- sapendo ciò, bisogna verificare se la risoluzione corrente dell'immagine supera questi limiti in una delle due direzioni
-        *   3- se i limiti sono superati in una delle due dimensioni va scalata l'immagine (usando bitmap.createScaledBitmap() mantenendo le proporzioni originali ma riducendo la risoluzione
-        *   4- l'immagine va compressa (usando .compress())
-        */
-            //Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(bitmapImg,4096,4096,false);
-            //bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+            /** scale photo **/
+            int imgHeight = bitmapImg.getHeight();
+            int imgWidth = bitmapImg.getWidth();
+            int newImgHeight = imgHeight;
+            int newImgWidth = imgWidth;
+            int maxValue = Math.max(imgHeight,imgWidth);
+            if(maxValue > MY_GL_MAX_TEXTURE_SIZE)
+            {
+                double scaleFactor = (double) maxValue / (double) MY_GL_MAX_TEXTURE_SIZE;
+                newImgHeight = (int) (imgHeight / scaleFactor);
+                newImgWidth = (int) (imgWidth / scaleFactor);
+            }
+
+            Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(bitmapImg,newImgWidth,newImgHeight,false);
+            bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.close();
 
-        /*        *****************        */
 
         return Uri.parse(myImg.getPath());
     }

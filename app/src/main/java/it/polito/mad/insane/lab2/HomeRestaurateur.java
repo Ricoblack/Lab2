@@ -49,7 +49,6 @@ public class HomeRestaurateur extends AppCompatActivity
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
 
         //BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
-        Calendar c=Calendar.getInstance();
         adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
         //adapter = new BookingsRecyclerAdapter(this, manager.getBookings());
         rV.setAdapter(adapter);
@@ -117,7 +116,7 @@ public class HomeRestaurateur extends AppCompatActivity
 //
 //        }
 
-        Calendar c=Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
 
     }

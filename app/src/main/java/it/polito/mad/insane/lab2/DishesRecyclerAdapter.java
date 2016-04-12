@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by miche on 08/04/2016.
  */
-public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAdapter.DishesViewHolder> implements Serializable
+public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAdapter.DishesViewHolder>
 {
     private List<Dish> mData; // actual data to be displayed
     private LayoutInflater mInflater;
