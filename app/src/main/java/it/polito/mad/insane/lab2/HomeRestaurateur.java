@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,10 +16,12 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -119,9 +122,9 @@ public class HomeRestaurateur extends AppCompatActivity
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = HomeRestaurateur.this.getTheme();
         theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
-        int colorAccent = typedValue.data;
+        final int colorAccent = typedValue.data;
         theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        int colorPrimary = typedValue.data;
+        final int colorPrimary = typedValue.data;
         theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
         int colorPrimaryDark = typedValue.data;
 
@@ -135,9 +138,11 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setColor(colorPrimary);
             series.setValuesOnTopColor(colorPrimaryDark);
             series.setValuesOnTopSize(50);
+
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
+
                 @Override
-                public void onTap(Series series, DataPointInterface dataPoint) {
+                public void onTap(Series series, final DataPointInterface dataPoint) {
                     setUpRecyclerHour((int) dataPoint.getX());
                 }
             });
@@ -265,7 +270,7 @@ public class HomeRestaurateur extends AppCompatActivity
         return bookingList;
     }
 
-    private void setUpRecyclerHour (int hour){
+    private void setUpRecyclerHour (final int hour){
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
 
         Calendar c = Calendar.getInstance();
@@ -278,6 +283,11 @@ public class HomeRestaurateur extends AppCompatActivity
 
         // If you don't apply other animations it uses the default one
         rV.setItemAnimator(new DefaultItemAnimator());
+        TextView tv = (TextView) findViewById(R.id.hourBanner);
+        if (tv != null) {
+            tv.setText(hour + ":00");
+        }
+        tv.setVisibility(View.VISIBLE);
     }
 
     private List<Booking> getBookingsOfHour(int hour){
