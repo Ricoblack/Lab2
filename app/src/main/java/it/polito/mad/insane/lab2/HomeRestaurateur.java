@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -31,7 +28,6 @@ import com.jjoe64.graphview.series.Series;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -43,7 +39,7 @@ public class HomeRestaurateur extends AppCompatActivity
     /* Our Methods */
 
     // Layout Manager
-    private void setUpRecyclerView(int year, int month, int day)
+    private void setUpRecyclerDay(int year, int month, int day)
     {
 
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
@@ -93,7 +89,7 @@ public class HomeRestaurateur extends AppCompatActivity
         //aggiungo la serie al grafico in modo da visualizzarla
         graph.addSeries(series);
 
-        editGraph(series);
+        editGraph(series); //modifica l'aspetto visivo del grafico
     }
 
     /* Standard methods */
@@ -114,10 +110,8 @@ public class HomeRestaurateur extends AppCompatActivity
             manager.saveDbApp();
         }
 
-
-
         Calendar c=Calendar.getInstance();
-        setUpRecyclerView(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+        setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
 
     }
 
@@ -133,16 +127,6 @@ public class HomeRestaurateur extends AppCompatActivity
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-//        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 5),
-//                new DataPoint(2, 3),
-//                new DataPoint(21, 2),
-//                new DataPoint(16, 6),
-//                new DataPoint(18, 1),
-//                new DataPoint(17,6),
-//                new DataPoint(20, 2)
-//        });
 
         if (graph != null) {
             series.setSpacing(20);
@@ -154,7 +138,7 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
                 public void onTap(Series series, DataPointInterface dataPoint) {
-                    Toast.makeText(HomeRestaurateur.this, "Series1: On Data Point clicked: " + dataPoint, Toast.LENGTH_SHORT).show();
+                    setUpRecyclerHour((int) dataPoint.getX());
                 }
             });
 
@@ -264,8 +248,7 @@ public class HomeRestaurateur extends AppCompatActivity
         //TODO:set graph time interval
 
         //set up again recycle view
-        setUpRecyclerView(year,month,day);
-
+        setUpRecyclerDay(year,month,day);
     }
 
     private List<Booking> getBookingsOfDay(int year,int month,int day){
@@ -278,6 +261,32 @@ public class HomeRestaurateur extends AppCompatActivity
             if(c.get(Calendar.YEAR)==year && c.get(Calendar.MONTH)==month && c.get(Calendar.DAY_OF_MONTH)==day){
                 bookingList.add(booking);
             }
+        }
+        return bookingList;
+    }
+
+    private void setUpRecyclerHour (int hour){
+        RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
+
+        Calendar c = Calendar.getInstance();
+        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, getBookingsOfHour(hour));
+        rV.setAdapter(adapter);
+
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        rV.setLayoutManager(mLinearLayoutManagerVertical);
+
+        // If you don't apply other animations it uses the default one
+        rV.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private List<Booking> getBookingsOfHour(int hour){
+
+        ArrayList<Booking> bookingList= new ArrayList<Booking>();
+        ArrayList<Booking> totalList= (ArrayList<Booking>) HomeRestaurateur.manager.getBookings();
+        for(Booking b : totalList){
+            if (b.getDate_time().get(Calendar.HOUR_OF_DAY) == hour)
+                bookingList.add(b);
         }
         return bookingList;
     }
