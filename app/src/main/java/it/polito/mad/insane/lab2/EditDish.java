@@ -224,6 +224,8 @@ public class EditDish extends AppCompatActivity {
                         //this.dishPhoto.setTag(processedImgPath);
                         //update info in activity
                         this.currentDish.setPhotoPath(processedImgPath);
+                        finish();
+                        startActivity(getIntent());
                     }
                     catch (Exception e)
                     {
