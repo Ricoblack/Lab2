@@ -20,7 +20,8 @@ public class ViewBooking extends AppCompatActivity {
     private  static RestaurateurJsonManager manager = null;
     TextView note = null;
     TextView data = null;
-    int position;
+    TextView ID = null;
+    //int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,14 @@ public class ViewBooking extends AppCompatActivity {
                 public void onClick(View v) {
                     //cancellare il dato da cancellare e fare finish
                     //aggiungere nell'onResume il notify
-                    //TODO controllare tramite ID e rimuovere l'elemento in quella posizione
-                    manager.getBookings().remove(position);
+                    int i = 0;
+                    for(Booking b: manager.getBookings()){
+                        if(b.getID().equals(currentBooking.getID())){
+                            manager.getBookings().remove(i);
+                            break;
+                        }
+                        i++;
+                    }
                     manager.saveDbApp();
                     finish();
                 }
@@ -47,17 +54,22 @@ public class ViewBooking extends AppCompatActivity {
         }
 
         this.currentBooking = (Booking) getIntent().getSerializableExtra("Booking");
-        this.position = getIntent().getIntExtra("pos",-1);
+        //this.position = getIntent().getIntExtra("pos",-1);
+        this.ID = (TextView)findViewById(R.id.booking_ID);
         this.note = (TextView)findViewById(R.id.note_dish);
         this.data = (TextView)findViewById(R.id.date_booking);
 
 
         setTitle("Prenotazione");
-        this.note.setText(this.currentBooking.getNote());
+
+        this.ID.setText("#"+this.currentBooking.getID());
+        if(this.currentBooking.getNote() == null){
+            this.note.setText("non sono presenti note relative a questa prenotazione");
+        }else {
+            this.note.setText(this.currentBooking.getNote());
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
         this.data.setText(dateFormat.format(this.currentBooking.getDate_time().getTime()));
-
-
 
         // initialize Recycler View
         setupDishesRecyclerView();

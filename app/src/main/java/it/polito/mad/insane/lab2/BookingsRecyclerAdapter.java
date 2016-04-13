@@ -81,7 +81,8 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(v.getContext(),ViewBooking.class);
                 i.putExtra("Booking", BookingViewHolder.this.currentBooking);
-                i.putExtra("pos",position);
+                //i.putExtra("pos",position);
+                //TODO ho capito come risolvere il problema del click ma ne devo parlare con michele
                 v.getContext().startActivity(i);
             }
         };
@@ -99,10 +100,22 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 //TODO: mettere finish in modo da terminare l'actitivity, oppure (probabilmente meglio) nella home nell'on resume
                 //o simile ricalcolare i dati
                 RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
-                manager.getBookings().remove(position);
+                int i = 0;
+                for(Booking b: manager.getBookings()){
+                    if(b.getID().equals(currentBooking.getID())){
+                        manager.getBookings().remove(i);
+                        break;
+                    }
+                    i++;
+                }
                 manager.saveDbApp();
-                notifyItemRemoved(position);
-                notifyItemRangeRemoved(position, getItemCount());
+                Intent intent = new Intent(v.getContext(),HomeRestaurateur.class);
+                intent.putExtra("flag_delete",1);
+                v.getContext().startActivity(intent);
+
+                //manager.getBookings().remove(position);
+//                notifyItemRemoved(position);
+//                notifyItemRangeRemoved(position, getItemCount());
             }
         };
 
@@ -113,10 +126,10 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             this.myContext=myContext;
             this.cardView = itemView;
             this.imageView = (ImageView) itemView.findViewById(R.id.delete_booking_button);
+            //data of the booking class
             this.bookingID = (TextView) itemView.findViewById(R.id.title_card_pren);
             this.bookingTime = (TextView) itemView.findViewById(R.id.hour);
             this.bookingDishNum = (TextView) itemView.findViewById(R.id.num_booking);
-            //this.bookingNote = (TextView) itemView.findViewById(R.id.note_booking);
 
             // set the onClickListener to the View
             this.cardView.setOnClickListener(cardViewListener);
@@ -133,7 +146,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             String date = dateFormat.format(current.getDate_time().getTime());
             this.bookingTime.setText(date);
             this.bookingDishNum.setText(Integer.toString(current.getDishes().size()));
-            //this.bookingNote.setText(current.getNote());
+
             this.position = position;
             this.currentBooking = current;
 

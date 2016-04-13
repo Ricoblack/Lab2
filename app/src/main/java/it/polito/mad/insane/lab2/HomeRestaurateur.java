@@ -38,65 +38,6 @@ public class HomeRestaurateur extends AppCompatActivity
     int position;
     private BookingsRecyclerAdapter adapter;
 
-    /* Our Methods */
-
-    // Layout Manager
-    private void setUpRecyclerDay(int year, int month, int day)
-    {
-
-        RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
-
-        //BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, HomeRestaurateur.manager.getBookings());
-        adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
-        //adapter = new BookingsRecyclerAdapter(this, manager.getBookings());
-        rV.setAdapter(adapter);
-
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        rV.setLayoutManager(mLinearLayoutManagerVertical);
-
-        // If you don't apply other animations it uses the default one
-        rV.setItemAnimator(new DefaultItemAnimator());
-
-        fillGraphWithBookings(adapter);
-
-    }
-
-
-    private void fillGraphWithBookings(BookingsRecyclerAdapter adapter) {
-
-        //creo un vettore in cui gli indici corrispondono alle ore del giorno e i valori al numero di prenotazioni in quell'ora
-        int hours[] = new int[24];
-
-        //inizializzo il vettore con tutti zeri
-        for(int i=0; i<24; i++)
-            hours[i] = 0;
-
-        //prendo la lista delle prenotazioni
-        List<Booking> bookings = adapter.getMData();
-
-        // aggiungo all'i-esimo posto (che corrisponde all'i-esima ora) il numero di piatti prenotati
-        for(Booking b : bookings)
-            hours[b.getDate_time().get(Calendar.HOUR_OF_DAY)] += b.getDishes().size();
-
-        //creo un vettore di DataPoint per riempire il grafico. quest'oggetto contiene un item per ogni ora del giorno
-        DataPoint[] graphBookings= new DataPoint[24];
-        for(int i=0; i<hours.length; i++){
-            //creo un DataPoint che ha per ascissa l'ora e per ordinata il numero di prenotazioni per ogni ora
-            graphBookings[i] = new DataPoint(i, hours[i]);
-        }
-        //creo l'oggetto BarGraphSeries per avere un istogramma
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(graphBookings);
-
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        if (graph != null) {
-            //aggiungo la serie al grafico in modo da visualizzarla
-            graph.getSeries().clear();
-            graph.addSeries(series);
-        }
-
-        editGraph(series); //modifica l'aspetto visivo del grafico
-    }
 
     /* Standard methods */
 
@@ -119,6 +60,104 @@ public class HomeRestaurateur extends AppCompatActivity
 
         Calendar c = Calendar.getInstance();
         setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+    }
+
+
+    public void showDatePickerDialog(View v)
+    {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home_restaurateur, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings)
+//        {
+//            return true;
+//        }
+        switch(id)
+        {
+            case R.id.action_daily_menu:
+                // Start DailyMenu activity
+                Intent invokeDailyMenu = new Intent(HomeRestaurateur.this, DailyMenu.class);
+                startActivity(invokeDailyMenu);
+                break;
+            case R.id.action_edit_profile:
+                //Start EditProfile activity
+                Intent invokeEditProfile = new Intent(HomeRestaurateur.this, EditProfile.class);
+                startActivity(invokeEditProfile);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        //adapter.notifyDataSetChanged();
+        Calendar c = Calendar.getInstance();
+        setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+        if(getIntent().getIntExtra("flag_delete",0) == 1){
+            finish();
+        }
+    }
+
+        /* Our Methods */
+
+    // Layout Manager
+    private void setUpRecyclerDay(int year, int month, int day)
+    {
+        RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
+
+        adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
+        rV.setAdapter(adapter);
+
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        rV.setLayoutManager(mLinearLayoutManagerVertical);
+
+        // If you don't apply other animations it uses the default one
+        rV.setItemAnimator(new DefaultItemAnimator());
+
+        fillGraphWithBookings(adapter);
+
+    }
+
+    private void setUpRecyclerHour (final int hour){
+        RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
+
+        Calendar c = Calendar.getInstance();
+        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, getBookingsOfHour(hour));
+        rV.setAdapter(adapter);
+
+        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+        rV.setLayoutManager(mLinearLayoutManagerVertical);
+
+        // If you don't apply other animations it uses the default one
+        rV.setItemAnimator(new DefaultItemAnimator());
+        TextView tv = (TextView) findViewById(R.id.hourBanner);
+        if (tv != null) {
+            tv.setText(hour + ":00");
+        }
+        tv.setVisibility(View.VISIBLE);
     }
 
     private void editGraph(BarGraphSeries<DataPoint> series) {
@@ -146,7 +185,7 @@ public class HomeRestaurateur extends AppCompatActivity
 
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
-                     setUpRecyclerHour((int) dataPoint.getX());
+                    setUpRecyclerHour((int) dataPoint.getX());
                 }
             });
 
@@ -206,56 +245,40 @@ public class HomeRestaurateur extends AppCompatActivity
 
     }
 
-    public void showDatePickerDialog(View v)
-    {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
 
+    private void fillGraphWithBookings(BookingsRecyclerAdapter adapter) {
 
+        //creo un vettore in cui gli indici corrispondono alle ore del giorno e i valori al numero di prenotazioni in quell'ora
+        int hours[] = new int[24];
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home_restaurateur, menu);
-        return true;
-    }
+        //inizializzo il vettore con tutti zeri
+        for(int i=0; i<24; i++)
+            hours[i] = 0;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //prendo la lista delle prenotazioni
+        List<Booking> bookings = adapter.getMData();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings)
-//        {
-//            return true;
-//        }
-        switch(id)
-        {
-            case R.id.action_daily_menu:
-                // Start DailyMenu activity
-                Intent invokeDailyMenu = new Intent(HomeRestaurateur.this, DailyMenu.class);
-                startActivity(invokeDailyMenu);
-                break;
-            case R.id.action_edit_profile:
-                //Start EditProfile activity
-                Intent invokeEditProfile = new Intent(HomeRestaurateur.this, EditProfile.class);
-                startActivity(invokeEditProfile);
-                break;
+        // aggiungo all'i-esimo posto (che corrisponde all'i-esima ora) il numero di piatti prenotati
+        for(Booking b : bookings)
+            hours[b.getDate_time().get(Calendar.HOUR_OF_DAY)] += b.getDishes().size();
+
+        //creo un vettore di DataPoint per riempire il grafico. quest'oggetto contiene un item per ogni ora del giorno
+        DataPoint[] graphBookings= new DataPoint[24];
+        for(int i=0; i<hours.length; i++){
+            //creo un DataPoint che ha per ascissa l'ora e per ordinata il numero di prenotazioni per ogni ora
+            graphBookings[i] = new DataPoint(i, hours[i]);
+        }
+        //creo l'oggetto BarGraphSeries per avere un istogramma
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(graphBookings);
+
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        if (graph != null) {
+            //aggiungo la serie al grafico in modo da visualizzarla
+            graph.getSeries().clear();
+            graph.addSeries(series);
         }
 
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        adapter.notifyDataSetChanged();
+        editGraph(series); //modifica l'aspetto visivo del grafico
     }
 
 
@@ -281,25 +304,7 @@ public class HomeRestaurateur extends AppCompatActivity
         return bookingList;
     }
 
-    private void setUpRecyclerHour (final int hour){
-        RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
 
-        Calendar c = Calendar.getInstance();
-        BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, getBookingsOfHour(hour));
-        rV.setAdapter(adapter);
-
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        rV.setLayoutManager(mLinearLayoutManagerVertical);
-
-        // If you don't apply other animations it uses the default one
-        rV.setItemAnimator(new DefaultItemAnimator());
-        TextView tv = (TextView) findViewById(R.id.hourBanner);
-        if (tv != null) {
-            tv.setText(hour + ":00");
-        }
-        tv.setVisibility(View.VISIBLE);
-    }
 
     private List<Booking> getBookingsOfHour(int hour){
 
