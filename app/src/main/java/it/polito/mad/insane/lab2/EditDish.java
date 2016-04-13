@@ -162,7 +162,7 @@ public class EditDish extends AppCompatActivity {
             // Edit existing dish
             this.dishID.setText(this.currentDish.getID());
             this.dishName.setText(this.currentDish.getName());
-            setTitle(this.currentDish.getName()); // set Activity Title
+            //setTitle(this.currentDish.getName()); // set Activity Title
             this.dishDesc.setText(this.currentDish.getDescription());
             this.dishQty.setText(Integer.toString(this.currentDish.getAvailability_qty()));
             this.dishPrice.setText(Double.toString(this.currentDish.getPrice()));
@@ -175,7 +175,7 @@ public class EditDish extends AppCompatActivity {
             try
             {
                 // Crete new dish
-                setTitle(R.string.new_dish);
+                //setTitle(R.string.new_dish);
                 this.currentDish = new Dish();
                 // set ID
                 this.currentDish.setID(getNextDishID(EditDish.manager.getDishes()));
