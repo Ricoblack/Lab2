@@ -45,9 +45,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
                         .append(":").append(pad(minute)));
                 break;
             case "homeTitleHourPicker":
-                TextView tv = (TextView) getActivity().findViewById(R.id.home_title_hour);
-                tv.setText(new StringBuilder().append("  ").append(pad(hourOfDay))
-                        .append(":").append("00").append("  "));
+                ((HomeRestaurateur) getActivity()).setTime(hourOfDay);
             default:
                 break;
         }
