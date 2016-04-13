@@ -24,14 +24,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
                 android:text="  Giorno  "
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:textSize="18sp"
-                android:textColor="@color/white"
-                android:drawableLeft="@drawable/ic_event_white_24dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_event_black_24dp"
+                android:drawableStart="@drawable/ic_event_black_24dp"
                 android:padding="5dp"
+                android:background="@drawable/rounded_corner"
                 android:onClick="showDatePickerDialog"
                 />
 
