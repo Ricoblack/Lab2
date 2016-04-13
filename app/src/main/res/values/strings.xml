@@ -51,4 +51,5 @@
     <string name="error_rotating_img">Ops. Something goes wrong while rotate the image</string>
     <string name="error_create_newDish">Ops. Something goes wrong while create the new dish</string>
     <string name="dish_info">"  Dish Info"</string>
+    <string name="all_hours">"  All Hours  "</string>
 </resources>

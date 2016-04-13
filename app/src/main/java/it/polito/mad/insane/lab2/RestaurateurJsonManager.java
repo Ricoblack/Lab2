@@ -124,7 +124,6 @@ public class RestaurateurJsonManager {
 
             this.dbApp=obj;
             return obj;
-
     }
 
     public List<Dish> getDishes()

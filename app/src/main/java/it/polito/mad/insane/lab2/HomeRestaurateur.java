@@ -25,7 +25,6 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +38,7 @@ public class HomeRestaurateur extends AppCompatActivity
     int position;
     private BookingsRecyclerAdapter adapter;
     private static Calendar globalDate = Calendar.getInstance();
+    private static int globalHour = -1;
 
 
     /* Standard methods */
@@ -121,6 +121,17 @@ public class HomeRestaurateur extends AppCompatActivity
         if(tv != null)
             tv.setText(String.format("  %s  ", convertDateToString(globalDate.getTime())));
         setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
+
+        tv = (TextView) findViewById(R.id.home_title_hour);
+        if (tv != null){
+            if(globalHour == -1)
+                tv.setText(R.string.all_hours);
+            else {
+                tv.setText(String.format("  %d:00  ", globalHour));
+                setUpRecyclerHour(globalHour);
+            }
+        }
+
         if(getIntent().getIntExtra("flag_delete",0) == 1){
             finish();
         }
@@ -160,11 +171,6 @@ public class HomeRestaurateur extends AppCompatActivity
 
         // If you don't apply other animations it uses the default one
         rV.setItemAnimator(new DefaultItemAnimator());
-        TextView tv = (TextView) findViewById(R.id.hourBanner);
-        if (tv != null) {
-            tv.setText(hour + ":00");
-        }
-        tv.setVisibility(View.VISIBLE);
     }
 
     private void editGraph(BarGraphSeries<DataPoint> series) {
@@ -192,7 +198,10 @@ public class HomeRestaurateur extends AppCompatActivity
 
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
-                    setUpRecyclerHour((int) dataPoint.getX());
+                    globalHour = (int) dataPoint.getX();
+                    TextView tv = (TextView) findViewById(R.id.home_title_hour);
+                    tv.setText(String.format("  %d:00  ", globalHour));
+                    setUpRecyclerHour(globalHour);
                 }
             });
 
@@ -297,6 +306,16 @@ public class HomeRestaurateur extends AppCompatActivity
 //        setUpRecyclerDay(year, month, day);
         //set up again recycle view
 //        setUpRecyclerDay(year,month,day);
+    }
+
+    public void setTime(int hourOfDay){
+        TextView tv = (TextView) findViewById(R.id.home_title_hour);
+        if (tv != null) {
+            tv.setText(new StringBuilder().append("  ").append(pad(hourOfDay))
+                    .append(":").append("00").append("  "));
+        }
+        setUpRecyclerHour(hourOfDay);
+        globalHour = hourOfDay;
     }
 
     private List<Booking> getBookingsOfDay(int year,int month,int day){
