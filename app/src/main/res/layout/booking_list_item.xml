@@ -42,21 +42,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:text="20"
                 android:typeface="sans"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:layout_toRightOf="@id/hash"/>
+                android:layout_toRightOf="@id/hash"
+                android:layout_toEndOf="@id/hash"/>
 
             <TextView
                 android:id="@+id/hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10:10"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#ffffff"
                 android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 />
@@ -86,12 +86,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/num_booking"
+                android:layout_toStartOf="@id/num_booking"
                 android:src="@drawable/ic_forchetta_300_white"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/num_booking"
+                android:layout_toEndOf="@id/num_booking"
                 android:src="@drawable/ic_coltello_300_white"/>
 
         </RelativeLayout>
@@ -109,8 +111,8 @@
 
             <ImageView
                 android:id="@+id/delete_booking_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_check_circle_white_24dp"

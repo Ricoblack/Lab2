@@ -66,7 +66,7 @@ public class DailyMenu extends AppCompatActivity {
     {
         // set Adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MenuRecyclerView);
-        DailyMenu.this.adapter = new DishesRecyclerAdapter(this, DailyMenu.manager.getDishes());
+        DailyMenu.this.adapter = new DishesRecyclerAdapter(this, DailyMenu.manager.getDishes(),true);
         if (recyclerView != null) {
             recyclerView.setAdapter(DailyMenu.this.adapter);
 

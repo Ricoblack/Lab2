@@ -39,13 +39,11 @@ public class ViewBooking extends AppCompatActivity {
                 public void onClick(View v) {
                     //cancellare il dato da cancellare e fare finish
                     //aggiungere nell'onResume il notify
-                    int i = 0;
                     for(Booking b: manager.getBookings()){
                         if(b.getID().equals(currentBooking.getID())){
-                            manager.getBookings().remove(i);
+                            manager.getBookings().remove(b);
                             break;
                         }
-                        i++;
                     }
                     manager.saveDbApp();
                     finish();
@@ -82,7 +80,7 @@ public class ViewBooking extends AppCompatActivity {
     {
         // set Adapter
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MenuRecyclerView);
-        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, currentBooking.getDishes());
+        DishesRecyclerAdapter adapter = new DishesRecyclerAdapter(this, currentBooking.getDishes(),false);
         recyclerView.setAdapter(adapter);
 
         // set Layout Manager

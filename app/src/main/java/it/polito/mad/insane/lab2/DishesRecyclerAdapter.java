@@ -23,11 +23,13 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
 {
     private List<Dish> mData; // actual data to be displayed
     private LayoutInflater mInflater;
+    private boolean cardView_clickable;
 
 
 
-    public DishesRecyclerAdapter(Context context, List<Dish> data)
+    public DishesRecyclerAdapter(Context context, List<Dish> data, boolean clickable)
     {
+        this.cardView_clickable = clickable;
         this.mData = data;
         this.mInflater = LayoutInflater.from(context);
     }
@@ -87,6 +89,8 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             public void onClick(View v)
             {
                 Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
+
+
                 Intent i = new Intent(v.getContext(),EditDish.class);
                 i.putExtra("Dish", DishesViewHolder.this.currentDish);
                 v.getContext().startActivity(i);
@@ -104,8 +108,11 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             this.dishPrice = (TextView) itemView.findViewById(R.id.dish_price);
             this.dishAvailabQty = (TextView) itemView.findViewById(R.id.dish_availab_qty);
 
+            if(DishesRecyclerAdapter.this.cardView_clickable)
+            {
             // set the onClickListener to the View
             this.cardView.setOnClickListener(cardViewListener);
+            }
         }
 
         public void setData(Dish current, int position )
