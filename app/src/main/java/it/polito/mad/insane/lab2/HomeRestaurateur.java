@@ -188,7 +188,7 @@ public class HomeRestaurateur extends AppCompatActivity
 
         if (graph != null) {
             series.setSpacing(20);
-            series.setTitle("Bookings");
+            series.setTitle(getResources().getString(R.string.graph_title));
             series.setDrawValuesOnTop(true);
             series.setColor(colorPrimary);
             series.setValuesOnTopColor(colorPrimaryDark);

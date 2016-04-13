@@ -55,4 +55,5 @@
     <string name="confirm_delete_booking">Booking evaded</string>
     <string name="delete_dish">delete_dish</string>
     <string name="confirm_delete_dish">Dish deleted</string>
+    <string name="graph_title">Dishes</string>
 </resources>
