@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -169,6 +171,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
      */
     private Uri processImg(String imgPath) throws Exception
     {
+//        Bitmap rotatedBitmapImg = rotateImg(imgPath);
+
         // open image given from gallery
         File f = new File(imgPath);
 
@@ -186,13 +190,14 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         FileOutputStream fos = new FileOutputStream(myImg);
 
         /** scale photo **/
+//        int imgHeight = rotatedBitmapImg.getHeight();
+//        int imgWidth = rotatedBitmapImg.getWidth();
         int imgHeight = bitmapImg.getHeight();
         int imgWidth = bitmapImg.getWidth();
         int newImgHeight = imgHeight;
         int newImgWidth = imgWidth;
         int maxValue = Math.max(imgHeight,imgWidth);
-        if(maxValue > MY_GL_MAX_TEXTURE_SIZE)
-        {
+        if(maxValue > MY_GL_MAX_TEXTURE_SIZE){
             double scaleFactor = (double) maxValue / (double) MY_GL_MAX_TEXTURE_SIZE;
             newImgHeight = (int) (imgHeight / scaleFactor);
             newImgWidth = (int) (imgWidth / scaleFactor);
@@ -202,11 +207,63 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
         fos.close();
 
-        ImageView tv = (ImageView) findViewById(R.id.coverPhoto);
-        tv.setImageBitmap(bitmapImgScaled);
+        ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
+        if (iv != null) {
+            iv.setImageBitmap(bitmapImgScaled);
+        }
 
         return Uri.parse(myImg.getPath());
     }
+
+//    /**
+//     * Rotate the image which is located in the input imgPath
+//     * @param imgPath
+//     * @return the bitmap image rotated (if needed)
+//     * @throws Exception
+//     */
+//    private Bitmap rotateImg(String imgPath) throws Exception
+//    {
+//        int rotationInDegrees;
+//        Bitmap resultImg;
+//
+//        // open image given
+//        File f = new File(imgPath);
+//        // obtain bitmap from original file
+//        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+//
+//        // Reads Exif tags from the specified JPEG file.
+//        ExifInterface exif = new ExifInterface(imgPath);
+//
+//        // find the current rotation
+//        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+//
+//        // Convert exif rotation to degrees:
+//        switch(rotation)
+//        {
+//            case ExifInterface.ORIENTATION_ROTATE_90:
+//                rotationInDegrees = 90;
+//                break;
+//            case ExifInterface.ORIENTATION_ROTATE_180:
+//                rotationInDegrees = 180;
+//                break;
+//            case  ExifInterface.ORIENTATION_ROTATE_270:
+//                rotationInDegrees = 270;
+//                break;
+//            default:
+//                rotationInDegrees = 0;
+//                break;
+//        }
+//
+//        // use the actual rotation of the image as a reference point to rotate the image using a Matrix
+//        Matrix matrix = new Matrix();
+//        if (rotation != 0f) // 0 float
+//            matrix.preRotate(rotationInDegrees);
+//
+//        // create the new rotate img
+//        resultImg = Bitmap.createBitmap(originalBitmapImg, 0, 0, originalBitmapImg.getWidth(),originalBitmapImg.getHeight(), matrix, true);
+//
+//        return resultImg;
+//    }
 
     private void loadImageFromStorage()
     {
