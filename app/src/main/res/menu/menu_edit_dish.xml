@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="it.polito.mad.insane.lab2.HomeRestaurateur">
+
+    <item
+        android:id="@+id/delete_dish"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="@string/delete_dish"
+        app:showAsAction="ifRoom" />
+
+</menu>

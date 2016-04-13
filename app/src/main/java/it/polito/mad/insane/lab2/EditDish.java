@@ -17,6 +17,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,13 +35,12 @@ public class EditDish extends AppCompatActivity {
     private static final int MY_GL_MAX_TEXTURE_SIZE = 1024; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
                                                             // (this needs an OpenGL context)                                                       GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
                                                             //                                                                                      myGLMaxTextureSize = maxSize[0];
-    private static final int REQUEST_TAKE_PHOTO = 280;
+//    private static final int REQUEST_TAKE_PHOTO = 280;
     private static final int REQUEST_IMAGE_GALLERY = 157;
-    private static final String PREFIX_IMAGE_NAME = "dishPhoto_";
+    private static final String PREFIX_IMAGE_NAME1 = "dishPhoto_";
+    private static final String PREFIX_IMAGE_NAME2 = "dishPhoto__";
 
     private static RestaurateurJsonManager manager = null;
-
-    private DishesRecyclerAdapter adapter = null;
     Dish currentDish = null;
     EditText dishID;
     EditText dishName;
@@ -48,8 +49,6 @@ public class EditDish extends AppCompatActivity {
     EditText dishPrice;
     ImageView dishPhoto;
 
-
-    // FIXME: se modifichi l'immagine e ne hai già una salvata, tornando indietro anche senza salvare la imposta
 
     /* Listeners */
     View.OnClickListener saveDishFabListener = new View.OnClickListener(){
@@ -152,7 +151,8 @@ public class EditDish extends AppCompatActivity {
             dishPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    displayChooseDialog();
+//                    displayChooseDialog();
+                    takePhotoFromGallery();
                 }
             });
         }
@@ -187,6 +187,32 @@ public class EditDish extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_edit_dish, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.delete_dish:
+                deleteDish(this.currentDish.getID());
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -241,8 +267,22 @@ public class EditDish extends AppCompatActivity {
 
 
     /* Our Methods */
-
-
+    /**
+     * Method that delete the dish with the input ID
+     * @param dishID
+     */
+    private void deleteDish(String dishID)
+    {
+        for (Dish d : EditDish.manager.getDishes())
+            if (d.getID().equals(dishID))
+            {
+                EditDish.manager.getDishes().remove(d);
+                EditDish.manager.saveDbApp();
+                Toast.makeText(EditDish.this, R.string.confirm_delete_dish, Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+    }
     /**
      * Method that copy the original img in the app internal directory and compress it
      * @param imgPath
@@ -251,7 +291,11 @@ public class EditDish extends AppCompatActivity {
      */
     private String processImg(String imgPath) throws Exception
     {
-        String imgName;
+        String resultString;
+        String imgName1;
+        String imgName2;
+        FileOutputStream fos;
+
         // Take the original img and rotate it (if needed)
         Bitmap rotatedBitmapImg = rotateImg(imgPath);
 
@@ -261,15 +305,17 @@ public class EditDish extends AppCompatActivity {
             // path: /data/data/<my_app>/app_imageDir
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             // name: dishPhoto_<dishID>
-            if(this.currentDish.getID() != null)
-                imgName = PREFIX_IMAGE_NAME + this.currentDish.getID();
-            else
-                imgName = PREFIX_IMAGE_NAME + this.getNextDishID(EditDish.manager.getDishes());
+            if(this.currentDish.getID() != null) {
+                imgName1 = PREFIX_IMAGE_NAME1 + this.currentDish.getID();
+                imgName2 = PREFIX_IMAGE_NAME2 + this.currentDish.getID();
+            }
+            else {
+                imgName1 = PREFIX_IMAGE_NAME1 + this.getNextDishID(EditDish.manager.getDishes());
+                imgName2 = PREFIX_IMAGE_NAME2 + this.getNextDishID(EditDish.manager.getDishes());
+            }
+
 
             // Compress, scale and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
-            File myImg = new File(directory, imgName);
-            FileOutputStream fos = new FileOutputStream(myImg);
-
             /** scale photo **/
             int imgHeight = rotatedBitmapImg.getHeight();
             int imgWidth = rotatedBitmapImg.getWidth();
@@ -284,10 +330,23 @@ public class EditDish extends AppCompatActivity {
             }
 
             Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(rotatedBitmapImg,newImgWidth,newImgHeight,false);
-            bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.close();
 
-        return myImg.getPath();
+
+        File myImg1 = new File(directory, imgName1);
+        File myImg2 = new File(directory, imgName2);
+        if(this.currentDish.getPhotoPath()!= null && this.currentDish.getPhotoPath().equals(myImg1.getPath())) {
+            resultString = myImg2.getPath();
+            fos = new FileOutputStream(myImg2);
+        }
+        else {
+            resultString = myImg1.getPath();
+            fos = new FileOutputStream(myImg1);
+        }
+
+        bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        fos.close();
+        //return myImg.getPath();
+        return resultString;
     }
 
     /**
@@ -340,7 +399,7 @@ public class EditDish extends AppCompatActivity {
         return resultImg;
     }
 
-    public void displayChooseDialog() {
+    public void displayChooseDialog() { // not used in this version
 
         AlertDialog.Builder builder = new AlertDialog.Builder(EditDish.this);
 
@@ -373,7 +432,7 @@ public class EditDish extends AppCompatActivity {
         dialog.show();
     }
 
-    private void takePhotoFromCamera() {
+    private void takePhotoFromCamera() { // not implemented yet
         Toast.makeText(EditDish.this, "Camera", Toast.LENGTH_SHORT).show();
     }
 

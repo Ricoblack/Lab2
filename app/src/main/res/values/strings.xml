@@ -53,4 +53,6 @@
     <string name="dish_info">"  Dish Info"</string>
     <string name="all_hours">"  All Hours  "</string>
     <string name="confirm_delete_booking">Booking evaded</string>
+    <string name="delete_dish">delete_dish</string>
+    <string name="confirm_delete_dish">Dish deleted</string>
 </resources>
