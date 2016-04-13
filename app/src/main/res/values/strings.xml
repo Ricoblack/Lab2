@@ -15,7 +15,7 @@
     <string name="Cuisine">Cuisine Type:</string>
     <string name="services">Additional Services:</string>
     <string name="edit_cover">"  Edit  "</string>
-    <string name="edit_dish_name">Name:</string>
+    <string name="edit_dish_name">Name</string>
     <string name="edit_dish_description">Description: </string>
     <string name="edit_dish_availab_qty">Available Quantity:</string>
     <string name="edit_dish_price">Price:</string>
@@ -50,4 +50,5 @@
     <string name="confirm_save_dishPhoto">Photo changed</string>
     <string name="error_rotating_img">Ops. Something goes wrong while rotate the image</string>
     <string name="error_create_newDish">Ops. Something goes wrong while create the new dish</string>
+    <string name="dish_info">"  Dish Info"</string>
 </resources>
