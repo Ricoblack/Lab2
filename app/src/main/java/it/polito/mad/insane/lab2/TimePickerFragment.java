@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -25,7 +26,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
+                DateFormat.is24HourFormat(getActivity())){
+        };
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -34,14 +36,27 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         switch (picker){
             case "openingPicker":
                 Button button = (Button) getActivity().findViewById(R.id.openingHour);
-                button.setText(String.format("%d:%d", hourOfDay, minute));
+                button.setText(new StringBuilder().append(pad(hourOfDay))
+                        .append(":").append(pad(minute)));
                 break;
             case "closingPicker":
                 button = (Button) getActivity().findViewById(R.id.closingHour);
-                button.setText(String.format("%d:%d", hourOfDay, minute));
+                button.setText(new StringBuilder().append(pad(hourOfDay))
+                        .append(":").append(pad(minute)));
                 break;
+            case "homeTitleHourPicker":
+                TextView tv = (TextView) getActivity().findViewById(R.id.home_title_hour);
+                tv.setText(new StringBuilder().append("  ").append(pad(hourOfDay))
+                        .append(":").append("00").append("  "));
             default:
                 break;
         }
+    }
+
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
     }
 }

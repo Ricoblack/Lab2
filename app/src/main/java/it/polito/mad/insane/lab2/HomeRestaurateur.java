@@ -69,6 +69,11 @@ public class HomeRestaurateur extends AppCompatActivity
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    public void showTimePickerDialogHome(View view) {
+        DialogFragment openingFragment = new TimePickerFragment();
+        openingFragment.show(getSupportFragmentManager(), "homeTitleHourPicker");
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -217,9 +222,9 @@ public class HomeRestaurateur extends AppCompatActivity
                 }
             }
 
-            graph.getLegendRenderer().setVisible(true);
-            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.MIDDLE);
-            graph.getLegendRenderer().setTextColor(Color.WHITE);
+//            graph.getLegendRenderer().setVisible(true);
+//            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.MIDDLE);
+//            graph.getLegendRenderer().setTextColor(Color.WHITE);
 //        graph.getLegendRenderer().setBackgroundColor();
 //        graph.getLegendRenderer().setTextSize();
 //        graph.getLegendRenderer().setWidth();
@@ -285,6 +290,8 @@ public class HomeRestaurateur extends AppCompatActivity
     public void setDate(int year, int month, int day) {
         //set graph time interval
         //TODO:set graph time interval
+
+        //TODO display the date in home page
 
         //set up again recycle view
         setUpRecyclerDay(year,month,day);
