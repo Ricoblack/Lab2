@@ -82,7 +82,6 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 Intent i = new Intent(v.getContext(),ViewBooking.class);
                 i.putExtra("Booking", BookingViewHolder.this.currentBooking);
                 //i.putExtra("pos",position);
-                //TODO ho capito come risolvere il problema del click ma ne devo parlare con michele
                 v.getContext().startActivity(i);
             }
         };
@@ -101,8 +100,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
                 for(Booking b: manager.getBookings()){
                     if(b.getID().equals(currentBooking.getID())){
-                        //FIXME il toast funziona una chiavica
-                        //Toast.makeText(v.getContext(),R.string.confirm_add_dish+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
                         manager.getBookings().remove(b);
                         notifyItemRemoved(position);
                         notifyItemRangeRemoved(position, getItemCount());

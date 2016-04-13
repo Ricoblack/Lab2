@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -147,9 +148,24 @@ public class HomeRestaurateur extends AppCompatActivity
         adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
         rV.setAdapter(adapter);
 
-        LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        rV.setLayoutManager(mLinearLayoutManagerVertical);
+
+        //FIXME Sistemare il problema del riconoscimento della dimensione dello schermo
+        if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE)
+        {
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            {
+                GridLayoutManager mGridLayoutManager = new GridLayoutManager(this,2);
+                rV.setLayoutManager(mGridLayoutManager);
+
+            }else{
+
+            }
+        }else {
+
+            LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+            mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+            rV.setLayoutManager(mLinearLayoutManagerVertical);
+        }
 
         // If you don't apply other animations it uses the default one
         rV.setItemAnimator(new DefaultItemAnimator());
