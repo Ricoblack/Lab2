@@ -3,7 +3,6 @@ package it.polito.mad.insane.lab2;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -27,8 +25,11 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,6 +38,7 @@ public class HomeRestaurateur extends AppCompatActivity
     private static RestaurateurJsonManager manager = null;
     int position;
     private BookingsRecyclerAdapter adapter;
+    private static Calendar globalDate = Calendar.getInstance();
 
 
     /* Standard methods */
@@ -57,9 +59,7 @@ public class HomeRestaurateur extends AppCompatActivity
 //            manager.saveDbApp();
 //
 //        }
-
-        Calendar c = Calendar.getInstance();
-        setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+        //setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
     }
 
 
@@ -117,8 +117,10 @@ public class HomeRestaurateur extends AppCompatActivity
     {
         super.onResume();
         //adapter.notifyDataSetChanged();
-        Calendar c = Calendar.getInstance();
-        setUpRecyclerDay(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+        TextView tv = (TextView) findViewById(R.id.home_title_day);
+        if(tv != null)
+            tv.setText(String.format("  %s  ", convertDateToString(globalDate.getTime())));
+        setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
         if(getIntent().getIntExtra("flag_delete",0) == 1){
             finish();
         }
@@ -222,14 +224,6 @@ public class HomeRestaurateur extends AppCompatActivity
                 }
             }
 
-//            graph.getLegendRenderer().setVisible(true);
-//            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.MIDDLE);
-//            graph.getLegendRenderer().setTextColor(Color.WHITE);
-//        graph.getLegendRenderer().setBackgroundColor();
-//        graph.getLegendRenderer().setTextSize();
-//        graph.getLegendRenderer().setWidth();
-//        graph.getLegendRenderer().setBackgroundColor(color);
-
             graph.getGridLabelRenderer().setPadding(20);
 
             graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
@@ -291,10 +285,18 @@ public class HomeRestaurateur extends AppCompatActivity
         //set graph time interval
         //TODO:set graph time interval
 
-        //TODO display the date in home page
-
+        TextView tv = (TextView) findViewById(R.id.home_title_day);
+        if (tv != null) {
+            tv.setText(new StringBuilder().append("  ").append(pad(day))
+                    .append("/").append(pad(month + 1)).append("/").append(year).append("  "));
+        }
+        globalDate.set(Calendar.YEAR, year);
+        globalDate.set(Calendar.MONTH, month);
+        globalDate.set(Calendar.DAY_OF_MONTH, day);
+        setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
+//        setUpRecyclerDay(year, month, day);
         //set up again recycle view
-        setUpRecyclerDay(year,month,day);
+//        setUpRecyclerDay(year,month,day);
     }
 
     private List<Booking> getBookingsOfDay(int year,int month,int day){
@@ -322,5 +324,29 @@ public class HomeRestaurateur extends AppCompatActivity
                 bookingList.add(b);
         }
         return bookingList;
+    }
+
+//    private Date convertStringToDate(String dateString){
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Date convertedDate;
+//        try {
+//            convertedDate = dateFormat.parse(dateString);
+//        } catch (ParseException e) {
+//            // TODO Auto-generated catch block
+//            return null;
+//        }
+//        return convertedDate;
+//    }
+
+    private String convertDateToString(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(date);
+    }
+
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
     }
 }

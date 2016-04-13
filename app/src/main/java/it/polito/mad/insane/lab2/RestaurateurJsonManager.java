@@ -228,7 +228,7 @@ public class RestaurateurJsonManager {
             elenco1.add(this.dishes.get(5));
             newBooking.setDishes(elenco1);
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 14);
+            calendar.set(Calendar.HOUR_OF_DAY, 20);
             newBooking.setDate_time(calendar);
             bookings.add(newBooking);
 
@@ -238,7 +238,7 @@ public class RestaurateurJsonManager {
             elenco2.add(this.dishes.get(3));
             newBooking2.setDishes(elenco2);
             calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 15);
+            calendar.set(Calendar.HOUR_OF_DAY, 19);
             newBooking2.setDate_time(calendar);
             bookings.add(newBooking2);
 
@@ -248,7 +248,7 @@ public class RestaurateurJsonManager {
             elenco3.add(this.dishes.get(3));
             newBooking3.setDishes(elenco3);
             calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 15);
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
             newBooking3.setDate_time(calendar);
             bookings.add(newBooking3);
 
@@ -258,6 +258,7 @@ public class RestaurateurJsonManager {
             elenco4.add(this.dishes.get(2));
             newBooking4.setDishes(elenco4);
             calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, 15);
             calendar.set(Calendar.HOUR_OF_DAY, 17);
             newBooking4.setDate_time(calendar);
             bookings.add(newBooking4);
