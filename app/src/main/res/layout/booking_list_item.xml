@@ -4,10 +4,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/margin_between_cardView"
     android:padding="6dp"
     app:cardElevation="5dp"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="@dimen/radius_cardView"
     app:cardPreventCornerOverlap="true"
     app:cardBackgroundColor="@color/colorAccent"
     android:clickable="true">

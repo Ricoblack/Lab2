@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_between_cardView">6dp</dimen>
+    <dimen name="radius_cardView">3dp</dimen>
 </resources>
