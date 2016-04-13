@@ -15,12 +15,47 @@
 
         <include layout="@layout/toolbar"/>
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-             />
+            android:layout_weight="1.4"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="  Giorno  "
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:drawableLeft="@drawable/ic_event_white_24dp"
+                android:padding="5dp"
+                android:onClick="showDatePickerDialog"
+                />
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+                android:id="@+id/restaurantGeneralInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation = "horizontal"
+                card_view:cardCornerRadius="2dp"
+                android:layout_margin="10dp"
+                >
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/hourBanner"
