@@ -195,7 +195,6 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setValuesOnTopSize(50);
 
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
-
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
                     globalHour = (int) dataPoint.getX();
@@ -205,9 +204,14 @@ public class HomeRestaurateur extends AppCompatActivity
                 }
             });
 
+            int hour;
             graph.getViewport().setXAxisBoundsManual(true);
-            Calendar cal = Calendar.getInstance();
-            int hour = cal.get(Calendar.HOUR_OF_DAY);
+            if(globalHour != -1)
+                hour = globalHour;
+            else {
+                Calendar cal = Calendar.getInstance();
+                hour = cal.get(Calendar.HOUR_OF_DAY);
+            }
             graph.getViewport().setMinX(hour);
 
             if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
@@ -309,13 +313,15 @@ public class HomeRestaurateur extends AppCompatActivity
     }
 
     public void setTime(int hourOfDay){
+        globalHour = hourOfDay;
         TextView tv = (TextView) findViewById(R.id.home_title_hour);
         if (tv != null) {
             tv.setText(new StringBuilder().append("  ").append(pad(hourOfDay))
                     .append(":").append("00").append("  "));
         }
+        setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
         setUpRecyclerHour(hourOfDay);
-        globalHour = hourOfDay;
+
     }
 
     private List<Booking> getBookingsOfDay(int year,int month,int day){
@@ -337,7 +343,8 @@ public class HomeRestaurateur extends AppCompatActivity
     private List<Booking> getBookingsOfHour(int hour){
 
         ArrayList<Booking> bookingList= new ArrayList<Booking>();
-        ArrayList<Booking> totalList= (ArrayList<Booking>) HomeRestaurateur.manager.getBookings();
+        ArrayList<Booking> totalList = (ArrayList<Booking>) getBookingsOfDay(globalDate.get(Calendar.YEAR),
+                globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
         for(Booking b : totalList){
             if (b.getDate_time().get(Calendar.HOUR_OF_DAY) == hour)
                 bookingList.add(b);
@@ -367,5 +374,13 @@ public class HomeRestaurateur extends AppCompatActivity
             return String.valueOf(c);
         else
             return "0" + String.valueOf(c);
+    }
+
+    public void refresh(View view) {
+        globalHour = -1;
+        TextView tv = (TextView) findViewById(R.id.home_title_hour);
+        if(tv != null)
+            tv.setText(R.string.all_hours);
+        setUpRecyclerDay(globalDate.get(Calendar.YEAR), globalDate.get(Calendar.MONTH), globalDate.get(Calendar.DAY_OF_MONTH));
     }
 }

@@ -65,6 +65,19 @@
                     android:layout_marginBottom="4dp"
                     />
 
+                <ImageView
+                    android:id="@+id/home_title_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_cached_black_24dp"
+                    android:background="@drawable/rounded_corner_time_title"
+                    android:padding="5dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:onClick="refresh"/>
+
             </LinearLayout>
 
 
