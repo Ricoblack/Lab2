@@ -86,7 +86,7 @@
                 xmlns:card_view = "http://schemas.android.com/apk/res-auto"
                 android:id="@+id/restaurantGeneralInfo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation = "horizontal"
                 card_view:cardCornerRadius="2dp"
                 android:layout_margin="10dp"
@@ -109,7 +109,7 @@
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/graph"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     />
 
                 </LinearLayout>
