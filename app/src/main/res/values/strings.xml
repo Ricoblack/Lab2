@@ -14,7 +14,7 @@
     <string name="university">Nearby University:</string>
     <string name="Cuisine">Cuisine Type:</string>
     <string name="services">Additional Services:</string>
-    <string name="edit_cover">"  Edit  "</string>
+    <string name="edit_cover">Edit</string>
     <string name="edit_dish_name">Name</string>
     <string name="edit_dish_description">Description: </string>
     <string name="edit_dish_availab_qty">Available Quantity:</string>
@@ -24,8 +24,7 @@
     <string name="confirm_save_dish">Dish saved successfully</string>
     <string name="confirm_add_dish">Dish added successfully</string>
     <string name="openingHour">Opening Hour:</string>
-    <string name="closingHour">Closing Hour:
-    </string>
+    <string name="closingHour">Closing Hour:</string>
     <string name="restaurantName">Restaurant name:</string>
     <string name="select">Select...</string>
     <string-array name="university_array">
@@ -50,8 +49,8 @@
     <string name="confirm_save_dishPhoto">Photo changed</string>
     <string name="error_rotating_img">Ops. Something goes wrong while rotate the image</string>
     <string name="error_create_newDish">Ops. Something goes wrong while create the new dish</string>
-    <string name="dish_info">"  Dish Info"</string>
-    <string name="all_hours">"  All Hours  "</string>
+    <string name="dish_info">Dish Info</string>
+    <string name="all_hours">All Hours</string>
     <string name="confirm_delete_booking">Booking evaded</string>
     <string name="delete_dish">delete_dish</string>
     <string name="confirm_delete_dish">Dish deleted</string>

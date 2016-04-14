@@ -231,7 +231,7 @@ public class RestaurateurJsonManager {
             elenco1.add(this.dishes.get(5));
             newBooking.setDishes(elenco1);
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 20);
+            calendar.set(Calendar.HOUR_OF_DAY, 15);
             newBooking.setDate_time(calendar);
             newBooking.setNote("Il cibo deve essere ben cotto");
             bookings.add(newBooking);
@@ -242,7 +242,7 @@ public class RestaurateurJsonManager {
             elenco2.add(this.dishes.get(3));
             newBooking2.setDishes(elenco2);
             calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 19);
+            calendar.set(Calendar.HOUR_OF_DAY, 16);
             newBooking2.setDate_time(calendar);
             newBooking2.setNote("Sono allergico ai latticini. Prego il ristoratore di evitarne l'utilizzo");
             bookings.add(newBooking2);

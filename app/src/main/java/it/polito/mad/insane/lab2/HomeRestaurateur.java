@@ -209,18 +209,21 @@ public class HomeRestaurateur extends AppCompatActivity
         if (graph != null) {
             series.setSpacing(20);
             series.setTitle(getResources().getString(R.string.graph_title));
-            series.setDrawValuesOnTop(true);
             series.setColor(colorPrimary);
-            series.setValuesOnTopColor(colorPrimary);
-            series.setValuesOnTopSize(50);
 
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
-                    globalHour = (int) dataPoint.getX();
-                    TextView tv = (TextView) findViewById(R.id.home_title_hour);
-                    tv.setText(String.format("  %d:00  ", globalHour));
-                    setUpRecyclerHour(globalHour);
+                    TextView tv = (TextView) findViewById(R.id.bookingsGraphIndex);
+                    if (tv != null) {
+                        tv.setText(String.valueOf((int) dataPoint.getY()));
+                    }
+                    tv.setVisibility(View.VISIBLE);
+//                    globalHour = (int) dataPoint.getX();
+//                    TextView tv = (TextView) findViewById(R.id.home_title_hour);
+//                    tv.setText(String.format("  %d:00  ", globalHour));
+//                    setUpRecyclerHour(globalHour);
+
                 }
             });
 
@@ -235,30 +238,37 @@ public class HomeRestaurateur extends AppCompatActivity
             graph.getViewport().setMinX(hour);
 
             if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-                if(hour > 24 - 6){
+                if(hour > 24 - 4){
+                    graph.getViewport().setMinX(16);
                     graph.getViewport().setMaxX(24);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(24-hour+1);
+                }
+                else if (hour < 4){
+                    graph.getViewport().setMinX(0);
+                    graph.getViewport().setMaxX(8);
                 }
                 else{
-                    graph.getViewport().setMaxX(hour + 6);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(6+1);
-
+                    graph.getViewport().setMinX(hour - 4);
+                    graph.getViewport().setMaxX(hour + 4);
                 }
-
+                graph.getGridLabelRenderer().setNumHorizontalLabels(9);
             }
             else {
-                if(hour > 24 -12){
+                if(hour > 24 - 6){
+                    graph.getViewport().setMinX(12);
                     graph.getViewport().setMaxX(24);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(24-hour+1);
                 }
-                else {
-                    graph.getViewport().setMaxX(hour + 12);
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(12 + 1);
+                else if (hour < 6){
+                    graph.getViewport().setMinX(0);
+                    graph.getViewport().setMaxX(12);
                 }
+                else{
+                    graph.getViewport().setMinX(hour - 6);
+                    graph.getViewport().setMaxX(hour + 6);
+                }
+                graph.getGridLabelRenderer().setNumHorizontalLabels(12+1);
             }
 
             graph.getGridLabelRenderer().setPadding(20);
-
             graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
 
             NumberFormat nf = NumberFormat.getInstance();
@@ -320,12 +330,16 @@ public class HomeRestaurateur extends AppCompatActivity
         //TODO:set graph time interval
         TextView tv = (TextView) findViewById(R.id.home_title_day);
         if (tv != null) {
-            tv.setText(new StringBuilder().append("  ").append(pad(day))
-                    .append("/").append(pad(month + 1)).append("/").append(year).append("  "));
+            tv.setText(new StringBuilder().append(pad(day)).append("/").append(pad(month + 1)).append("/").append(year));
         }
         globalDate.set(Calendar.YEAR, year);
         globalDate.set(Calendar.MONTH, month);
         globalDate.set(Calendar.DAY_OF_MONTH, day);
+        globalHour = -1;
+        tv = (TextView) findViewById(R.id.home_title_hour);
+        if(tv != null){
+            tv.setText(R.string.all_hours);
+        }
         setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
 //        setUpRecyclerDay(year, month, day);
         //set up again recycle view
@@ -337,8 +351,7 @@ public class HomeRestaurateur extends AppCompatActivity
         globalHour = hourOfDay;
         TextView tv = (TextView) findViewById(R.id.home_title_hour);
         if (tv != null) {
-            tv.setText(new StringBuilder().append("  ").append(pad(hourOfDay))
-                    .append(":").append("00").append("  "));
+            tv.setText(new StringBuilder().append(pad(hourOfDay)).append(":").append("00"));
         }
         setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
         setUpRecyclerHour(hourOfDay);

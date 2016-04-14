@@ -18,15 +18,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.4"
+            android:layout_weight="1.6"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                >
 
                 <TextView
                     android:id="@+id/home_title_day"
@@ -46,40 +40,6 @@
                     android:layout_marginBottom="4dp"
                     />
 
-                <TextView
-                    android:id="@+id/home_title_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/all_hours"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorAccent"
-                    android:layout_gravity="center"
-                    android:drawableLeft="@drawable/ic_access_time_black_24dp"
-                    android:drawableStart="@drawable/ic_access_time_black_24dp"
-                    android:padding="5dp"
-                    android:background="@drawable/rounded_corner_time_title"
-                    android:onClick="showTimePickerDialogHome"
-                    android:layout_marginBottom="4dp"
-                    />
-
-                <ImageView
-                    android:id="@+id/home_title_refresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/ic_restore_black_24dp"
-                    android:background="@drawable/rounded_corner_time_title"
-                    android:padding="5dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:onClick="refresh"/>
-
-            </LinearLayout>
-
 
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -91,20 +51,37 @@
                 card_view:cardCornerRadius="2dp"
                 android:layout_margin="10dp"
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/graph_title"
-                    android:layout_gravity="end"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/white"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="6dp"
-                    android:paddingRight="6dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/bookingsGraphIndex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:visibility="invisible"
+                            />
+
+                        <TextView
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/graph_title"
+                            android:background="@color/colorAccent"
+                            android:textColor="@color/white"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"/>
+
+                    </RelativeLayout>
+
 
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/graph"
@@ -117,18 +94,40 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/hourBanner"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:layout_margin="15dp"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/home_title_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all_hours"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:drawableStart="@drawable/ic_access_time_black_24dp"
+                android:padding="5dp"
+                android:background="@drawable/rounded_corner_time_title"
+                android:onClick="showTimePickerDialogHome"
+                android:drawablePadding="5dp"
+                />
+
+            <ImageView
+                android:id="@+id/home_title_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_restore_black_24dp"
+                android:background="@drawable/rounded_corner_time_title"
+                android:padding="5dp"
+                android:layout_margin="10dp"
+                android:onClick="refresh"/>
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/BookingRecyclerView"
