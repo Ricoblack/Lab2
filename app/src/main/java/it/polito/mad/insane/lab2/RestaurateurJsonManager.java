@@ -43,19 +43,20 @@ public class RestaurateurJsonManager {
         //Se l'app è aperta per la prima volta non c'è un json, qui lo creo e lo riempio con dati random
         //Altrimenti recupero il json salvato
 
-        if(getDbApp()==null){
+        if(getDbApp()==null)
+        {
             dbApp.fillDbApp();
             saveDbApp();
         }
-        else {
+        else
+        {
             //recupero json
             this.dbApp=getDbApp();
-
         }
-
     }
 
-    public String getJsonString(){
+    public String getJsonString()
+    {
         //ritorna la stringa del Json
 
         if(dbApp==null) return "";
@@ -69,7 +70,7 @@ public class RestaurateurJsonManager {
     public int saveDbApp(){
 
         //scrivo la stringa json su disco
-        String jsonString=this.getJsonString();
+        String jsonString = this.getJsonString();
 
         ContextWrapper cw = new ContextWrapper(myContext);
 
@@ -77,53 +78,60 @@ public class RestaurateurJsonManager {
         File directory = cw.getDir("jsonDir", Context.MODE_PRIVATE);
 
         // Create jsonDir
-        File mypath=new File(directory,"dbapp.json");
+        File mypath = new File(directory,"dbapp.json");
 
         BufferedWriter bufferedWriter=null;
 
-        try {
-
+        try
+        {
             bufferedWriter = new BufferedWriter(new FileWriter(mypath));
 
             bufferedWriter.write(jsonString);
 
             bufferedWriter.close();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             return -1;
-        } finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 bufferedWriter.close();
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 return -2;
             }
         }
         return 0; //tutto ok
     }
 
-    public DbApp getDbApp(){
+    public DbApp getDbApp()
+    {
         Gson gson = new Gson();
 
-            ContextWrapper cw = new ContextWrapper(myContext);
-            // path to /data/data/yourapp/app_data/jsonDir
-            File directory = cw.getDir("jsonDir", Context.MODE_PRIVATE);
-            BufferedReader bufferedReader=null;
+        ContextWrapper cw = new ContextWrapper(myContext);
+        // path to /data/data/yourapp/app_data/jsonDir
+        File directory = cw.getDir("jsonDir", Context.MODE_PRIVATE);
+        BufferedReader bufferedReader=null;
 
-            try {
-                File f=new File(directory, "dbapp.json");
-                bufferedReader = new BufferedReader(new FileReader(f));
-            }
-            catch (FileNotFoundException e)
-            {
-                //nothing
-                return null;
-            }
+        try
+        {
+            File f=new File(directory, "dbapp.json");
+            bufferedReader = new BufferedReader(new FileReader(f));
+        }
+        catch (FileNotFoundException e)
+        {
+            //nothing
+            return null;
+        }
 
-            //convert the json string back to object
-            DbApp obj = gson.fromJson(bufferedReader, DbApp.class);
+        //convert the json string back to object
+        DbApp obj = gson.fromJson(bufferedReader, DbApp.class);
 
-            this.dbApp=obj;
-            return obj;
+        this.dbApp=obj;
+        return obj;
     }
 
     public List<Dish> getDishes()
@@ -148,25 +156,20 @@ public class RestaurateurJsonManager {
     /**
      * Created by carlocaramia on 09/04/16.
      */
-    private class DbApp {
+    private class DbApp
+    {
 
-//        private static DbApp instance = null; // the only instance of this class
         private RestaurateurProfile profile;
         private List<Dish> dishes;
         private List<Booking> bookings;
 
         public  DbApp()
         {
-
+            this.profile = null;
+            this.dishes = null;
+            this.bookings = null;
         }
 
-//        public static DbApp getInstance()
-//        {
-//            if(DbApp.instance == null)
-//                DbApp.instance = new DbApp();
-//
-//            return DbApp.instance;
-//        }
         public RestaurateurProfile getProfile() {
             return profile;
         }
@@ -191,7 +194,8 @@ public class RestaurateurJsonManager {
             this.bookings = bookings;
         }
 
-        public void fillDbApp(){
+        public void fillDbApp()
+        {
 
             //CARICAMENTO DATI PROFILE
             this.profile=new RestaurateurProfile("Pizza-Pazza","corso duca degli abruzzi, 10","PoliTo","Pizza","Venite a provare la pizza più gustosa di Torino",new Date(),new Date(),"Chiusi la domenica","Bancomat","Wifi-free");
@@ -229,6 +233,7 @@ public class RestaurateurJsonManager {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 20);
             newBooking.setDate_time(calendar);
+            newBooking.setNote("Il cibo deve essere ben cotto");
             bookings.add(newBooking);
 
             Booking newBooking2 = new Booking();
@@ -239,6 +244,7 @@ public class RestaurateurJsonManager {
             calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 19);
             newBooking2.setDate_time(calendar);
+            newBooking2.setNote("Sono allergico ai latticini. Prego il ristoratore di evitarne l'utilizzo");
             bookings.add(newBooking2);
 
             Booking newBooking3 = new Booking();
@@ -263,8 +269,6 @@ public class RestaurateurJsonManager {
             bookings.add(newBooking4);
         }
     }
-
-
 }
 
 

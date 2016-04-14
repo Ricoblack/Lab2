@@ -42,8 +42,7 @@ public class HomeRestaurateur extends AppCompatActivity
     private static int globalHour = -1;
 
 
-    /* Standard methods */
-
+    /** Standard methods **/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -70,14 +69,16 @@ public class HomeRestaurateur extends AppCompatActivity
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void showTimePickerDialogHome(View view) {
+    public void showTimePickerDialogHome(View view)
+    {
         DialogFragment openingFragment = new TimePickerFragment();
         openingFragment.show(getSupportFragmentManager(), "homeTitleHourPicker");
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home_restaurateur, menu);
         return true;
@@ -91,11 +92,6 @@ public class HomeRestaurateur extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings)
-//        {
-//            return true;
-//        }
         switch(id)
         {
             case R.id.action_daily_menu:
@@ -138,8 +134,7 @@ public class HomeRestaurateur extends AppCompatActivity
         }
     }
 
-        /* Our Methods */
-
+    /** Our Methods **/
     // Layout Manager
     private void setUpRecyclerDay(int year, int month, int day)
     {
@@ -147,7 +142,6 @@ public class HomeRestaurateur extends AppCompatActivity
 
         adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
         rV.setAdapter(adapter);
-
 
         //FIXME Sistemare il problema del riconoscimento della dimensione dello schermo
         if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE)
@@ -174,7 +168,8 @@ public class HomeRestaurateur extends AppCompatActivity
 
     }
 
-    private void setUpRecyclerHour (final int hour){
+    private void setUpRecyclerHour (final int hour)
+    {
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
 
         Calendar c = Calendar.getInstance();
@@ -189,7 +184,8 @@ public class HomeRestaurateur extends AppCompatActivity
         rV.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void editGraph(BarGraphSeries<DataPoint> series) {
+    private void editGraph(BarGraphSeries<DataPoint> series)
+    {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = HomeRestaurateur.this.getTheme();
         theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
@@ -198,7 +194,6 @@ public class HomeRestaurateur extends AppCompatActivity
         final int colorPrimary = typedValue.data;
         theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
         int colorPrimaryDark = typedValue.data;
-
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
@@ -274,7 +269,8 @@ public class HomeRestaurateur extends AppCompatActivity
     }
 
 
-    private void fillGraphWithBookings(BookingsRecyclerAdapter adapter) {
+    private void fillGraphWithBookings(BookingsRecyclerAdapter adapter)
+    {
 
         //creo un vettore in cui gli indici corrispondono alle ore del giorno e i valori al numero di prenotazioni in quell'ora
         int hours[] = new int[24];
@@ -310,10 +306,9 @@ public class HomeRestaurateur extends AppCompatActivity
     }
 
 
-    public void setDate(int year, int month, int day) {
-        //set graph time interval
+    public void setDate(int year, int month, int day)
+    {
         //TODO:set graph time interval
-
         TextView tv = (TextView) findViewById(R.id.home_title_day);
         if (tv != null) {
             tv.setText(new StringBuilder().append("  ").append(pad(day))
@@ -328,7 +323,8 @@ public class HomeRestaurateur extends AppCompatActivity
 //        setUpRecyclerDay(year,month,day);
     }
 
-    public void setTime(int hourOfDay){
+    public void setTime(int hourOfDay)
+    {
         globalHour = hourOfDay;
         TextView tv = (TextView) findViewById(R.id.home_title_hour);
         if (tv != null) {
@@ -340,8 +336,8 @@ public class HomeRestaurateur extends AppCompatActivity
 
     }
 
-    private List<Booking> getBookingsOfDay(int year,int month,int day){
-
+    private List<Booking> getBookingsOfDay(int year,int month,int day)
+    {
         ArrayList<Booking> bookingList= new ArrayList<Booking>();
         ArrayList<Booking> totalList= (ArrayList<Booking>) HomeRestaurateur.manager.getBookings();
         for(int i=0;i<totalList.size();i++){
@@ -356,9 +352,10 @@ public class HomeRestaurateur extends AppCompatActivity
 
 
 
-    private List<Booking> getBookingsOfHour(int hour){
+    private List<Booking> getBookingsOfHour(int hour)
+    {
 
-        ArrayList<Booking> bookingList= new ArrayList<Booking>();
+        ArrayList<Booking> bookingList = new ArrayList<Booking>();
         ArrayList<Booking> totalList = (ArrayList<Booking>) getBookingsOfDay(globalDate.get(Calendar.YEAR),
                 globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
         for(Booking b : totalList){
@@ -374,18 +371,19 @@ public class HomeRestaurateur extends AppCompatActivity
 //        try {
 //            convertedDate = dateFormat.parse(dateString);
 //        } catch (ParseException e) {
-//            // TODO Auto-generated catch block
 //            return null;
 //        }
 //        return convertedDate;
 //    }
 
-    private String convertDateToString(Date date){
+    private String convertDateToString(Date date)
+    {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(date);
     }
 
-    private static String pad(int c) {
+    private static String pad(int c)
+    {
         if (c >= 10)
             return String.valueOf(c);
         else

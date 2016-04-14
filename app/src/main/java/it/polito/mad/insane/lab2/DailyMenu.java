@@ -14,7 +14,7 @@ public class DailyMenu extends AppCompatActivity {
     private DishesRecyclerAdapter adapter = null;
     static private RestaurateurJsonManager manager = null;
 
-    /* Standard Methods */
+    /** Standard Methods **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +57,7 @@ public class DailyMenu extends AppCompatActivity {
         setupDishesRecyclerView();
     }
 
-
-
-    /* Our Methods */
+    /** Our Methods */
     private void setupDishesRecyclerView()
     {
         // set Adapter
@@ -67,7 +65,6 @@ public class DailyMenu extends AppCompatActivity {
         DailyMenu.this.adapter = new DishesRecyclerAdapter(this, DailyMenu.manager.getDishes(),true);
         if (recyclerView != null) {
             recyclerView.setAdapter(DailyMenu.this.adapter);
-
 
         // set Layout Manager
         LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);

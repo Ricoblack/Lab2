@@ -50,7 +50,7 @@ public class EditDish extends AppCompatActivity {
     ImageView dishPhoto;
 
 
-    /* Listeners */
+    /** Listeners **/
     View.OnClickListener saveDishFabListener = new View.OnClickListener(){
 
         @Override
@@ -117,7 +117,7 @@ public class EditDish extends AppCompatActivity {
         }
     };
 
-    /* Standard Methods */
+    /** Standard Methods **/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -213,7 +213,6 @@ public class EditDish extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -266,7 +265,8 @@ public class EditDish extends AppCompatActivity {
     }
 
 
-    /* Our Methods */
+    /** Our Methods **/
+
     /**
      * Method that delete the dish with the input ID
      * @param dishID
@@ -283,6 +283,7 @@ public class EditDish extends AppCompatActivity {
                 return;
             }
     }
+
     /**
      * Method that copy the original img in the app internal directory and compress it
      * @param imgPath

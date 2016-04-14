@@ -12,27 +12,9 @@ public class Booking implements Serializable
 {
 
     private String ID;
-    private Calendar date_time = Calendar.getInstance(); // TODO: da togliere, è solo stato messo per evitare NullPointerException
-    private List<Dish> dishes = new ArrayList<>(); // TODO: da togliere, è solo stato messo per evitare NullPointerException
+    private Calendar date_time = Calendar.getInstance();
+    private List<Dish> dishes = new ArrayList<>();
     private String note;
-
-
-//    public static ArrayList<Booking> getData()
-//    {
-//        ArrayList<Booking> dataList = new ArrayList<>();
-//
-//        // populate Booking elements (slide 28)
-//        Booking newBooking = new Booking();
-//        newBooking.setID("24");
-//        dataList.add(newBooking);
-//        Booking newBooking2 = new Booking();
-//        newBooking2.setID("25");
-//        dataList.add(newBooking2);
-//
-//        return dataList;
-//    }
-    //ciao michele lo so che mi odierai
-
 
     public String getID() {
         return ID;

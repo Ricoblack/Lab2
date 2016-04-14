@@ -1,6 +1,5 @@
 package it.polito.mad.insane.lab2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -138,7 +132,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
         public void setData(Booking current, int position)
         {
             this.bookingID.setText(current.getID());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
             String date = dateFormat.format(current.getDate_time().getTime());
             this.bookingTime.setText(date);
             this.bookingDishNum.setText(Integer.toString(current.getDishes().size()));

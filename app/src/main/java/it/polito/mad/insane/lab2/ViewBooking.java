@@ -21,7 +21,7 @@ public class ViewBooking extends AppCompatActivity {
     TextView note = null;
     TextView data = null;
     TextView ID = null;
-    //int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,6 @@ public class ViewBooking extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //cancellare il dato da cancellare e fare finish
-                    //aggiungere nell'onResume il notify
                     for(Booking b: manager.getBookings()){
                         if(b.getID().equals(currentBooking.getID())){
                             manager.getBookings().remove(b);
@@ -58,11 +56,11 @@ public class ViewBooking extends AppCompatActivity {
         this.data = (TextView)findViewById(R.id.date_booking);
 
 
-        setTitle("Prenotazione");
+        setTitle(R.string.booking_title);
 
         this.ID.setText("#"+this.currentBooking.getID());
         if(this.currentBooking.getNote() == null){
-            this.note.setText("non sono presenti note relative a questa prenotazione");
+            this.note.setText(R.string.no_notes_in_bookings);
         }else {
             this.note.setText(this.currentBooking.getNote());
         }

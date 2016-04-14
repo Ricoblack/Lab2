@@ -41,8 +41,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
 
+
+    /** Standard Methods **/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         EditProfile.manager = RestaurateurJsonManager.getInstance(this);
         setContentView(R.layout.activity_edit_profile);
@@ -115,14 +118,16 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
-    private void takePhotoFromGallery() {
+    private void takePhotoFromGallery()
+    {
         Intent imageGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI); // EXTERNAL_CONTENT_URI or INTERNAL_CONTENT_URI
         // start the image gallery intent
         startActivityForResult(imageGalleryIntent, REQUEST_IMAGE_GALLERY);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         String imgPath;
 
@@ -158,10 +163,12 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 }
                 break;
             default:
-                Toast.makeText(this, "Switch-case non trovato", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Switch-case non trovato", Toast.LENGTH_LONG).show();
                 break;
         }
     }
+
+    /** Our Methods **/
 
     /**
      * Method that copy the original img in the app internal directory and compress it
@@ -171,13 +178,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
      */
     private Uri processImg(String imgPath) throws Exception
     {
-//        Bitmap rotatedBitmapImg = rotateImg(imgPath);
-
-        // open image given from gallery
-        File f = new File(imgPath);
-
-        // obtain bitmap from original file
-        Bitmap bitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+        Bitmap rotatedBitmapImg = rotateImg(imgPath);
 
         /** save bitmap into App Internal directory creating a compressed copy of it **/
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
@@ -190,10 +191,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         FileOutputStream fos = new FileOutputStream(myImg);
 
         /** scale photo **/
-//        int imgHeight = rotatedBitmapImg.getHeight();
-//        int imgWidth = rotatedBitmapImg.getWidth();
-        int imgHeight = bitmapImg.getHeight();
-        int imgWidth = bitmapImg.getWidth();
+        int imgHeight = rotatedBitmapImg.getHeight();
+        int imgWidth = rotatedBitmapImg.getWidth();
         int newImgHeight = imgHeight;
         int newImgWidth = imgWidth;
         int maxValue = Math.max(imgHeight,imgWidth);
@@ -203,7 +202,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             newImgWidth = (int) (imgWidth / scaleFactor);
         }
 
-        Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(bitmapImg, newImgWidth ,newImgHeight, false);
+        Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(rotatedBitmapImg, newImgWidth ,newImgHeight, false);
         bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
         fos.close();
 
@@ -215,55 +214,55 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         return Uri.parse(myImg.getPath());
     }
 
-//    /**
-//     * Rotate the image which is located in the input imgPath
-//     * @param imgPath
-//     * @return the bitmap image rotated (if needed)
-//     * @throws Exception
-//     */
-//    private Bitmap rotateImg(String imgPath) throws Exception
-//    {
-//        int rotationInDegrees;
-//        Bitmap resultImg;
-//
-//        // open image given
-//        File f = new File(imgPath);
-//        // obtain bitmap from original file
-//        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
-//
-//        // Reads Exif tags from the specified JPEG file.
-//        ExifInterface exif = new ExifInterface(imgPath);
-//
-//        // find the current rotation
-//        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//
-//        // Convert exif rotation to degrees:
-//        switch(rotation)
-//        {
-//            case ExifInterface.ORIENTATION_ROTATE_90:
-//                rotationInDegrees = 90;
-//                break;
-//            case ExifInterface.ORIENTATION_ROTATE_180:
-//                rotationInDegrees = 180;
-//                break;
-//            case  ExifInterface.ORIENTATION_ROTATE_270:
-//                rotationInDegrees = 270;
-//                break;
-//            default:
-//                rotationInDegrees = 0;
-//                break;
-//        }
-//
-//        // use the actual rotation of the image as a reference point to rotate the image using a Matrix
-//        Matrix matrix = new Matrix();
-//        if (rotation != 0f) // 0 float
-//            matrix.preRotate(rotationInDegrees);
-//
-//        // create the new rotate img
-//        resultImg = Bitmap.createBitmap(originalBitmapImg, 0, 0, originalBitmapImg.getWidth(),originalBitmapImg.getHeight(), matrix, true);
-//
-//        return resultImg;
-//    }
+    /**
+     * Rotate the image which is located in the input imgPath
+     * @param imgPath
+     * @return the bitmap image rotated (if needed)
+     * @throws Exception
+     */
+    private Bitmap rotateImg(String imgPath) throws Exception
+    {
+        int rotationInDegrees;
+        Bitmap resultImg;
+
+        // open image given
+        File f = new File(imgPath);
+        // obtain bitmap from original file
+        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+
+        // Reads Exif tags from the specified JPEG file.
+        ExifInterface exif = new ExifInterface(imgPath);
+
+        // find the current rotation
+        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        // Convert exif rotation to degrees:
+        switch(rotation)
+        {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                rotationInDegrees = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                rotationInDegrees = 180;
+                break;
+            case  ExifInterface.ORIENTATION_ROTATE_270:
+                rotationInDegrees = 270;
+                break;
+            default:
+                rotationInDegrees = 0;
+                break;
+        }
+
+        // use the actual rotation of the image as a reference point to rotate the image using a Matrix
+        Matrix matrix = new Matrix();
+        if (rotation != 0f) // 0 float
+            matrix.preRotate(rotationInDegrees);
+
+        // create the new rotate img
+        resultImg = Bitmap.createBitmap(originalBitmapImg, 0, 0, originalBitmapImg.getWidth(),originalBitmapImg.getHeight(), matrix, true);
+
+        return resultImg;
+    }
 
     private void loadImageFromStorage()
     {
@@ -459,8 +458,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         manager.setRestaurateurProfile(profile);
         manager.saveDbApp();
 
-        Toast.makeText(this, "Profile data updated", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.confirm_profile_updated, Toast.LENGTH_SHORT).show();
         finish();
-
     }
 }

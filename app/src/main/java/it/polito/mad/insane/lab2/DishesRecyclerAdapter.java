@@ -26,15 +26,12 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
     private boolean cardView_clickable;
 
 
-
     public DishesRecyclerAdapter(Context context, List<Dish> data, boolean clickable)
     {
         this.cardView_clickable = clickable;
         this.mData = data;
         this.mInflater = LayoutInflater.from(context);
     }
-
-
 
     /**
      * Method called when a ViewHolder Object is created
@@ -88,9 +85,7 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
-
-
+//                Toast.makeText(v.getContext(),"Cliccato sulla cardView avente dishID: "+currentDish.getID(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(v.getContext(),EditDish.class);
                 i.putExtra("Dish", DishesViewHolder.this.currentDish);
                 v.getContext().startActivity(i);
@@ -146,7 +141,6 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
         public void setCurrentDish(Dish currentDish) {
             this.currentDish = currentDish;
         }
-
 
     }
 }

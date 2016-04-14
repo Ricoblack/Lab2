@@ -38,11 +38,7 @@ public class RestaurateurProfile {
         this.description = description;
     }
 
-    public RestaurateurProfile() {
-
-    }
-
-
+    public RestaurateurProfile() {}
 
     public String getAddress() {
         return address;

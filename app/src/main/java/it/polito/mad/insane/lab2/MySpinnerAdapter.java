@@ -12,8 +12,10 @@ import java.util.List;
 /**
  * Created by Renato on 08/04/2016.
  */
-public class MySpinnerAdapter extends ArrayAdapter<String> {
-    public MySpinnerAdapter(Context context, int resource, List objects) {
+public class MySpinnerAdapter extends ArrayAdapter<String>
+{
+    public MySpinnerAdapter(Context context, int resource, List objects)
+    {
         super(context, resource, objects);
     }
 
@@ -23,16 +25,17 @@ public class MySpinnerAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, ViewGroup parent)
+    {
         View view = super.getDropDownView(position, convertView, parent);
         TextView tv = (TextView) view;
         if(position == 0){
             // Set the hint text color gray
             tv.setTextColor(Color.GRAY);
         }
-        else {
+        else
             tv.setTextColor(Color.BLACK);
-        }
+
         return view;
     }
 }
