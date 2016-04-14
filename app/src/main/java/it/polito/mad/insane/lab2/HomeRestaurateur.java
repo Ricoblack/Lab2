@@ -189,8 +189,8 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setSpacing(20);
             series.setTitle(getResources().getString(R.string.graph_title));
             series.setDrawValuesOnTop(true);
-            series.setColor(colorAccent);
-            series.setValuesOnTopColor(colorAccent);
+            series.setColor(colorPrimary);
+            series.setValuesOnTopColor(colorPrimary);
             series.setValuesOnTopSize(50);
 
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
