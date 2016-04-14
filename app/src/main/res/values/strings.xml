@@ -58,6 +58,6 @@
     <string name="no_notes_in_bookings">There are no notes in this booking</string>
     <string name="booking_title">Booking</string>
     <string name="note">Note:</string>
-    <string name="dishes">Dishes:</string>
+    <string name="dishes">Dishes</string>
     <string name="confirm_profile_updated">Profile data updated</string>
 </resources>

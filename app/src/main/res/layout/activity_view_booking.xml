@@ -26,45 +26,77 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view = "http://schemas.android.com/apk/res-auto"
-        android:id="@+id/restaurantExtraInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation = "horizontal"
-        card_view:cardCornerRadius="2dp"
-        android:layout_margin="@dimen/margin_between_cardView">
-        <RelativeLayout
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+            android:id="@+id/restaurantExtraInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context="it.polito.mad.insane.lab2.ViewBooking"
-            tools:showIn="@layout/activity_view_booking">
-            <TextView
-                android:id="@+id/booking_ID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:hint="#ID"
-                android:textSize="30sp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                />
+            android:orientation = "horizontal"
+            card_view:cardCornerRadius="2dp"
+            android:layout_margin="@dimen/margin_between_cardView">
 
-            <TextView
-                android:id="@+id/date_booking"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:textSize="25sp"
-                android:hint="hh:mm"
-                />
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context="it.polito.mad.insane.lab2.ViewBooking"
+                tools:showIn="@layout/activity_view_booking">
+
+
+            <RelativeLayout
+                android:id="@+id/intestazione_card_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/booking_ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="#ID"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/date_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="hh:mm"
+                    android:layout_marginLeft="@dimen/margin_between_cardView"
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_toLeftOf="@id/date_booking"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/clock_300_green"/>
+
+            </RelativeLayout>
+
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/intestazione_card_booking"
+                android:background="@color/colorAccent"/>
 
             <TextView
                 android:id="@+id/note"
@@ -75,8 +107,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/booking_ID"
+                android:layout_below="@id/line2"
                 />
+
             <TextView
                 android:id="@+id/note_dish"
                 android:paddingLeft="2dp"
@@ -85,19 +118,35 @@
                 android:textSize="20sp"
                 android:layout_toRightOf="@id/note"
                 android:layout_toEndOf="@id/note"
-                android:layout_below="@id/booking_ID"
+                android:layout_below="@id/line2"
                 android:layout_marginTop="20dp"
                 android:hint="Note text"
                 />
+
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dishes"
-        android:textSize="24sp"
-        android:layout_margin="6dp"/>
+        <TextView
+            android:id="@+id/home_title_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dishes"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:typeface="sans"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_restaurant_black_24dp"
+            android:drawableStart="@drawable/ic_restaurant_black_24dp"
+            android:drawablePadding="@dimen/margin_between_cardView"
+            android:padding="5dp"
+            android:background="@drawable/rounded_corner_day_title"
+            android:onClick="showTimePickerDialogHome"
+            android:layout_marginBottom="4dp"
+            />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/MenuRecyclerView"
@@ -114,6 +163,7 @@
         android:src="@drawable/ic_done_white_24dp"
         app:layout_anchor="@id/main_layout_view_booking"
         app:layout_anchorGravity="bottom|right"
+        app:backgroundTint="@color/colorPrimary"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"/>
