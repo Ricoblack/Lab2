@@ -11,7 +11,7 @@
     <string name="campus">Università</string>
     <string name="confirm_add_dish">Piatto aggiunto correttamente</string>
     <string name="closingHour">Orario chiusura</string>
-    <string name="confirm_delete_booking">Prenotazione confermata</string>
+    <string name="confirm_delete_booking">Prenotazione evasa</string>
     <string name="confirm_delete_dish">Piatto eliminato</string>
     <string name="confirm_profile_updated">Profilo aggiornato</string>
     <string name="confirm_save_dish">Piatto salvato correttamente</string>
