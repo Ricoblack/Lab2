@@ -1,6 +1,7 @@
 package it.polito.mad.insane.lab2;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -50,6 +52,24 @@ public class HomeRestaurateur extends AppCompatActivity
         setContentView(R.layout.activity_home_restaurateur);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //caso in cui debba essere cancellata una eccezione faccio il refresh della home
+//        position = getIntent().getIntExtra("pos",-1);
+//        if( position != -1 ){
+//            manager.getBookings().remove(position);
+//            manager.saveDbApp();
+//
+//        }
+        //setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
+
+        // Fix Portrait Mode
+        if( (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL ||
+                (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL)
+        {
+            Toast.makeText(HomeRestaurateur.this, "Schermo Normal", Toast.LENGTH_SHORT).show();
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
     }
 
 
@@ -133,14 +153,15 @@ public class HomeRestaurateur extends AppCompatActivity
         rV.setAdapter(adapter);
 
         //FIXME Sistemare il problema del riconoscimento della dimensione dello schermo
-        if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE)
+        if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE ||
+            (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE)
         {
-            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            Toast.makeText(HomeRestaurateur.this, "Schermo Large  o Xlarge", Toast.LENGTH_SHORT).show();
+
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             {
                 GridLayoutManager mGridLayoutManager = new GridLayoutManager(this,2);
                 rV.setLayoutManager(mGridLayoutManager);
-
-            }else{
 
             }
         }else {
