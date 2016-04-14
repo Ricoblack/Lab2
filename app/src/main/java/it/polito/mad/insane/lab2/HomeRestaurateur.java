@@ -36,7 +36,6 @@ import java.util.List;
 public class HomeRestaurateur extends AppCompatActivity
 {
     private static RestaurateurJsonManager manager = null;
-    int position;
     private BookingsRecyclerAdapter adapter;
     private static Calendar globalDate = Calendar.getInstance();
     private static int globalHour = -1;
@@ -51,15 +50,6 @@ public class HomeRestaurateur extends AppCompatActivity
         setContentView(R.layout.activity_home_restaurateur);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //caso in cui debba essere cancellata una eccezione faccio il refresh della home
-//        position = getIntent().getIntExtra("pos",-1);
-//        if( position != -1 ){
-//            manager.getBookings().remove(position);
-//            manager.saveDbApp();
-//
-//        }
-        //setUpRecyclerDay(globalDate.get(Calendar.YEAR),globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
     }
 
 
@@ -105,7 +95,6 @@ public class HomeRestaurateur extends AppCompatActivity
                 startActivity(invokeEditProfile);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -172,7 +161,6 @@ public class HomeRestaurateur extends AppCompatActivity
     {
         RecyclerView rV = (RecyclerView) findViewById(R.id.BookingRecyclerView);
 
-        Calendar c = Calendar.getInstance();
         BookingsRecyclerAdapter adapter = new BookingsRecyclerAdapter(this, getBookingsOfHour(hour));
         rV.setAdapter(adapter);
 
@@ -201,8 +189,8 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setSpacing(20);
             series.setTitle(getResources().getString(R.string.graph_title));
             series.setDrawValuesOnTop(true);
-            series.setColor(colorPrimary);
-            series.setValuesOnTopColor(colorPrimaryDark);
+            series.setColor(colorAccent);
+            series.setValuesOnTopColor(colorAccent);
             series.setValuesOnTopSize(50);
 
             series.setOnDataPointTapListener(new OnDataPointTapListener() {

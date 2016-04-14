@@ -61,7 +61,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
         private TextView bookingID;
         private TextView bookingTime;
         private TextView bookingDishNum;
-        private TextView bookingNote;
+        //private TextView bookingNote;
         private int position;
         private Booking currentBooking;
         private ImageView imageView;
@@ -75,7 +75,6 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 //Toast.makeText(v.getContext(),"Cliccato sulla cardView", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(v.getContext(),ViewBooking.class);
                 i.putExtra("Booking", BookingViewHolder.this.currentBooking);
-                //i.putExtra("pos",position);
                 v.getContext().startActivity(i);
             }
         };
@@ -86,11 +85,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             @Override
             public void onClick(View v)
             {
-                //Toast.makeText(v.getContext(),"La posizione è "+Integer.toString(position), Toast.LENGTH_LONG).show();
-//                Intent i = new Intent(v.getContext(),HomeRestaurateur.class);
-//                i.putExtra("pos",position);
-//                v.getContext().startActivity(i);
-                //o simile ricalcolare i dati
+
                 RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
                 for(Booking b: manager.getBookings()){
                     if(b.getID().equals(currentBooking.getID())){

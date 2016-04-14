@@ -50,7 +50,6 @@ public class ViewBooking extends AppCompatActivity {
         }
 
         this.currentBooking = (Booking) getIntent().getSerializableExtra("Booking");
-        //this.position = getIntent().getIntExtra("pos",-1);
         this.ID = (TextView)findViewById(R.id.booking_ID);
         this.note = (TextView)findViewById(R.id.note_dish);
         this.data = (TextView)findViewById(R.id.date_booking);

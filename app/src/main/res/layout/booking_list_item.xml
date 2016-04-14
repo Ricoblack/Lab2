@@ -9,7 +9,7 @@
     app:cardElevation="5dp"
     app:cardCornerRadius="@dimen/radius_cardView"
     app:cardPreventCornerOverlap="true"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@color/white"
     android:clickable="true">
 
 
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorAccent"
                 android:typeface="sans"
                 android:textStyle="bold"
                 android:textSize="22sp"
@@ -44,7 +44,7 @@
                 android:textSize="25sp"
                 android:typeface="sans"
                 android:textStyle="bold"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorAccent"
                 android:layout_toRightOf="@id/hash"
                 android:layout_toEndOf="@id/hash"/>
 
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorAccent"
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_alignParentRight="true"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/piatto_300_white"/>
+                android:src="@drawable/piatto_300_green"/>
 
 
             <TextView
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
@@ -87,21 +87,21 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/num_booking"
                 android:layout_toStartOf="@id/num_booking"
-                android:src="@drawable/ic_forchetta_300_white"/>
+                android:src="@drawable/ic_forchetta_300_green"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/num_booking"
                 android:layout_toEndOf="@id/num_booking"
-                android:src="@drawable/ic_coltello_300_white"/>
+                android:src="@drawable/ic_coltello_300_green"/>
 
         </RelativeLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/colorAccent"
             />
         <RelativeLayout
             android:layout_width="0dp"
