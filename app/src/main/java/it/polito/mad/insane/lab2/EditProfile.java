@@ -42,6 +42,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private static final int MY_GL_MAX_TEXTURE_SIZE = 1024;
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
+    private static Bitmap tempCoverPhoto;
 
 
     // TODO: va tolto il titolo dalla immagine copertina
@@ -166,9 +167,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     }
 
                     try {
-                        processImg(imgPath);
+                        tempCoverPhoto = processImg(imgPath);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Toast.makeText(EditProfile.this, R.string.error_processing_img, Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -187,19 +188,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
      * @return the URI of the new Img
      * @throws Exception
      */
-    private Uri processImg(String imgPath) throws Exception
+    private Bitmap processImg(String imgPath) throws Exception
     {
         Bitmap rotatedBitmapImg = rotateImg(imgPath);
-
-        /** save bitmap into App Internal directory creating a compressed copy of it **/
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-
-        // path: /data/data/<my_app>/app_data/imageDir
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-
-        // Compress and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
-        File myImg = new File(directory, "restaurant_cover.jpg");
-        FileOutputStream fos = new FileOutputStream(myImg);
 
         /** scale photo **/
         int imgHeight = rotatedBitmapImg.getHeight();
@@ -214,15 +205,13 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         }
 
         Bitmap bitmapImgScaled = Bitmap.createScaledBitmap(rotatedBitmapImg, newImgWidth ,newImgHeight, false);
-        bitmapImgScaled.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-        fos.close();
 
         ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
         if (iv != null) {
             iv.setImageBitmap(bitmapImgScaled);
         }
 
-        return Uri.parse(myImg.getPath());
+        return bitmapImgScaled;
     }
 
     /**
@@ -296,6 +285,25 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             if (tv != null) {
                 tv.setVisibility(View.GONE);
             }
+        }
+    }
+
+    private void saveImageOnStorage(){
+        /** save bitmap into App Internal directory creating a compressed copy of it **/
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+
+        // path: /data/data/<my_app>/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+        // Compress and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
+        File myImg = new File(directory, "restaurant_cover.jpg");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(myImg);
+            tempCoverPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+        } catch (java.io.IOException e) {
+            Toast.makeText(EditProfile.this, R.string.error_save_image, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -389,6 +397,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void saveData() {
+
+        saveImageOnStorage();
 
         String name = null, address = null, description = null, payment = null, timeInfo = null, university = null,
                 cuisineType = null, services = null;

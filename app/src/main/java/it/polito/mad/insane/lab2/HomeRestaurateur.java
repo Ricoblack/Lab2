@@ -237,8 +237,8 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
-                    Toast.makeText(HomeRestaurateur.this, String.format("%s:00 Total Dishes: %s",
-                            pad((int)dataPoint.getX()), (int) dataPoint.getY()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeRestaurateur.this, String.format("%s:00 %s: %s", String.valueOf(pad((int) dataPoint.getX())),
+                            getResources().getString(R.string.totalDishesNr), String.valueOf((int) dataPoint.getY())), Toast.LENGTH_SHORT).show();
 //                    globalHour = (int) dataPoint.getX();
 //                    TextView tv = (TextView) findViewById(R.id.home_title_hour);
 //                    tv.setText(String.format("  %d:00  ", globalHour));

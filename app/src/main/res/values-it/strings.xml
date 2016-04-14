@@ -49,6 +49,7 @@
     <string name="title_activity_edit_profile">Modifica profilo</string>
     <string name="title_activity_view_booking">Prenotazione</string>
     <string name="university">Università vicina</string>
+    <string name="totalDishesNr">Totale piatti</string>
     <string name="quantity_available">Quantità:</string>
 
 </resources>

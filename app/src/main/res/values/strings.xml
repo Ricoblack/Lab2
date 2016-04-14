@@ -48,6 +48,7 @@
     <string name="error_processing_img">Ops! something goes wrong while process img</string>
     <string name="confirm_save_dishPhoto">Photo changed</string>
     <string name="error_rotating_img">Ops. Something goes wrong while rotate the image</string>
+    <string name="error_save_image">Ops! Something goes wrong while saving image</string>
     <string name="error_create_newDish">Ops. Something goes wrong while create the new dish</string>
     <string name="dish_info">Dish Info</string>
     <string name="all_hours">All Hours</string>
@@ -60,5 +61,6 @@
     <string name="note">Note:</string>
     <string name="dishes">Dishes</string>
     <string name="confirm_profile_updated">Profile data updated</string>
+    <string name="totalDishesNr">Total Dishes</string>
     <string name="quantity_available">Availability:</string>
 </resources>
