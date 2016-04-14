@@ -63,4 +63,8 @@
     <string name="confirm_profile_updated">Profile data updated</string>
     <string name="totalDishesNr">Total Dishes</string>
     <string name="quantity_available">Availability:</string>
+    <string name="general_info">General Info</string>
+    <string name="food_and_ambience">Food and ambience</string>
+    <string name="timetables_edit">TimeTables</string>
+    <string name="extra_info">Extra Info</string>
 </resources>

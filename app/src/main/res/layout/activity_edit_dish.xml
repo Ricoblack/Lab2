@@ -115,8 +115,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/dish_info"
+                        android:drawablePadding="5dp"
                         android:textSize="18sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
                         android:paddingBottom="10dp"
                         android:drawableStart="@drawable/ic_chrome_reader_mode_black_24dp"
                         android:drawableLeft="@drawable/ic_chrome_reader_mode_black_24dp"
@@ -125,7 +126,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="2dp"
-                            android:background="@color/colorPrimary"/>
+                            android:background="@color/colorAccent"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -241,7 +242,8 @@
         android:src="@drawable/ic_done_white_24dp"
         app:layout_anchor="@id/scroll"
         app:layout_anchorGravity="bottom|right"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/colorPrimary"/>
 
 
 

@@ -51,5 +51,8 @@
     <string name="university">Università vicina</string>
     <string name="totalDishesNr">Totale piatti</string>
     <string name="quantity_available">Quantità:</string>
-
+    <string name="general_info">Informazioni generali</string>
+    <string name="food_and_ambience">Cibo e atmosfera</string>
+    <string name="timetables_edit">Orari</string>
+    <string name="extra_info">Informazioni aggiuntive</string>
 </resources>
