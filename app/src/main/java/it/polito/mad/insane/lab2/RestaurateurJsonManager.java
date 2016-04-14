@@ -221,6 +221,8 @@ public class RestaurateurJsonManager {
             dishes.add(dish6);
 
 
+
+
             //CARICAMENTO DATI BOOKINGS
             this.bookings=new ArrayList<Booking>();
 
@@ -263,10 +265,23 @@ public class RestaurateurJsonManager {
             elenco4.add(this.dishes.get(2));
             newBooking4.setDishes(elenco4);
             calendar = Calendar.getInstance();
-            calendar.set(Calendar.DAY_OF_MONTH, 15);
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH)-2);
             calendar.set(Calendar.HOUR_OF_DAY, 17);
             newBooking4.setDate_time(calendar);
             bookings.add(newBooking4);
+
+            Booking newBooking5 = new Booking();
+            newBooking5.setID("5");
+            ArrayList<Dish> elenco5=new ArrayList<>();
+            elenco5.add(this.dishes.get(0));
+            elenco5.add(this.dishes.get(1));
+            elenco5.add(this.dishes.get(0));
+            newBooking5.setDishes(elenco5);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH)-1);
+            calendar.set(Calendar.HOUR_OF_DAY, 19);
+            newBooking5.setDate_time(calendar);
+            bookings.add(newBooking5);
         }
     }
 }
