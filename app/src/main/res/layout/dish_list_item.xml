@@ -32,44 +32,97 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- not visible: used in code only -->
-            <TextView
-                android:id="@+id/dish_ID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
 
 
-            <TextView
-                android:id="@+id/dish_name"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+
+            <RelativeLayout
+                android:id="@+id/intestazione_card_dishes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dish_ID"/>
+                android:layout_height="wrap_content">
+
+                <!-- not visible: used in code only -->
+                <TextView
+                    android:id="@+id/dish_ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:text="Politecnico"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_below="@id/dish_ID"
+                    android:padding="@dimen/margin_between_cardView"/>
+
+                <TextView
+                    android:id="@+id/dish_price"
+                    android:text="10.10"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_toLeftOf="@id/dish_price"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/euro_symbol_green_500"/>
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/intestazione_card_dishes"
+                android:background="@color/colorAccent"/>
+
             <TextView
                 android:id="@+id/dish_description"
+                android:text="un piatto a base di studenti con contorno di pauraa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dish_name"/>
+                android:layout_below="@id/line2"
+                android:padding="@dimen/margin_between_cardView"/>
 
-            <TextView
-                android:id="@+id/dish_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dish_description"
-                android:layout_alignEnd="@id/dish_description"
-                android:layout_alignRight="@id/dish_description"/>
 
             <TextView
                 android:id="@+id/dish_availab_qty"
                 android:layout_width="wrap_content"
+                android:text="110"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_below="@id/dish_description"
-                android:layout_marginStart="3dp"
-                android:layout_marginLeft="3dp"
+                android:layout_alignEnd="@id/dish_description"
+                android:layout_alignRight="@id/dish_description"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@id/dish_availab_qty"
+                android:layout_below="@id/dish_description"
+                android:layout_marginTop="@dimen/margin_between_cardView"
+                android:paddingRight="@dimen/margin_between_cardView"
+                android:text="@string/quantity_available"/>
+
         </RelativeLayout>
 
         <!--<android.support.design.widget.FloatingActionButton-->

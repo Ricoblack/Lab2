@@ -60,4 +60,5 @@
     <string name="note">Note:</string>
     <string name="dishes">Dishes</string>
     <string name="confirm_profile_updated">Profile data updated</string>
+    <string name="quantity_available">Availability:</string>
 </resources>
