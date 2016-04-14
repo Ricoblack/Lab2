@@ -3,6 +3,8 @@ package it.polito.mad.insane.lab2;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -41,6 +43,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
 
+
+    // TODO: va tolto il titolo dalla immagine copertina
 
     /** Standard Methods **/
     @Override
@@ -101,6 +105,13 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         //set image if available
         loadImageFromStorage();
         loadDataFromJson();
+
+        // Fix Portrait Mode
+        if( (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL ||
+                (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 
     @Override

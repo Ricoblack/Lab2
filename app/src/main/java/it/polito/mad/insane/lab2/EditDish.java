@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,6 +51,8 @@ public class EditDish extends AppCompatActivity {
     EditText dishPrice;
     ImageView dishPhoto;
 
+
+    // TODO: va tolto il titolo dalla immagine copertina
 
     /** Listeners **/
     View.OnClickListener saveDishFabListener = new View.OnClickListener(){
@@ -186,6 +190,12 @@ public class EditDish extends AppCompatActivity {
             }
         }
 
+        // Fix Portrait Mode
+        if( (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL ||
+                (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 
     @Override

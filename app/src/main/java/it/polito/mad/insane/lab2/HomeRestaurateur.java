@@ -66,7 +66,6 @@ public class HomeRestaurateur extends AppCompatActivity
         if( (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL ||
                 (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL)
         {
-            Toast.makeText(HomeRestaurateur.this, "Schermo Normal", Toast.LENGTH_SHORT).show();
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -152,20 +151,44 @@ public class HomeRestaurateur extends AppCompatActivity
         adapter = new BookingsRecyclerAdapter(this, getBookingsOfDay(year,month,day));
         rV.setAdapter(adapter);
 
-        //FIXME Sistemare il problema del riconoscimento della dimensione dello schermo
-        if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE ||
-            (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE)
+        // set Layout Manager
+        if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE)
         {
-            Toast.makeText(HomeRestaurateur.this, "Schermo Large  o Xlarge", Toast.LENGTH_SHORT).show();
-
-            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            // 10 inches
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             {
+                // 2 columns
                 GridLayoutManager mGridLayoutManager = new GridLayoutManager(this,2);
                 rV.setLayoutManager(mGridLayoutManager);
+            }else
+            {
+                // 1 column, different layout
+                LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+                mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+                rV.setLayoutManager(mLinearLayoutManagerVertical);
+            }
 
+        } else if((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE)
+        {
+            // 7 inches
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                // 1 column
+                LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+                mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+                rV.setLayoutManager(mLinearLayoutManagerVertical);
+
+            }else
+            {
+                // 1 column
+                LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
+                mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+                rV.setLayoutManager(mLinearLayoutManagerVertical);
             }
         }else {
 
+            // small and normal screen
+            // 1 columns
             LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this);
             mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
             rV.setLayoutManager(mLinearLayoutManagerVertical);
