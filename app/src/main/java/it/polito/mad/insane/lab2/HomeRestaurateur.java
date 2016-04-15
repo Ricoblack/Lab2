@@ -47,6 +47,8 @@ public class HomeRestaurateur extends AppCompatActivity
 
      // FIXME: su smartphone cone android 4.1.2 non viene settato lo sfondo dei tasti nella home
 
+    //TODO sistemare le dimensioni delle immagini per adattarle ai vari tipi di schermo
+
 
     /** Standard methods **/
     @Override
