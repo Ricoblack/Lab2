@@ -42,7 +42,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private static final int MY_GL_MAX_TEXTURE_SIZE = 1024;
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
-    private static Bitmap tempCoverPhoto;
+    private static Bitmap tempCoverPhoto = null;
 
     // FIXME: quando setto l'immagine in modalità portrait (o land) e poi la giro, l'immagine scompare
 
@@ -103,6 +103,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             cSpinner.setAdapter(cAdapter);
 
         //set image if available
+        if(tempCoverPhoto != null){
+            ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
+            iv.setImageBitmap(tempCoverPhoto);
+        }
         loadImageFromStorage();
         loadDataFromJson();
 
@@ -301,6 +305,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             fos = new FileOutputStream(myImg);
             tempCoverPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos); // FIXME: java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.graphics.Bitmap.compress(android.graphics.Bitmap$CompressFormat, int, java.io.OutputStream)' on a null object reference
             fos.close();
+            tempCoverPhoto = null;
         } catch (java.io.IOException e) {
             Toast.makeText(EditProfile.this, R.string.error_save_image, Toast.LENGTH_LONG).show();
         }
