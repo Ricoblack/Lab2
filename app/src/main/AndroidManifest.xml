@@ -35,6 +35,7 @@
         <activity
             android:name=".EditDish"
             android:label="@string/title_activity_edit_dish"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".DailyMenu"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
