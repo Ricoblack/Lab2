@@ -229,7 +229,7 @@ public class RestaurateurJsonManager {
             Dish dish9 = new Dish("8","Michele", "Pomodoro, patatine, wurstel, senape", null, 5.55, 150);
             dishes.add(dish9);
 
-            Dish dish10 = new Dish("9","Renato", "Piaza e pasta: mai dire mai al gusto!", null, 5.55, 150);
+            Dish dish10 = new Dish("9","Renato", "Pizza e pasta: mai dire mai al gusto!", null, 5.55, 150);
             dishes.add(dish10);
 
 
