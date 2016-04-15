@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
@@ -45,6 +46,7 @@ public class ViewBooking extends AppCompatActivity {
                         }
                     }
                     manager.saveDbApp();
+                    Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
                     finish();
                 }
             });

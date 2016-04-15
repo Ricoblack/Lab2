@@ -296,6 +296,9 @@ public class HomeRestaurateur extends AppCompatActivity
 
             graph.getGridLabelRenderer().setPadding(20);
             graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+            graph.getGridLabelRenderer().setHorizontalLabelsVisible(true);
+            graph.getGridLabelRenderer().setHorizontalAxisTitle(getString(R.string.horizontal_axis_label));
+            graph.getGridLabelRenderer().setHorizontalAxisTitleColor(colorPrimary);
 
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(0);

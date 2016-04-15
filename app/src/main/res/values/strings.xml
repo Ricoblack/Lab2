@@ -67,4 +67,8 @@
     <string name="food_and_ambience">Food and ambience</string>
     <string name="timetables_edit">TimeTables</string>
     <string name="extra_info">Extra Info</string>
+    <string name="horizontal_axis_label">Hour</string>
+    <string name="dialog_dialog_delete">Are you sure you want to evade this booking?</string>
+    <string name="ok_delete_dialog">Ok</string>
+    <string name="cancel_delete_dialog">Cancel</string>
 </resources>

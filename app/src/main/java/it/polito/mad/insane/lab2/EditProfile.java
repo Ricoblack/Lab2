@@ -291,7 +291,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         {
             TextView tv = (TextView) findViewById(R.id.editCover);
             if (tv != null) {
-                tv.setVisibility(View.GONE);
+                tv.setVisibility(View.GONE); //FIXME cambiando l'immagine quando c'è quella di default non compare
             }
         }
     }
