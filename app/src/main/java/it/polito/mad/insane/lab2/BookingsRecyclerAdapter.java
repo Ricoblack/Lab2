@@ -1,7 +1,9 @@
 package it.polito.mad.insane.lab2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,8 +88,41 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
             public void onClick(View v)
             {
 
-                RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
-                for(Booking b: manager.getBookings()){
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle(R.string.dialog_dialog_delete);
+                // Add the buttons
+                builder.setPositiveButton(R.string.ok_delete_dialog, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int id) {
+                        RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
+
+                        for(Booking b: manager.getBookings()){
+                            if(b.getID().equals(currentBooking.getID())){
+                                //Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
+                                manager.getBookings().remove(b);
+                                notifyItemRemoved(position);
+                                notifyItemRangeRemoved(position, getItemCount());
+                                break;
+                            }
+                        }
+                        manager.saveDbApp();
+                        Intent intent = new Intent(myContext,HomeRestaurateur.class);
+                        intent.putExtra("flag_delete",1);
+                        myContext.startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel_delete_dialog, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+// Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+               /* RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
+                for(Booking  b: manager.getBookings()){
                     if(b.getID().equals(currentBooking.getID())){
                         Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
                         manager.getBookings().remove(b);
@@ -99,7 +134,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 manager.saveDbApp();
                 Intent intent = new Intent(v.getContext(),HomeRestaurateur.class);
                 intent.putExtra("flag_delete",1);
-                v.getContext().startActivity(intent);
+                v.getContext().startActivity(intent);*/
 
             }
         };

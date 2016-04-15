@@ -1,9 +1,12 @@
 package it.polito.mad.insane.lab2;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,15 +42,37 @@ public class ViewBooking extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for(Booking b: manager.getBookings()){
-                        if(b.getID().equals(currentBooking.getID())){
-                            manager.getBookings().remove(b);
-                            break;
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setTitle(R.string.dialog_dialog_delete);
+                    // Add the buttons
+                    builder.setPositiveButton(R.string.ok_delete_dialog, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            for(Booking b: manager.getBookings()){
+                                if(b.getID().equals(currentBooking.getID())){
+                                    manager.getBookings().remove(b);
+                                    break;
+                                }
+                            }
+                            manager.saveDbApp();
+                            //Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
+                            finish();
+
                         }
-                    }
-                    manager.saveDbApp();
-                    Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
-                    finish();
+                    });
+                    builder.setNegativeButton(R.string.cancel_delete_dialog, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+
+// Create the AlertDialog
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
                 }
             });
         }

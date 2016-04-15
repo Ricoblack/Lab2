@@ -34,6 +34,7 @@ import java.util.List;
 
 public class EditDish extends AppCompatActivity {
 
+    //FIXME: cursor.getString() crasha
     private static final int MY_GL_MAX_TEXTURE_SIZE = 1024; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
                                                             // (this needs an OpenGL context)                                                       GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
                                                             //                                                                                      myGLMaxTextureSize = maxSize[0];
@@ -244,7 +245,7 @@ public class EditDish extends AppCompatActivity {
                         // Move to first row
                         cursor.moveToFirst();
                         int columnIndex = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                        imgPath = cursor.getString(columnIndex);
+                        imgPath = cursor.getString(columnIndex); // FIXME: errore sul cell di prova - Invalid input parameters
                         cursor.close();
                     }
 
@@ -371,7 +372,7 @@ public class EditDish extends AppCompatActivity {
         // open image given
         File f = new File(imgPath);
         // obtain bitmap from original file
-        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f)); // FIXME: errore out of memory su galaxy s2
 
         // Reads Exif tags from the specified JPEG file.
         ExifInterface exif = new ExifInterface(imgPath);
@@ -445,7 +446,7 @@ public class EditDish extends AppCompatActivity {
     }
 
     private void takePhotoFromGallery() {
-        Intent imageGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI); // EXTERNAL_CONTENT_URI or INTERNAL_CONTENT_URI
+        Intent imageGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); // EXTERNAL_CONTENT_URI or INTERNAL_CONTENT_URI
         // start the image gallery intent
         startActivityForResult(imageGalleryIntent, REQUEST_IMAGE_GALLERY);
     }
