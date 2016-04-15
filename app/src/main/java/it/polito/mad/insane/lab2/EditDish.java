@@ -51,9 +51,6 @@ public class EditDish extends AppCompatActivity {
     EditText dishPrice;
     ImageView dishPhoto;
 
-
-    // TODO: va tolto il titolo dalla immagine copertina
-
     /** Listeners **/
     View.OnClickListener saveDishFabListener = new View.OnClickListener(){
 

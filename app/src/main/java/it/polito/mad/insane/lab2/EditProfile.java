@@ -44,8 +44,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private static final int REQUEST_IMAGE_GALLERY = 581;
     private static Bitmap tempCoverPhoto;
 
-
-    // TODO: va tolto il titolo dalla immagine copertina
+    // FIXME: quando setto l'immagine in modalità portrait (o land) e poi la giro, l'immagine scompare
 
     /** Standard Methods **/
     @Override
@@ -283,7 +282,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         {
             TextView tv = (TextView) findViewById(R.id.editCover);
             if (tv != null) {
-                tv.setVisibility(View.GONE);
+                tv.setVisibility(View.GONE); // FIXME: questa riga viene eseguita sempre ecco perché non ci vede il tasto "edit"
             }
         }
     }
@@ -300,7 +299,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(myImg);
-            tempCoverPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            tempCoverPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos); // FIXME: java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.graphics.Bitmap.compress(android.graphics.Bitmap$CompressFormat, int, java.io.OutputStream)' on a null object reference
             fos.close();
         } catch (java.io.IOException e) {
             Toast.makeText(EditProfile.this, R.string.error_save_image, Toast.LENGTH_LONG).show();

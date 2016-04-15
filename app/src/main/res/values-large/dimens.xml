@@ -5,5 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_between_cardView">6dp</dimen>
     <dimen name="radius_cardView">3dp</dimen>
-    <dimen name="cover_photo_height">250dp</dimen>
+    <dimen name="cover_photo_height">350dp</dimen>
 </resources>

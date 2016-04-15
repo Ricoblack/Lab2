@@ -105,8 +105,8 @@ public class DishesRecyclerAdapter extends RecyclerView.Adapter<DishesRecyclerAd
 
             if(DishesRecyclerAdapter.this.cardView_clickable)
             {
-            // set the onClickListener to the View
-            this.cardView.setOnClickListener(cardViewListener);
+                // set the onClickListener to the View
+                this.cardView.setOnClickListener(cardViewListener);
             }
         }
 

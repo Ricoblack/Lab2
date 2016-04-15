@@ -20,6 +20,8 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
             >
 
             <RelativeLayout
@@ -29,7 +31,7 @@
                 <ImageView
                     android:id="@+id/dishPhoto"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/cover_photo_height"
+                    android:layout_height="300dp"
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
                     android:src="@drawable/dish_default_red_5"

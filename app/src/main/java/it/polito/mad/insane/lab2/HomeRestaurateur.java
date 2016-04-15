@@ -347,7 +347,7 @@ public class HomeRestaurateur extends AppCompatActivity
 
     public void setDate(int year, int month, int day)
     {
-        //TODO:set graph time interval
+        // set graph time interval
         TextView tv = (TextView) findViewById(R.id.home_title_day);
         if (tv != null) {
             tv.setText(new StringBuilder().append(pad(day)).append("/").append(pad(month + 1)).append("/").append(year));

@@ -20,6 +20,8 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
             >
 
             <RelativeLayout
@@ -29,7 +31,7 @@
                 <ImageView
                     android:id="@+id/dishPhoto"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/cover_photo_height"
+                    android:layout_height="350dp"
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
                     android:src="@drawable/dish_default_red_5"
@@ -47,7 +49,7 @@
                     android:layout_alignEnd="@+id/dishPhoto"
                     android:drawableLeft="@drawable/ic_perm_media_black_24dp"
                     android:drawableStart="@drawable/ic_perm_media_black_24dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="30dp"
                     android:background="@color/white"
                     android:textColor="@color/black"
                     android:alpha="0.7"
@@ -92,7 +94,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6">
 
+                    <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/restaurantGeneralInfoTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation = "horizontal"
+                        card_view:cardCornerRadius="2dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginRight="20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dish_info"
+                            android:drawablePadding="5dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorAccent"
+                            android:paddingBottom="10dp"
+                            android:drawableStart="@drawable/ic_chrome_reader_mode_black_24dp"
+                            android:drawableLeft="@drawable/ic_chrome_reader_mode_black_24dp"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/colorAccent"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
                 <android.support.v7.widget.CardView
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:card_view = "http://schemas.android.com/apk/res-auto"
@@ -111,22 +161,22 @@
                         android:padding="10dp"
                         >
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dish_info"
-                        android:drawablePadding="5dp"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorAccent"
-                        android:paddingBottom="10dp"
-                        android:drawableStart="@drawable/ic_chrome_reader_mode_black_24dp"
-                        android:drawableLeft="@drawable/ic_chrome_reader_mode_black_24dp"
-                        />
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/dish_info"-->
+                        <!--android:drawablePadding="5dp"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:textColor="@color/colorAccent"-->
+                        <!--android:paddingBottom="10dp"-->
+                        <!--android:drawableStart="@drawable/ic_chrome_reader_mode_black_24dp"-->
+                        <!--android:drawableLeft="@drawable/ic_chrome_reader_mode_black_24dp"-->
+                        <!--/>-->
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="@color/colorAccent"/>
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="2dp"-->
+                            <!--android:background="@color/colorAccent"/>-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -228,6 +278,7 @@
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
