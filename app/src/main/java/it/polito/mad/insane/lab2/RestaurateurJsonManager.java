@@ -1,6 +1,5 @@
 package it.polito.mad.insane.lab2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 

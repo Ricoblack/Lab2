@@ -21,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -42,10 +40,13 @@ import java.util.List;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private static int MY_GL_MAX_TEXTURE_SIZE;
+    private static int MY_GL_MAX_TEXTURE_SIZE = 1024;
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
     private static Bitmap tempCoverPhoto = null;
+
+
+    // FIXME: dopo aver selezionato la foto, se non si preme conferma la foto viene salvata comunque
 
     /** Standard Methods **/
     @Override

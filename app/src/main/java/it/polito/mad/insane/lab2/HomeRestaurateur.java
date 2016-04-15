@@ -31,7 +31,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -201,10 +200,9 @@ public class HomeRestaurateur extends AppCompatActivity
             rV.setLayoutManager(mLinearLayoutManagerVertical);
         }
 
-        RecyclerView.ItemAnimator ia=new DefaultItemAnimator();
-
-        // If you don't apply other animations it uses the default one
-        rV.setItemAnimator(ia);
+        // Set animation
+        RecyclerView.ItemAnimator ia = new DefaultItemAnimator();
+        rV.setItemAnimator(ia); // If you don't apply other animations it uses the default one
 
         fillGraphWithBookings(adapter);
 
@@ -221,9 +219,8 @@ public class HomeRestaurateur extends AppCompatActivity
         mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
         rV.setLayoutManager(mLinearLayoutManagerVertical);
 
-        // If you don't apply other animations it uses the default one
-        RecyclerView.ItemAnimator ia = new DefaultItemAnimator();
-        //ia.setAddDuration(100000);
+        // Set animation
+        RecyclerView.ItemAnimator ia = new DefaultItemAnimator();  // If you don't apply other animations it uses the default one
         rV.setItemAnimator(ia);
     }
 
@@ -249,7 +246,7 @@ public class HomeRestaurateur extends AppCompatActivity
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
                     Toast.makeText(HomeRestaurateur.this, String.format("h %s:00 %s: %s", String.valueOf(pad((int) dataPoint.getX())),
-                            getResources().getString(R.string.totalDishesNr), String.valueOf((int) dataPoint.getY())), Toast.LENGTH_SHORT).show();
+                            " - "+getResources().getString(R.string.totalDishesNr), String.valueOf((int) dataPoint.getY())), Toast.LENGTH_SHORT).show();
 //                    globalHour = (int) dataPoint.getX();
 //                    TextView tv = (TextView) findViewById(R.id.home_title_hour);
 //                    tv.setText(String.format("  %d:00  ", globalHour));

@@ -44,7 +44,7 @@ import java.util.List;
 
 public class EditDish extends AppCompatActivity {
 
-    private static int MY_GL_MAX_TEXTURE_SIZE; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
+    private static int MY_GL_MAX_TEXTURE_SIZE = 1024; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
                                                             // (this needs an OpenGL context)                                                       GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
                                                             //                                                                                      myGLMaxTextureSize = maxSize[0];
 //    private static final int REQUEST_TAKE_PHOTO = 280;
@@ -52,10 +52,10 @@ public class EditDish extends AppCompatActivity {
     private static final String PREFIX_IMAGE_NAME1 = "dishPhoto_";
     private static final String PREFIX_IMAGE_NAME2 = "dishPhoto__";
 
-    static final String[] PERMISSIONS_PHOTOGRAPH = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
-    static final String[] PERMISSIONS_GALLERY = {"android.permission.READ_EXTERNAL_STORAGE"};
-    static final int PERMS_REQUEST_CODE_CAMERA = 200;
-    static final int PERMS_REQUEST_CODE_GALLERY = 201;
+//    static final String[] PERMISSIONS_PHOTOGRAPH = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
+//    static final String[] PERMISSIONS_GALLERY = {"android.permission.READ_EXTERNAL_STORAGE"};
+//    static final int PERMS_REQUEST_CODE_CAMERA = 200;
+//    static final int PERMS_REQUEST_CODE_GALLERY = 201;
 
     private static RestaurateurJsonManager manager = null;
     Dish currentDish = null;
@@ -169,10 +169,10 @@ public class EditDish extends AppCompatActivity {
                 public void onClick(View v)
                 {
 //                    displayChooseDialog();
-                    if(suppportDynamicPermissions() == true)
-                        checkAndRequestPermissions(PERMS_REQUEST_CODE_CAMERA);
-
-                    takePhotoFromGallery();
+//                    if(suppportDynamicPermissions() == true)
+//                        checkAndRequestPermissions(PERMS_REQUEST_CODE_CAMERA);
+//                    else
+                        takePhotoFromGallery();
                 }
             });
         }
@@ -239,24 +239,6 @@ public class EditDish extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
-
-        switch(permsRequestCode)
-        {
-
-            case PERMS_REQUEST_CODE_CAMERA:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
-                    takePhotoFromCamera();
-                break;
-
-            case PERMS_REQUEST_CODE_GALLERY:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    takePhotoFromGallery();
-                break;
-        }
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -282,7 +264,7 @@ public class EditDish extends AppCompatActivity {
                         // Move to first row
                         cursor.moveToFirst();
                         int columnIndex = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                        imgPath = cursor.getString(columnIndex); // FIXME: errore sul cell di prova - Invalid input parameters
+                        imgPath = cursor.getString(columnIndex); // FIXME: errore su YotaPhone: "Invalid input parameters". Probabilmente è perché serve la richiesta dei permessi essendo Android 6.0
                         cursor.close();
                     }
 
@@ -312,34 +294,53 @@ public class EditDish extends AppCompatActivity {
 
 
     /** Our Methods **/
-    @TargetApi(Build.VERSION_CODES.M)
-    private void checkAndRequestPermissions(int code)
-    {
-        switch(code)
-        {
-            case PERMS_REQUEST_CODE_CAMERA: // not implemented yet
-                    if(ContextCompat.checkSelfPermission(EditDish.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                            (ContextCompat.checkSelfPermission(EditDish.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
-                    {
-                        requestPermissions(PERMISSIONS_PHOTOGRAPH, PERMS_REQUEST_CODE_CAMERA);
-                    }
-                    else {
-                        takePhotoFromCamera();
-                    }
-                break;
+//    @TargetApi(Build.VERSION_CODES.M)
+//    private void checkAndRequestPermissions(int code)
+//    {
+//        switch(code)
+//        {
+//            case PERMS_REQUEST_CODE_CAMERA: // not implemented yet
+//                    if(ContextCompat.checkSelfPermission(EditDish.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+//                            (ContextCompat.checkSelfPermission(EditDish.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+//                    {
+//                        requestPermissions(PERMISSIONS_PHOTOGRAPH, PERMS_REQUEST_CODE_CAMERA);
+//                    }
+//                    else {
+//                        takePhotoFromCamera();
+//                    }
+//                break;
+//
+//            case PERMS_REQUEST_CODE_GALLERY:
+//                    if(ContextCompat.checkSelfPermission(EditDish.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED )
+//                        requestPermissions(PERMISSIONS_GALLERY, PERMS_REQUEST_CODE_GALLERY);
+//                    else
+//                        takePhotoFromGallery();
+//                break;
+//        }
+//    }
+//    private boolean suppportDynamicPermissions()
+//    {
+//        return(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+//    }
 
-            case PERMS_REQUEST_CODE_GALLERY:
-                    if(ContextCompat.checkSelfPermission(EditDish.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED )
-                        requestPermissions(PERMISSIONS_GALLERY, PERMS_REQUEST_CODE_GALLERY);
-                    else
-                        takePhotoFromGallery();
-                break;
-        }
-    }
-    private boolean suppportDynamicPermissions()
-    {
-        return(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+//
+//        switch(permsRequestCode)
+//        {
+//
+//            case PERMS_REQUEST_CODE_CAMERA:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
+//                    takePhotoFromCamera();
+//                break;
+//
+//            case PERMS_REQUEST_CODE_GALLERY:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+//                    takePhotoFromGallery();
+//
+//                break;
+//        }
+//    }
     /**
      * Method that delete the dish with the input ID
      * @param dishID

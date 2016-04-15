@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- not implemented in this version -->
 
     <application
         android:allowBackup="true"
@@ -12,16 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan">
+
         <activity
             android:name=".HomeRestaurateur"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile"
@@ -32,6 +34,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.HomeRestaurateur" />
         </activity>
+
         <activity
             android:name=".EditDish"
             android:label="@string/title_activity_edit_dish"
@@ -42,6 +45,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.DailyMenu" />
         </activity>
+
         <activity
             android:name=".DailyMenu"
             android:label="@string/title_activity_daily_menu"
@@ -51,6 +55,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad.insane.lab2.HomeRestaurateur" />
         </activity>
+
         <activity
             android:name=".ViewBooking"
             android:label="@string/title_activity_view_booking"

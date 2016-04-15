@@ -68,7 +68,7 @@ public class ViewBooking extends AppCompatActivity {
                         }
                     });
 
-// Create the AlertDialog
+                    // Create the AlertDialog
                     AlertDialog dialog = builder.create();
                     dialog.show();
 
@@ -107,7 +107,7 @@ public class ViewBooking extends AppCompatActivity {
     }
 
 
-    /* Our Methods */
+    /** Our Methods **/
     private void setupDishesRecyclerView()
     {
         // set Adapter

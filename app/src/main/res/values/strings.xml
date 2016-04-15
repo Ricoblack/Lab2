@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab2</string>
+    <string name="app_name">Insane - Lab2</string>
     <string name="action_daily_menu">Menu</string>
     <string name="home_name">Home</string>
     <string name="title_activity_edit_dish">Edit Dish</string>
@@ -69,6 +69,6 @@
     <string name="extra_info">Extra Info</string>
     <string name="horizontal_axis_label">Hour</string>
     <string name="dialog_dialog_delete">Are you sure you want to evade this booking?</string>
-    <string name="ok_delete_dialog">Ok</string>
+    <string name="ok_delete_dialog">OK</string>
     <string name="cancel_delete_dialog">Cancel</string>
 </resources>

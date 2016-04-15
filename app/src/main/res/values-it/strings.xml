@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lab2</string>
+    <string name="app_name">Insane - Lab2</string>
     <string name="Cuisine">Tipo di cucina:</string>
     <string name="action_daily_menu">Menu</string>
     <string name="action_edit_profile">Modifica profilo</string>
@@ -39,7 +39,7 @@
     <string name="openingHour">Orario d\'apertura:</string>
     <string name="payment">Metodo di pagamento:</string>
     <string name="restaurantName">Nome del ristorante:</string>
-    <string name="select">Seleziona...</string>
+    <string name="select">Seleziona…</string>
     <string name="services">Servizi aggiuntivi:</string>
     <string name="shortDescription">Breve descrizione:</string>
     <string name="take_photo">Scatta foto</string>
