@@ -1,24 +1,32 @@
 package it.polito.mad.insane.lab2;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,13 +42,18 @@ import java.util.List;
 
 public class EditDish extends AppCompatActivity {
 
-    private static final int MY_GL_MAX_TEXTURE_SIZE = 1024; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
+    private static int MY_GL_MAX_TEXTURE_SIZE; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
                                                             // (this needs an OpenGL context)                                                       GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
                                                             //                                                                                      myGLMaxTextureSize = maxSize[0];
 //    private static final int REQUEST_TAKE_PHOTO = 280;
     private static final int REQUEST_IMAGE_GALLERY = 157;
     private static final String PREFIX_IMAGE_NAME1 = "dishPhoto_";
     private static final String PREFIX_IMAGE_NAME2 = "dishPhoto__";
+
+    static final String[] PERMISSIONS_PHOTOGRAPH = {"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
+    static final String[] PERMISSIONS_GALLERY = {"android.permission.READ_EXTERNAL_STORAGE"};
+    static final int PERMS_REQUEST_CODE_CAMERA = 200;
+    static final int PERMS_REQUEST_CODE_GALLERY = 201;
 
     private static RestaurateurJsonManager manager = null;
     Dish currentDish = null;
@@ -151,8 +164,12 @@ public class EditDish extends AppCompatActivity {
         if(dishPhoto != null) {
             dishPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
 //                    displayChooseDialog();
+                    if(suppportDynamicPermissions() == true)
+                        checkAndRequestPermissions(PERMS_REQUEST_CODE_CAMERA);
+
                     takePhotoFromGallery();
                 }
             });
@@ -219,16 +236,35 @@ public class EditDish extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+
+        switch(permsRequestCode)
+        {
+
+            case PERMS_REQUEST_CODE_CAMERA:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
+                    takePhotoFromCamera();
+                break;
+
+            case PERMS_REQUEST_CODE_GALLERY:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    takePhotoFromGallery();
+                break;
+        }
+    }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         String imgPath;
 
         switch(requestCode)
         {
             case REQUEST_IMAGE_GALLERY:
-                if(resultCode == RESULT_OK) {
+                if(resultCode == RESULT_OK)
+                {
                     if (data == null)
                         break;
                     // Get the Image from data
@@ -274,7 +310,34 @@ public class EditDish extends AppCompatActivity {
 
 
     /** Our Methods **/
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkAndRequestPermissions(int code)
+    {
+        switch(code)
+        {
+            case PERMS_REQUEST_CODE_CAMERA: // not implemented yet
+                    if(ContextCompat.checkSelfPermission(EditDish.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                            (ContextCompat.checkSelfPermission(EditDish.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+                    {
+                        requestPermissions(PERMISSIONS_PHOTOGRAPH, PERMS_REQUEST_CODE_CAMERA);
+                    }
+                    else {
+                        takePhotoFromCamera();
+                    }
+                break;
 
+            case PERMS_REQUEST_CODE_GALLERY:
+                    if(ContextCompat.checkSelfPermission(EditDish.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED )
+                        requestPermissions(PERMISSIONS_GALLERY, PERMS_REQUEST_CODE_GALLERY);
+                    else
+                        takePhotoFromGallery();
+                break;
+        }
+    }
+    private boolean suppportDynamicPermissions()
+    {
+        return(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+    }
     /**
      * Method that delete the dish with the input ID
      * @param dishID
@@ -325,7 +388,7 @@ public class EditDish extends AppCompatActivity {
 
 
             // Compress, scale and create img in: /data/data/<my_app>/app_data/imageDir/<imgName>
-            /** scale photo **/
+            /** scale photo **/ // In teoria non dovrebbe servire
             int imgHeight = rotatedBitmapImg.getHeight();
             int imgWidth = rotatedBitmapImg.getWidth();
             int newImgHeight = imgHeight;
@@ -370,10 +433,10 @@ public class EditDish extends AppCompatActivity {
         Bitmap resultImg;
 
         // open image given
-        File f = new File(imgPath);
+        //File f = new File(imgPath);
         // obtain bitmap from original file
-        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f)); // FIXME: errore out of memory su galaxy s2
-
+        //Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+        Bitmap originalBitmapImg = decodePhoto(imgPath);
 
         // Reads Exif tags from the specified JPEG file.
         ExifInterface exif = new ExifInterface(imgPath);
@@ -409,6 +472,46 @@ public class EditDish extends AppCompatActivity {
         return resultImg;
     }
 
+    /**
+     * Decode the input photo in relation to the display dim
+     * @param photoPath
+     * @return
+     */
+    private Bitmap decodePhoto(String photoPath)
+    {
+        int ratio = 1;
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int displayWidth = size.x;
+        int displayHeight = size.y;
+        this.MY_GL_MAX_TEXTURE_SIZE = Math.max(displayWidth,displayHeight);
+
+        // Create an object BitmapFactory.Options
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;// If set to true, the decoder will return null (no bitmap), but the outX fields will still be set, allowing the caller
+        // to query the bitmap without having to allocate the memory for its pixels
+        BitmapFactory.decodeFile(photoPath, options); // set outX fields
+        // get the dim of the bitmap img
+        int photoW = options.outWidth;
+        int photoH = options.outHeight;
+
+        if(photoW > displayWidth || photoH > displayHeight)
+        {
+            // Compute the scaling ratio to avoid distortion
+            ratio = Math.min(photoW / displayWidth, photoH / displayHeight);
+        }
+
+        // Set the scaling ratio
+        options.inSampleSize = ratio;
+        options.inJustDecodeBounds = false; // The decoder will decode the whole image and return their bitmap
+        // Decode  the file
+        Bitmap photoBitmap = BitmapFactory.decodeFile(photoPath, options);
+
+        // return Bitmap file
+        return photoBitmap;
+    }
     public void displayChooseDialog() { // not used in this version
 
         AlertDialog.Builder builder = new AlertDialog.Builder(EditDish.this);

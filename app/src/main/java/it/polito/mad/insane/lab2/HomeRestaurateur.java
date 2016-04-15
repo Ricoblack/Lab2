@@ -142,9 +142,9 @@ public class HomeRestaurateur extends AppCompatActivity
             }
         }
 
-        if(getIntent().getIntExtra("flag_delete",0) == 1){
-            finish();
-        }
+//        if(getIntent().getIntExtra("flag_delete",0) == 1){
+//            finish();
+//        }
     }
 
     /** Our Methods **/
@@ -219,7 +219,9 @@ public class HomeRestaurateur extends AppCompatActivity
         rV.setLayoutManager(mLinearLayoutManagerVertical);
 
         // If you don't apply other animations it uses the default one
-        rV.setItemAnimator(new DefaultItemAnimator());
+        RecyclerView.ItemAnimator ia = new DefaultItemAnimator();
+        //ia.setAddDuration(100000);
+        rV.setItemAnimator(ia);
     }
 
     private void editGraph(BarGraphSeries<DataPoint> series)

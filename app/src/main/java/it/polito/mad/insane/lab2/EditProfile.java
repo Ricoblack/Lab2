@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -39,7 +41,7 @@ import java.util.List;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private static final int MY_GL_MAX_TEXTURE_SIZE = 1024;
+    private static int MY_GL_MAX_TEXTURE_SIZE;
     private static RestaurateurJsonManager manager = null;
     private static final int REQUEST_IMAGE_GALLERY = 581;
     private static Bitmap tempCoverPhoto = null;
@@ -199,7 +201,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     {
         Bitmap rotatedBitmapImg = rotateImg(imgPath);
 
-        /** scale photo **/
+        /** scale photo **/ // In teoria non dovrebbe servire
         int imgHeight = rotatedBitmapImg.getHeight();
         int imgWidth = rotatedBitmapImg.getWidth();
         int newImgHeight = imgHeight;
@@ -222,6 +224,46 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
     /**
+     * Decode the input photo in relation to the display dim
+     * @param photoPath
+     * @return
+     */
+    private Bitmap decodePhoto(String photoPath)
+    {
+        int ratio = 1;
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int displayWidth = size.x;
+        int displayHeight = size.y;
+        this.MY_GL_MAX_TEXTURE_SIZE = Math.max(displayWidth,displayHeight);
+
+        // Create an object BitmapFactory.Options
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;// If set to true, the decoder will return null (no bitmap), but the outX fields will still be set, allowing the caller
+        // to query the bitmap without having to allocate the memory for its pixels
+        BitmapFactory.decodeFile(photoPath, options); // set outX fields
+        // get the dim of the bitmap img
+        int photoW = options.outWidth;
+        int photoH = options.outHeight;
+
+        if(photoW > displayWidth || photoH > displayHeight)
+        {
+            // Compute the scaling ratio to avoid distortion
+            ratio = Math.min(photoW / displayWidth, photoH / displayHeight);
+        }
+
+        // Set the scaling ratio
+        options.inSampleSize = ratio;
+        options.inJustDecodeBounds = false; // The decoder will decode the whole image and return their bitmap
+        // Decode  the file
+        Bitmap photoBitmap = BitmapFactory.decodeFile(photoPath, options);
+
+        // return Bitmap file
+        return photoBitmap;
+    }
+    /**
      * Rotate the image which is located in the input imgPath
      * @param imgPath
      * @return the bitmap image rotated (if needed)
@@ -233,9 +275,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         Bitmap resultImg;
 
         // open image given
-        File f = new File(imgPath);
+        //File f = new File(imgPath);
         // obtain bitmap from original file
-        Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+       // Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f));
+        Bitmap originalBitmapImg = decodePhoto(imgPath);
 
         // Reads Exif tags from the specified JPEG file.
         ExifInterface exif = new ExifInterface(imgPath);
@@ -314,6 +357,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             Toast.makeText(EditProfile.this, R.string.error_save_image, Toast.LENGTH_LONG).show();
         }
     }
+
+
 
     public void showTimePickerDialog(View view) {
         switch (view.getId()){
