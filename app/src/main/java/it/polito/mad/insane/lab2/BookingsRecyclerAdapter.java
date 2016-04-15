@@ -91,7 +91,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle(R.string.dialog_dialog_delete);
                 // Add the buttons
-                builder.setPositiveButton(R.string.ok_delete_dialog, new DialogInterface.OnClickListener() {
+                /*builder.setPositiveButton(R.string.ok_delete_dialog, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int id) {
                         RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
@@ -100,6 +100,7 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                             if(b.getID().equals(currentBooking.getID())){
                                 //Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
                                 manager.getBookings().remove(b);
+                                BookingsRecyclerAdapter.this.mData.remove(b);
                                 notifyItemRemoved(position);
                                 notifyItemRangeRemoved(position, getItemCount());
                                 break;
@@ -115,24 +116,25 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }
-                });
+                });*/
 
 // Create the AlertDialog
-                AlertDialog dialog = builder.create();
-                dialog.show();
+               // AlertDialog dialog = builder.create();
+                //dialog.show();
 
-               /* RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
+               RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
                 for(Booking  b: manager.getBookings()){
                     if(b.getID().equals(currentBooking.getID())){
                         Toast.makeText(v.getContext(),v.getResources().getString(R.string.confirm_delete_booking)+" #"+currentBooking.getID(), Toast.LENGTH_LONG).show();
                         manager.getBookings().remove(b);
+                        mData.remove(b);
                         notifyItemRemoved(position);
                         notifyItemRangeRemoved(position, getItemCount());
                         break;
                     }
                 }
                 manager.saveDbApp();
-                Intent intent = new Intent(v.getContext(),HomeRestaurateur.class);
+                /*Intent intent = new Intent(v.getContext(),HomeRestaurateur.class);
                 intent.putExtra("flag_delete",1);
                 v.getContext().startActivity(intent);*/
 

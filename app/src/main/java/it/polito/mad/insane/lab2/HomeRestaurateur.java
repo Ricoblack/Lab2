@@ -46,7 +46,6 @@ public class HomeRestaurateur extends AppCompatActivity
 
 
      // FIXME: su smartphone cone android 4.1.2 non viene settato lo sfondo dei tasti nella home
-    //TODO: io metterei una label per indicare che l'asse x del grafico ha degli orari, sennò non si capisce nulla
 
 
     /** Standard methods **/
@@ -200,8 +199,9 @@ public class HomeRestaurateur extends AppCompatActivity
             rV.setLayoutManager(mLinearLayoutManagerVertical);
         }
 
+        RecyclerView.ItemAnimator ia=new DefaultItemAnimator();
         // If you don't apply other animations it uses the default one
-        rV.setItemAnimator(new DefaultItemAnimator());
+        rV.setItemAnimator(ia);
 
         fillGraphWithBookings(adapter);
 

@@ -44,13 +44,12 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private static final int REQUEST_IMAGE_GALLERY = 581;
     private static Bitmap tempCoverPhoto = null;
 
-    // FIXME: quando setto l'immagine in modalità portrait (o land) e poi la giro, l'immagine scompare
-
     /** Standard Methods **/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        //getWindow().//full screen prima di set content view
         EditProfile.manager = RestaurateurJsonManager.getInstance(this);
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -291,7 +290,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         {
             TextView tv = (TextView) findViewById(R.id.editCover);
             if (tv != null) {
-                tv.setVisibility(View.GONE); //FIXME cambiando l'immagine quando c'è quella di default non compare
+                tv.setVisibility(View.GONE);
             }
         }
     }
@@ -308,7 +307,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(myImg);
-            tempCoverPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos); // FIXME: java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.graphics.Bitmap.compress(android.graphics.Bitmap$CompressFormat, int, java.io.OutputStream)' on a null object reference
+            tempCoverPhoto.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.close();
             tempCoverPhoto = null;
         } catch (java.io.IOException e) {

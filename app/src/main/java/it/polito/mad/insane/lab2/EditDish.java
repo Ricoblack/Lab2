@@ -34,7 +34,6 @@ import java.util.List;
 
 public class EditDish extends AppCompatActivity {
 
-    //FIXME: cursor.getString() crasha
     private static final int MY_GL_MAX_TEXTURE_SIZE = 1024; // compatible with almost all devices. To obtain the right value for each device use:   int[] maxSize = new int[1];
                                                             // (this needs an OpenGL context)                                                       GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
                                                             //                                                                                      myGLMaxTextureSize = maxSize[0];
@@ -249,6 +248,7 @@ public class EditDish extends AppCompatActivity {
                         cursor.close();
                     }
 
+
                     try
                     {
                         String processedImgPath = processImg(imgPath);
@@ -373,6 +373,7 @@ public class EditDish extends AppCompatActivity {
         File f = new File(imgPath);
         // obtain bitmap from original file
         Bitmap originalBitmapImg = BitmapFactory.decodeStream(new FileInputStream(f)); // FIXME: errore out of memory su galaxy s2
+
 
         // Reads Exif tags from the specified JPEG file.
         ExifInterface exif = new ExifInterface(imgPath);
