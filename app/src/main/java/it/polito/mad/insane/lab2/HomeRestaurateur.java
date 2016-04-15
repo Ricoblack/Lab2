@@ -200,6 +200,7 @@ public class HomeRestaurateur extends AppCompatActivity
         }
 
         RecyclerView.ItemAnimator ia=new DefaultItemAnimator();
+
         // If you don't apply other animations it uses the default one
         rV.setItemAnimator(ia);
 

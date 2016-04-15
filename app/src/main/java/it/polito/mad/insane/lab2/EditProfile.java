@@ -19,6 +19,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         //getWindow().//full screen prima di set content view
         EditProfile.manager = RestaurateurJsonManager.getInstance(this);
+
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
