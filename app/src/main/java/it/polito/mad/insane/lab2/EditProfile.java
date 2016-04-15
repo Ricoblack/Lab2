@@ -286,7 +286,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         {
             TextView tv = (TextView) findViewById(R.id.editCover);
             if (tv != null) {
-                tv.setVisibility(View.GONE); // FIXME: questa riga viene eseguita sempre ecco perché non ci vede il tasto "edit"
+                tv.setVisibility(View.GONE);
             }
         }
     }
