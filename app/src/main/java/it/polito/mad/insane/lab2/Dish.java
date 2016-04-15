@@ -1,7 +1,6 @@
 package it.polito.mad.insane.lab2;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by carlocaramia on 08/04/16.

@@ -43,6 +43,10 @@ public class HomeRestaurateur extends AppCompatActivity
     private static int globalHour = -1;
 
 
+     // FIXME: su smartphone cone android 4.1.2 non viene settato lo sfondo dei tasti nella home
+    //TODO: io metterei una label per indicare che l'asse x del grafico ha degli orari, sennò non si capisce nulla
+
+
     /** Standard methods **/
     @Override
     protected void onCreate(Bundle savedInstanceState)

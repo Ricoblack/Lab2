@@ -77,6 +77,7 @@
                     android:textColor="@color/colorAccent"
                     android:text="hh:mm"
                     android:layout_marginLeft="@dimen/margin_between_cardView"
+                    android:layout_marginStart="@dimen/margin_between_cardView"
                     android:layout_centerVertical="true"
                     />
 
@@ -84,6 +85,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_toLeftOf="@id/date_booking"
+                    android:layout_toStartOf="@id/date_booking"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/clock_300_green"/>
