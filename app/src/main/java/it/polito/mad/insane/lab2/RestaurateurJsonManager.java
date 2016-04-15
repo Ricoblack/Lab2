@@ -230,7 +230,7 @@ public class RestaurateurJsonManager {
             dishes.add(dish9);
 
             Dish dish10 = new Dish("9","Renato", "Piaza e pasta: mai dire mai al gusto!", null, 5.55, 150);
-            dishes.add(dish9);
+            dishes.add(dish10);
 
 
 
@@ -351,12 +351,76 @@ public class RestaurateurJsonManager {
             elenco10.add(this.dishes.get(3));
             elenco10.add(this.dishes.get(1));
             elenco10.add(this.dishes.get(7));
-            newBooking10.setDishes(elenco8);
+            newBooking10.setDishes(elenco10);
             calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH)+1);
             calendar.set(Calendar.HOUR_OF_DAY, 16);
             newBooking10.setDate_time(calendar);
             bookings.add(newBooking10);
+
+            Booking newBooking11 = new Booking();
+            newBooking11.setID("11");
+            ArrayList<Dish> elenco11=new ArrayList<Dish>();
+            elenco11.add(this.dishes.get(6));
+            elenco11.add(this.dishes.get(3));
+            newBooking11.setDishes(elenco11);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 15);
+            newBooking11.setDate_time(calendar);
+            newBooking11.setNote("Il cibo deve essere ben cotto");
+            bookings.add(newBooking11);
+
+            Booking newBooking12 = new Booking();
+            newBooking12.setID("12");
+            ArrayList<Dish> elenco12=new ArrayList<Dish>();
+            elenco12.add(this.dishes.get(3));
+            newBooking12.setDishes(elenco12);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 16);
+            newBooking12.setDate_time(calendar);
+            newBooking12.setNote("Sono allergico ai latticini. Prego il ristoratore di evitarne l'utilizzo");
+            bookings.add(newBooking12);
+
+            Booking newBooking13 = new Booking();
+            newBooking13.setID("13");
+            ArrayList<Dish> elenco13=new ArrayList<Dish>();
+            elenco13.add(this.dishes.get(3));
+            newBooking13.setDishes(elenco13);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            newBooking13.setDate_time(calendar);
+            bookings.add(newBooking13);
+
+            Booking newBooking14 = new Booking();
+            newBooking14.setID("14");
+            ArrayList<Dish> elenco14=new ArrayList<Dish>();
+            elenco14.add(this.dishes.get(3));
+            newBooking14.setDishes(elenco14);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            newBooking14.setDate_time(calendar);
+            bookings.add(newBooking14);
+
+
+            Booking newBooking15 = new Booking();
+            newBooking15.setID("15");
+            ArrayList<Dish> elenco15=new ArrayList<Dish>();
+            elenco15.add(this.dishes.get(3));
+            newBooking15.setDishes(elenco15);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            newBooking15.setDate_time(calendar);
+            bookings.add(newBooking15);
+
+            Booking newBooking16 = new Booking();
+            newBooking16.setID("16");
+            ArrayList<Dish> elenco16=new ArrayList<Dish>();
+            elenco16.add(this.dishes.get(3));
+            newBooking16.setDishes(elenco16);
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            newBooking16.setDate_time(calendar);
+            bookings.add(newBooking16);
         }
     }
 }

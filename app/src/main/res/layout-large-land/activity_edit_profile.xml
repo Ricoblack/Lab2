@@ -54,7 +54,9 @@
                     android:textColor="@color/black"
                     android:alpha="0.7"
                     android:paddingRight="50dp"
+                    android:paddingEnd="50dp"
                     android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
                     />
