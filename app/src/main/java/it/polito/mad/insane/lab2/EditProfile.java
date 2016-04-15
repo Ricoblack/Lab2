@@ -103,10 +103,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             cSpinner.setAdapter(cAdapter);
 
         //set image if available
-        if(tempCoverPhoto != null){
-            ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
-            iv.setImageBitmap(tempCoverPhoto);
-        }
         loadImageFromStorage();
         loadDataFromJson();
 
@@ -115,6 +111,15 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL)
         {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(tempCoverPhoto != null){
+            ImageView iv = (ImageView) findViewById(R.id.coverPhoto);
+            iv.setImageBitmap(tempCoverPhoto);
         }
     }
 
@@ -286,7 +291,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         {
             TextView tv = (TextView) findViewById(R.id.editCover);
             if (tv != null) {
-                tv.setVisibility(View.GONE); // FIXME: questa riga viene eseguita sempre ecco perché non ci vede il tasto "edit"
+                tv.setVisibility(View.GONE);
             }
         }
     }
@@ -402,7 +407,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     public void saveData() {
 
-        saveImageOnStorage();
+        if(tempCoverPhoto != null)
+            saveImageOnStorage();
 
         String name = null, address = null, description = null, payment = null, timeInfo = null, university = null,
                 cuisineType = null, services = null;
