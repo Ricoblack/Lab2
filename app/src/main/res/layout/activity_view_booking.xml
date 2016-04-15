@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#7Febebe0"
+
         android:id="@+id/main_layout_view_booking">
 
     <android.support.design.widget.AppBarLayout
