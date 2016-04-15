@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by miche on 06/04/2016.
  */
-public class Booking implements Serializable
+public class Booking implements Serializable,  Comparable<Booking>
 {
 
     private String ID;
@@ -47,5 +47,10 @@ public class Booking implements Serializable
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public int compareTo(Booking another) {
+        return this.getDate_time().compareTo(another.getDate_time());
     }
 }
