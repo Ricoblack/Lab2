@@ -402,7 +402,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     public void saveData() {
 
-        saveImageOnStorage();
+        if(tempCoverPhoto != null)
+            saveImageOnStorage();
 
         String name = null, address = null, description = null, payment = null, timeInfo = null, university = null,
                 cuisineType = null, services = null;
