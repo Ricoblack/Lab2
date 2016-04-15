@@ -243,7 +243,7 @@ public class HomeRestaurateur extends AppCompatActivity
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
                 public void onTap(Series series, final DataPointInterface dataPoint) {
-                    Toast.makeText(HomeRestaurateur.this, String.format("%s:00 %s: %s", String.valueOf(pad((int) dataPoint.getX())),
+                    Toast.makeText(HomeRestaurateur.this, String.format("h %s:00 %s: %s", String.valueOf(pad((int) dataPoint.getX())),
                             getResources().getString(R.string.totalDishesNr), String.valueOf((int) dataPoint.getY())), Toast.LENGTH_SHORT).show();
 //                    globalHour = (int) dataPoint.getX();
 //                    TextView tv = (TextView) findViewById(R.id.home_title_hour);
@@ -411,7 +411,7 @@ public class HomeRestaurateur extends AppCompatActivity
         ArrayList<Booking> totalList = (ArrayList<Booking>) getBookingsOfDay(globalDate.get(Calendar.YEAR),
                 globalDate.get(Calendar.MONTH),globalDate.get(Calendar.DAY_OF_MONTH));
         for(Booking b : totalList){
-            if (b.getDate_time().get(Calendar.HOUR_OF_DAY) == hour)
+            if (b.getDate_time().get(Calendar.HOUR_OF_DAY) >= hour)
                 bookingList.add(b);
         }
         return bookingList;
