@@ -92,7 +92,8 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                 // Add the buttons
                 builder.setPositiveButton(R.string.ok_delete_dialog, new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
                         RestaurateurJsonManager manager = RestaurateurJsonManager.getInstance(myContext);
 
                         for(Booking b: manager.getBookings()){
@@ -106,9 +107,9 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
                             }
                         }
                         manager.saveDbApp();
-                        Intent intent = new Intent(myContext,HomeRestaurateur.class);
-                        intent.putExtra("flag_delete",1);
-                        myContext.startActivity(intent);
+                        //Intent intent = new Intent(myContext,HomeRestaurateur.class);
+                        //intent.putExtra("flag_delete",1);
+                        //myContext.startActivity(intent);
                     }
                 });
                 builder.setNegativeButton(R.string.cancel_delete_dialog, new DialogInterface.OnClickListener() {

@@ -44,9 +44,11 @@ public class HomeRestaurateur extends AppCompatActivity
     private static int globalHour = -1;
 
 
-     // FIXME: su smartphone cone android 4.1.2 non viene settato lo sfondo dei tasti nella home
+    // FIXME: su smartphone cone android 4.1.2 non viene settato lo sfondo dei tasti nella home
 
-    //TODO sistemare le dimensioni delle immagini per adattarle ai vari tipi di schermo
+    // TODO: sistemare le dimensioni delle immagini per adattarle ai vari tipi di schermo
+
+    // TODO: mettere un colore/tema di background dell'app che non sia bianco come tutti gli altri colori di sfondo
 
 
     /** Standard methods **/
