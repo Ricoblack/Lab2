@@ -58,6 +58,20 @@
     <string name="horizontal_axis_label">Ora</string>
     <string name="dialog_dialog_delete">Sei sicuro di voler evadere questa prenotazione?</string>
     <string name="cancel_delete_dialog">Annulla</string>
+    <string name="error_save_image">Ops! Qualcosa è andato storto nel salvataggio dell\'immagine</string>
+    <string name="ok_delete_dialog">OK</string>
+    <string-array name="university_array">
+        <item> <i>Scegli un campus... </i> </item>
+        <item>PoliTo</item>
+        <item>UniTo</item>
+    </string-array>
+    <string-array name="cuisine_array">
+        <item> <i>Scegli un tipo... </i></item>
+        <item>Italiano</item>
+        <item>Pizza</item>
+        <item>Sandwiches</item>
+        <item>Etnico</item>
+    </string-array>
 
 
 </resources>
